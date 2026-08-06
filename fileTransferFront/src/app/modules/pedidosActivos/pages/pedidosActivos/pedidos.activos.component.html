@@ -27,11 +27,11 @@
 
       <m-cell class="pactivos__anchoC1">
         <input type="checkbox" 
-        [id]="'check-'+pedido.track+'-'+pedido.expediente"
-        name="{{ pedido.expediente }}" 
-        [checked]="pedido.isCheckActive"
-        (change)="onCheckboxChanged($event, pedido)"
-        (click)="$event.stopPropagation()" />
+          [id]="'check-'+pedido.track+'-'+pedido.expediente"
+          name="{{ pedido.expediente }}" 
+          [checked]="pedido.isCheckActive"
+          (change)="onCheckboxChanged($event, pedido)"
+          (click)="$event.stopPropagation()" />
       </m-cell>
 
       <m-cell class="pactivos__fitcontent">{{ pedido.proveedorUser }}</m-cell>

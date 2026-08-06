@@ -147,7 +147,7 @@ export class PedidosActivosComponent implements OnInit {
   public getPedidos(filtro?: {expediente?: string, provName?: string, trFilterValue?: string, refCharge?: string}) {
     this.loading = true;
     this.spinnerService.show();
-    this.selectedPedido = new PedidoProveedor();
+    this.selectedPedido = new PedidoProveedor(); 
 
     //Actualizamos los filtros globales por si se llama desde otro sitio
     if(filtro){
