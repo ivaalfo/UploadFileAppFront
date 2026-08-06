@@ -1,0 +1,30 @@
+@import "~src/styles/base/index";
+
+$size: rem-calc(44);
+
+.home {
+  &__link-last-word {
+    display: block;
+    margin-top: rem-calc(5);
+  }
+
+  &__link-last-word-inner {
+    position: relative;
+    display: inline-block;
+    margin-left: $size;
+    padding: 0 rem-calc(5);
+    height: $size;
+    background: $primary-color;
+    line-height: $size;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -$size;
+      @include size(0);
+      border-top: $size solid $primary-color;
+      border-left: $size solid transparent;
+    }
+  }
+}

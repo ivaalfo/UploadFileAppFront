@@ -1,0 +1,4 @@
+export enum LockEntities {
+  LOCK_VALIDATOR = 'VALIDADOR',
+  LOCK_HIST_CMR = 'HIST_CMR'
+}

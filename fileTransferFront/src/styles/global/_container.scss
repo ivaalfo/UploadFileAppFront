@@ -1,0 +1,101 @@
+@import "~src/styles/base/index";
+
+@mixin grid-template-columns-for-breakpoint($breakpoint) {
+  $columns: get-container-columns($breakpoint);
+  @include grid-template-columns-with-columns($columns);
+}
+
+@mixin grid-template-columns-with-columns($columns) {
+  grid-template-columns: repeat($columns, 1fr);
+}
+
+.container {
+  display: grid;
+  grid-column-gap: $container-column-gap;
+  @include grid-template-columns-for-breakpoint("small");
+
+  @include breakpoint("medium") {
+    @include grid-template-columns-for-breakpoint("medium");
+  }
+
+  @include breakpoint("large") {
+    @include grid-template-columns-for-breakpoint("large");
+  }
+
+  @include breakpoint("xlarge") {
+    @include grid-template-columns-for-breakpoint("xlarge");
+  }
+
+  &--2-cols {
+    @include grid-template-columns-with-columns(2);
+  }
+
+  &--3-cols {
+    @include breakpoint("xlarge") {
+      @include grid-template-columns-with-columns(3);
+    }
+  }
+
+  &__col {
+    &--empty {
+      display: none;
+    }
+  }
+
+  @include breakpoint("small") {
+    &__col {
+      &--2 {
+        grid-column-end: span 2;
+      }
+      &--3 {
+        grid-column-end: span 3;
+      }
+      &--4 {
+        grid-column-end: span 4;
+      }
+    }
+    &__row {
+      &--2 {
+        grid-row-end: span 2;
+      }
+      &--3 {
+        grid-row-end: span 3;
+      }
+    }
+  }
+
+  @include breakpoint("medium") {
+    &__col {
+      &--2 {
+        grid-column-end: span 2;
+      }
+      &--3 {
+        grid-column-end: span 3;
+      }
+      &--4 {
+        grid-column-end: span 4;
+      }
+    }
+    &__row {
+      &--2 {
+        grid-row-end: span 2;
+      }
+    }
+  }
+
+  @include breakpoint("large") {
+    &__col {
+      &--empty {
+        display: initial;
+      }
+    }
+  }
+
+  @include breakpoint("xlarge") {
+    &__col {
+      &--empty {
+        display: initial;
+      }
+    }
+  }
+}

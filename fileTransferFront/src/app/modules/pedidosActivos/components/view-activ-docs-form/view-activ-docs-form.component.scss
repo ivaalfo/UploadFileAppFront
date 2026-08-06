@@ -1,0 +1,64 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: flex;
+}
+
+.view-activ-docs-form {
+  &__pdfDiv {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 500px;
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+
+  &__noFac2showMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: $primary-color;
+    border: 1px dashed #ccc; //Borde punteado para indicar que es un área vacía
+    margin: 10px;
+  }
+
+}
+
+.document-container {
+  position: relative;
+  display: block;
+}
+
+/* Capa roja superpuesta que solo aparece si tiene la clase .is-rejected */
+.document-container.is-rejected::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Color rojo con 15% de opacidad para que se vea el documento debajo */
+  background-color: rgba(255, 0, 0, 0.15); 
+  
+  /* Aseguramos estar por encima del iframe e imágenes */
+  z-index: 10; 
+  
+  /* Clave: permite hacer scroll o interactuar con el PDF/imagen a través del rojo */
+  pointer-events: none; 
+  
+  /* Opcional: un borde rojo exterior para resaltar el error */
+  box-shadow: inset 0 0 0 4px $dark-red; 
+}

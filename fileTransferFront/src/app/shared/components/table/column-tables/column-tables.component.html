@@ -1,0 +1,11 @@
+<div class="column-tables__container" [ngClass]="{'column-tables__container--3-cols': max3columns}" #container
+  (wheel)="onWheel($event)" (resized)="onResized()">
+  <m-table-horizontal-scroll [headers]="headers" [name]="i" [showRowBorder]="showRowBorder"
+    [hasCheckableInitColumn]="hasCheckableInitColumn" [canCheckMultipleInitColumns]="canCheckMultipleInitColumns"
+    [hasCheckableEndColumn]="hasCheckableEndColumn" [canCheckMultipleEndColumns]="canCheckMultipleEndColumns"
+    [allFirstColumnChecked]="allFirstColumnChecked" (firstColumnChecked)="onFirstColumnCheckboxChanged($event)"
+    [allLastColumnChecked]="allLastColumnChecked" (lastColumnChecked)="onLastColumnCheckboxChanged($event)"
+    *ngFor="let tableRows of tablesRows; let i = index">
+    <ng-template [ngTemplateOutlet]="row.innerTemplate" *ngFor="let row of tableRows"></ng-template>
+  </m-table-horizontal-scroll>
+</div>

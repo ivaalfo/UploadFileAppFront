@@ -1,0 +1,12 @@
+<div class="expFilter">
+  <form class="expFilter__box">
+    <div class="expFilter__searcher">
+      <label class="expFilter__label" [for]="search">{{ 'FILTERS.EXP_FILTER' | translate }}:</label>
+        <input id="expFilter-input" class="expFilter__input" placeholder="{{ 'FILTERS.TITLE_EXP_FILTER' | translate }}" type="text" name="s" [(ngModel)]="search"/>
+          <div class="expFilter__buttons">
+            <button class="expFilter__filterButton" type="submit" (click)="submit()" [attr.title]="'FILTERS.FILTER' | translate"></button>
+            <button class="expFilter__clearButton" type="submit" (click)="clearClicked()" [attr.title]="'FILTERS.CLEAR_FILTER' | translate"></button>
+          </div>
+    </div>
+  </form>
+</div>

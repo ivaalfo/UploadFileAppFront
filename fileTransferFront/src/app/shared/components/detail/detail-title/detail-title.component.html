@@ -1,0 +1,9 @@
+<h1 class="detail-title">
+  <img class="detail-title__img_article" [attr.src]="'assets/images/icons/' + icon" />
+  <span class="detail-title__title">{{title | translate}}</span>
+  {{name}}
+  <span *ngIf="showWarningIcon" class="detail-title__title"><img class="detail-title__img"
+      [attr.src]="'assets/images/icons/' + warningIcon" /></span>
+  <span *ngIf="showLockIcon" [class]="!showWarningIcon?'detail-title__title':''"><img class="detail-title__img"
+      [attr.src]="'assets/images/icons/' + blockIcon" /></span>
+</h1>

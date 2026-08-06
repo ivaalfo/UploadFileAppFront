@@ -1,0 +1,53 @@
+html {
+  height: 100%;
+  font-size: rem-calc(16);
+}
+
+body {
+  font-family: $primary-font;
+  min-height: 100%;
+  height: 100%;
+  font-size: 12px;
+
+  @include breakpoint("large") {
+    font-size: 14px;
+  }
+
+  @include breakpoint("xlarge") {
+    font-size: 14px;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+table {
+  thead {
+    background-color: $primary-color;
+    color: $white;
+    font-weight: normal;
+  }
+
+  tbody {
+    background-color: $white;
+  }
+
+  th,
+  td {
+    font-weight: normal;
+    text-align: left;
+  }
+}
+
+/* Forzar checkboxes azules en toda la aplicación */
+input[type="checkbox"] {
+  accent-color: $primary-color !important; /* Sustituye por tu azul exacto */
+  cursor: pointer;
+
+  /* Eliminar el rojo de validación automática de Chrome */
+  &:invalid {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}

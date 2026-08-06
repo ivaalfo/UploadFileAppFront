@@ -1,0 +1,5 @@
+{
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "tslint.alwaysShowRuleFailuresAsWarnings": false,
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

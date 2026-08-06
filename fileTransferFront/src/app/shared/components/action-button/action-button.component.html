@@ -1,0 +1,6 @@
+<button class="action-button" [disabled]="disabled" [type]="typeSubmit?'submit':'button'"
+  [ngClass]="{'action-button--icon-left': !!icon && !rightIcon, 'action-button--icon-right': !!icon && rightIcon, 'action-button--inverted': inverted}">
+  <span class="action-button__icon-span" [ngClass]="{'action-button__icon-span--right': rightIcon}" *ngIf="icon">
+    <img classes="action-button__icon" [attr.src]="'assets/images/icons/' + icon" /></span>
+  <ng-content></ng-content>
+</button>

@@ -1,0 +1,12 @@
+<div class="trackFilter">
+  <form class="trackFilter__box">
+    <div class="trackFilter__searcher">
+      <label class="trackFilter__label" [for]="search">{{ 'FILTERS.TR_FILTER' | translate }}:</label>
+        <input id="trackFilter-input" class="trackFilter__input" placeholder="{{ 'FILTERS.TITLE_TR_FILTER' | translate }}" type="text" name="s" [(ngModel)]="search"/>
+          <div class="trackFilter__buttons">
+            <button class="trackFilter__filterButton" type="submit" (click)="submit()" [attr.title]="'FILTERS.FILTER' | translate"></button>
+            <button class="trackFilter__clearButton" type="submit" (click)="clearClicked()" [attr.title]="'FILTERS.CLEAR_FILTER' | translate"></button>
+          </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+# include:
+#  - project: containerization/templates/sourcecode-testing-gitlabci-template
+#    file: main.yml
+#    ref: master
+
+stages:
+  - lint-compile-sources
+  - deploy
+  
+variables:
+  NPM_TOKEN: ${NPM_TOKEN}
+
+#find_secrets:
+#  stage: lint-sources
+#  extends:
+#    - .find_secrets_latest_gitleaks
+#    - .generic_runner_dev
+#  allow_failure: true
+#  only:
+#    - tags
+    
+lint-compile-sources:
+  image: gitlab.ecna.es:5001/containerization/templates/angular-container:12
+  stage: lint-compile-sources
+  script:
+    - echo "Export npm_token $NPM_TOKEN"
+    - export NPM_TOKEN=$NPM_TOKEN
+    # - npm install updated package-lock.json, ci should work
+    - npm ci
+    - npm run lint    
+    - npm run build
+    - npm run config:dev
+  artifacts:
+    when: always
+    paths:
+      - dist
+  only:
+    - develop
+  tags:
+    - docker
+
+deploy:
+  variables:
+    REMOTE_USER: ${REMOTE_USER}
+    REMOTE_IP: ${REMOTE_IP}
+    REMOTE_PATH: ${REMOTE_PATH}
+    REMOTE_PWD: ${REMOTE_PWD}
+  image: ictu/sshpass
+  stage: deploy
+  script:
+    - echo "scp -oStrictHostKeyChecking=no -r dist/* $REMOTE_USER@$REMOTE_IP:$REMOTE_PATH"
+    - sshpass -p "$REMOTE_PWD" scp -r -oStrictHostKeyChecking=no dist/* $REMOTE_USER@$REMOTE_IP:$REMOTE_PATH
+    - echo "Result:" $?
+  only:
+    - develop
+  tags:
+    - docker 

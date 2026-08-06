@@ -1,0 +1,155 @@
+@import "~src/styles/base/index";
+@import "~src/styles/global/page";
+
+:host {
+  @extend .page;
+  @extend .page--list;
+  padding-bottom: rem-calc(15);
+}
+
+
+.maintenance {
+
+  &__fitcontent {
+    min-width: 96px;
+  }
+
+  &__icon-span {
+    position: static;
+    display: table-cell;
+    align-items: center;
+    background: #99befb;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 23px;
+    height: 23px;
+    margin-right: 2px;
+
+    //@include size(rem-calc(30));
+
+    &--image {
+      display: inline-block;
+      margin-top: 3px;
+      margin-left: 0px;
+      margin-right: -1px;
+      margin-bottom: -1px;
+    }
+
+    &:hover {
+      background-color: $light-blue;
+    }
+  }
+
+
+  &__button-div {
+    display: flex;
+    justify-content: flex-end;
+    padding: rem-calc(10);
+  }
+
+  &__docks__button-div {
+    display: flex;
+    justify-content: flex-end;
+    padding: rem-calc(10);
+    margin-right: 50px;
+  }
+
+  &__docks__filter-div {
+    display: flex;
+    margin-right: 50px;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+    padding: rem-calc(10);
+  }
+
+  &__drivers__button-div {
+    display: flex;
+    justify-content: flex-end;
+    padding: rem-calc(10);
+    margin-right: 50px;
+  }
+
+  &__drivers__filter-div {
+    display: flex;
+    margin-right: 50px;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+    padding: rem-calc(10);
+  }
+
+  &__table {
+    cursor: pointer;
+  }
+
+  &_drivers__table {
+    display: inline-block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: #ffffff;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    width: 97%;
+    padding-left: 3%;
+    background: padding-box;
+  }
+
+  &_users__table {
+    display: inline-block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    background: padding-box;
+    width: 80%;
+    margin-left: 10%;
+  }
+
+  &_transportist__table {
+    display: block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: #ffffff;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    width: 96%;
+    padding-left: 4%;
+    background: padding-box;
+  }
+
+  &_tractors__table {
+    display: inline-block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: #ffffff;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    width: 75%;
+    padding-left: 25%;
+    background: padding-box;
+  }
+  
+  &_docks__table {
+    cursor: pointer;
+    width: 75%;
+    display: inline-block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: #ffffff;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    padding-left: 25%;
+    background: padding-box;
+  }
+}

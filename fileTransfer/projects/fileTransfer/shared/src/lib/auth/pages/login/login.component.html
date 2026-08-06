@@ -1,0 +1,23 @@
+<h1 class="login__title">{{ 'LOGIN_TITLE' | translate }}</h1>
+
+<form (ngSubmit)="login()" [formGroup]="loginForm">
+  <m-login-input icon="user" label="{{ 'LOGIN_USERNAME' | translate }}" name="username"></m-login-input>
+  <m-login-input icon="key" label="{{ 'LOGIN_PASSWORD' | translate }}" name="password" [isPassword]="true">
+  </m-login-input>
+
+  <div class="login__remember">
+    <input id="remember" type="checkbox" formControlName="remember" class="checkbox" />
+    <label for="remember" class="checkbox__label">{{ 'LOGIN_REMEMBER' | translate }}</label>
+  </div>
+
+  <button type="submit" class="login__button" type="submit">
+    <span [hidden]="isLoading">{{ 'LOGIN_BUTTON' | translate }}</span>
+    <span [hidden]="!isLoading">
+      <m-spinner></m-spinner>
+    </span>
+  </button>
+</form>
+
+<div [ngClass]="{hidden: !error}" class="login__error">
+  (!) {{ error }}
+</div>

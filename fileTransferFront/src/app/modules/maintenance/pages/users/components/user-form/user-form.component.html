@@ -1,0 +1,64 @@
+<m-modal-form [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" header="MAINTENANCES.USERS.FORM.W2USUARIO"
+  [canBeClosed]="!isLoading" (accepted)="accept()" (canceled)="canceled()">
+  <div *ngIf="userForm" [formGroup]="userForm">
+    <div class="form-group">
+      <label for="w2usuario-input">{{ 'MAINTENANCES.USERS.FORM.W2USUARIO' | translate }}</label>
+      <div class="form-group__field">
+        <input type="text" id="w2usuario-input" name="w2usuario-input" formControlName="w2usuario" #w2usuarioInput *ngIf="!editMode"/>
+        <input type="text" id="w2usuario-input-disabled" name="w2usuario-input" formControlName="w2usuario" #w2usuarioInput disabled *ngIf="editMode" class="form-group__field--flex--username--disabled"/>
+        <div class="form-group__error">
+          <span *ngIf="error('w2usuario')">{{ error('w2usuario') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="w2email-input">{{ 'MAINTENANCES.USERS.FORM.W2EMAIL' | translate }}</label>
+      <div class="form-group__field">
+        <input type="text" id="w2email-input" name="w2email-input" formControlName="w2email" />
+        <div class="form-group__error">
+          <span *ngIf="error('w2email')">{{ error('w2email') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-group__field__label--show" for="w2contras-input">{{labelPass | translate }}</div>
+      <div class="form-group__field--flex">
+        <input class="form-group__field--flex--narrow" type="text" id="w2contras-input" name="w2contras-input" formControlName="w2contras" *ngIf="!editMode || edit"/>
+        <input class="form-group__field--flex--check" type="checkbox" id="edit-input" name="edit-input" formControlName="edit" [hidden]="!editMode">
+        <div class="form-group__error--short">
+          <span *ngIf="error('w2contras')">{{ error('w2contras') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="clicodpro-input">{{ 'MAINTENANCES.USERS.FORM.CLICODPRO' | translate }}</label>
+      <div class="form-group__field--flex">
+        <input class="form-group__field--flex--clicodpro" type="text" id="clicodpro-input" name="clicodpro-input" formControlName="clicodpro"  *ngIf="!editMode"/>
+        <input class="form-group__field--flex--clicodpro--disabled" type="text" id="clicodpro-input-disabled" name="clicodpro-input" formControlName="clicodpro" disabled *ngIf="editMode" />
+        <div class="form-group__error--short">
+          <span *ngIf="error('clicodpro')">{{ error('clicodpro') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="company-input">{{ 'MAINTENANCES.USERS.FORM.PROFILE' | translate }}</label>
+      <div class="form-group__field">
+        <select id="roles-input" name="roles-input" formControlName="rol" *ngIf="isAdminUser">
+          <option value="" disabled selected hidden>{{'MAINTENANCES.USERS.FORM.SEL_PROFILE'| translate}}</option>
+          <option *ngFor="let rol of roles" [value]="rol.codigo">
+            {{ rol.descEs }}
+          </option>
+        </select>
+        <select id="roles-input-disabled" name="roles-input-disabled" formControlName="rol" disabled *ngIf="!isAdminUser">
+          <option value="" disabled selected hidden>{{'MAINTENANCES.USERS.FORM.SEL_PROFILE'| translate}}</option>
+          <option *ngFor="let rol of roles" [value]="rol.codigo">
+            {{ rol.descEs }}
+          </option>
+        </select>
+        <div class="form-group__error">
+          <span *ngIf="error('rol')">{{ error('rol') | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</m-modal-form>

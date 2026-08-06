@@ -1,0 +1,12 @@
+<input class="multiselect__input" type="text" [attr.id]="id" [attr.placeholder]="placeholder" [value]="selectedValue" readonly>
+
+<div class="multiselect__popup" [ngClass]="{'multiselect__popup--show': popupShown}" (click)="$event.stopPropagation()"
+  *ngIf="options?.length">
+  <ul>
+    <li class="multiselect__option" *ngFor="let option of options; let i = index">
+      <input type="checkbox" [disabled]="disabled" class="multiselect__check" [attr.id]="i" [value]="option.code"
+        [checked]="selected.includes(option.code)" (change)="onCheckboxChanged()" #checkboxes>
+      <label class="multiselect__label"> {{option.description}} </label>
+    </li>
+  </ul>
+</div>

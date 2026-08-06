@@ -1,0 +1,12 @@
+<div class="facFilter">
+  <form class="facFilter__box">
+    <div class="facFilter__searcher">
+      <label class="facFilter__label" [for]="search">{{ 'FILTERS.FAC_FILTER' | translate }}:</label>
+        <input id="facFilter-input" class="facFilter__input" placeholder="{{ 'FILTERS.TITLE_FAC_FILTER' | translate }}" type="text" name="s" [(ngModel)]="search"/>
+          <div class="facFilter__buttons">
+            <button class="facFilter__filterButton" type="submit" (click)="submit()" [attr.title]="'FILTERS.FILTER' | translate"></button>
+            <button class="facFilter__clearButton" type="submit" (click)="clearClicked()" [attr.title]="'FILTERS.CLEAR_FILTER' | translate"></button>
+          </div>
+    </div>
+  </form>
+</div>

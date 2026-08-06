@@ -1,0 +1,65 @@
+<m-modal-docs-val [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
+  [header]="viewCMRheaderText" 
+  [pedidoSelected]="pedidoSelected" 
+  [isUserExter]="isExternoUser"
+  [isUserConsulta]="isConsultaUser"
+  [isNotFACdoc]="noFac2show"
+  [canBeClosed]="!isLoading" 
+  (validated)="onValidateCMR()" 
+  (rejectedCMR)="onRejectCMR(pedidoSelected)" 
+  (anotated)="onAnotaCMR(pedidoSelected)"
+  (rejectedFAC)="onRejectFAC(pedidoSelected)"
+  (canceled)="onCancel(true)">
+  
+  <!--CMR-->
+  <div cmr [class.is-rejected]="pedidoSelected.hasCMR===3" class="document-container">
+    <div *ngIf="isImgFile">
+      <img id="imgDocDiv" [src]="cmrPath" alt="image" class="view-val-docs-form__imgJPG">
+      <canvas id='imgCanvasDiv' #jpgCanvas hidden="true"></canvas>
+    </div>
+    <div *ngIf="isPdfFile" id="pdfDocDiv" class="view-val-docs-form__pdfDiv">
+      <iframe #myIframe id="pdfIframe" src="" width="100%" height="100%" [frameBorder]="0"></iframe>
+    </div>
+    <div *ngIf="isTifFile">
+      <img id="tifDocDiv" [src]="cmrPath" alt="image" class="view-val-docs-form__imgTIF">
+      <canvas id='tifCanvasDiv' #tifCanvas hidden="true"></canvas>
+    </div>
+  </div>
+
+  <!--FAC-->
+  <div fac [class.is-rejected]="pedidoSelected.hasFAC===3" class="document-container">
+    <ng-container *ngIf="!noFac2show; else noFacMessage">
+      <!-- Solo puede ser PDF-->
+      <div *ngIf="isPdfFileFAC" id="pdfDocDivFAC" class="view-val-docs-form__pdfDiv">
+        <iframe #myIframeFAC id="pdfIframeFAC" src="" width="100%" height="100%" [frameBorder]="0"></iframe>
+      </div>
+    </ng-container>
+
+    <!-- Template para cuando no hay factura -->
+    <ng-template #noFacMessage>
+      <div class="view-val-docs-form__noFac2showMessage">
+        <p>{{ 'VALIDADOR.FORM.MESSAGES.NO_FAC_AVAILABLE' | translate }}</p>
+      </div>
+    </ng-template>
+  </div>
+
+</m-modal-docs-val>
+
+<m-reject-cmr-form id="rejectModalB" [opener$]="rejectModalOpener$" [header]="rejectTitle" [pedidoSelected]="pedidoSelected" [directRJCT]="false" (cancel)="onCancel(false)">
+</m-reject-cmr-form>
+
+<m-anota-val-cmr-form id="anotaModalB" [opener$]="anotaModalOpener$" [header]="anotaTitle" [pedidoSelected]="pedidoSelected" [directANOT]="false" (cancel)="onCancel(false)">
+</m-anota-val-cmr-form>
+
+<m-reject-fac-form id="rejectFACmodal" [opener$]="rejectFACmodalOpener$" [header]="rejectFACtitle" [pedidoSelected]="pedidoSelected" [directRJCT]="false" (cancel)="onCancel(false)">
+</m-reject-fac-form>
+
+<!--PARA BLOQUEOS-->
+<m-modal-confirmation 
+  [header]="unlockTitle" 
+  [onlyConfirm]="true" 
+  icon="assets/images/icons/big-warning.png"
+  [opener$]="confirmModalOpener$" 
+  (accepted)="onCancel(true)">
+  {{actionToConfirm | translate: { id: this.pedidoSelected.track } }}
+</m-modal-confirmation>

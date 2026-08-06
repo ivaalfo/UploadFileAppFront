@@ -1,0 +1,75 @@
+<header class="content-layout__header">
+  <div class="content-layout__header-left-side"><a (click)="goToHome()">
+      <img class="content-layout__img" src="assets/images/header-logo.png" [alt]="'HEADER_TITLE' | translate" /></a>
+  </div>
+  <!--<div class="content-layout__header-search" *ngIf="!home">
+    <m-search-input></m-search-input>
+  </div>-->
+  <div class="content-layout__header-right-side " >
+    <m-header-menu iconSizeStyle="header-menu__img-menu" icon="assets/images/icons/menu.png">
+      <!--<li *ngIf="canViewReturns">
+        <a [routerLink]="['/returns']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'CONTAINER_RETURN' | translate }}
+        </a>
+      </li>
+      <li *ngIf="canViewAlertCenter">
+        <a [routerLink]="['/alertCenter']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'ALERT_CENTER.TITLE' | translate }}
+        </a>
+      </li>-->
+      <li *ngIf="canViewPedidosActivos">
+        <a [routerLink]="['/pedidosActivos']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'PEDIDOS_ACTIV.TITLE' | translate }}
+        </a>
+      </li>
+      <li *ngIf="canViewPedidosValidador">
+        <a [routerLink]="['/pedidosValidador']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'VALIDADOR.TITLE' | translate }}
+        </a>
+      </li>
+      <li *ngIf="canViewPedidosHistorico">
+        <a [routerLink]="['/pedidosHistorico']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'PEDIDOS_HIST.TITLE' | translate }}
+        </a>
+      </li>
+      <li *ngIf="canViewMaintenanceUsers">
+        <a [routerLink]="['/users']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'MAINTENANCES.USERS.TITLE' | translate }}
+        </a>
+        <!--<m-header-submenu-maintenance iconSizeStyle="header-menu__img-menu" icon="assets/images/icons/menu.png">
+          <a *ngIf="canViewMaintenanceUsers" [routerLink]="['/maintenance/users']" [routerLinkActive]="['header-menu__active-link']">
+            {{ 'MAINTENANCES.USUARIOS' | translate }}
+          </a>
+          <a *ngIf="canViewMaintenanceDrivers" [routerLink]="['/maintenance/drivers']" [routerLinkActive]="['header-menu__active-link']">
+            {{ 'MAINTENANCES.DRIVERS.DRIVERS' | translate }}
+          </a>
+          <a *ngIf="canViewMaintenanceDocks" [routerLink]="['/maintenance/docks']" [routerLinkActive]="['header-menu__active-link']">
+            {{ 'MAINTENANCES.DOCKS.DOCKS' | translate }}
+          </a>
+        </m-header-submenu-maintenance>-->
+      </li>
+    </m-header-menu>
+    <m-header-menu iconSizeStyle="header-menu__img-user" icon="assets/images/icons/user-header.png">
+      <li *ngIf="loginData?.nombre">
+        <a>
+          {{loginData?.nombre}}
+        </a>
+      </li>
+      <li>
+        <a (click)="logout()">
+          {{ 'LOGIN_LOGOUT' | translate }}
+        </a>
+      </li>
+    </m-header-menu>
+  </div>
+</header>
+<div class="content-layout__body">
+  <router-outlet></router-outlet>
+</div>
+<footer class="content-layout__footer">
+  <div class="content-layout__footer-left-side">
+    <img height="23" with="23" src="assets/images/footer-logo.png" />
+    <span>{{ 'FOOTER_COMPANY' | translate }}</span>
+  </div>
+  <div class="content-layout__footer-rigth-side" [innerHTML]="'FOOTER_COPYRIGHT' | translate | safeHtml"></div>
+</footer>

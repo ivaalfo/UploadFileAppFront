@@ -1,0 +1,7 @@
+<div class="multicheckfilter__container" *ngIf="options?.length">
+  <div class="multicheckfilter__check_container" *ngFor="let option of options; let i = index">
+    <input type="checkbox" class="multicheckfilter__check" [attr.id]="i" [value]="option.code"
+      [checked]="selected.includes(option.code)" (change)="onCheckboxChanged()" #checkboxes>
+    <label [attr.for]="i" class="multicheckfilter__label"> {{option.description}} </label>
+  </div>
+</div>

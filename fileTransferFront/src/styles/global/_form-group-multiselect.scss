@@ -1,0 +1,67 @@
+@import "~src/styles/base/index";
+
+$height: rem-calc(26);
+$clear-width: rem-calc(17);
+
+.form-group-multiselect {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  label {
+    // @extend .label;
+    // display: inline-block;
+    width: rem-calc(100);
+    // line-height: rem-calc(16);
+    // padding-bottom: 5px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: none;
+
+    @include breakpoint("large") {
+      flex-direction: column;
+      flex: 1;
+    }
+    @include breakpoint("xlarge") {
+      flex-direction: column;
+      flex: 1;
+    }
+    flex: 1;
+    height: 100%;
+
+    > input {
+      flex: 1;
+      width: 100%;
+      // color: $secondary-color;
+      // border: 0;
+      // border-bottom: rem-calc(1) solid $primary-color;
+      // line-height: rem-calc(10);
+      // min-height: rem-calc(10);
+      // font-family: $secondary-font;
+      // padding-top: 5px;
+
+      // @include breakpoint("large") {
+      //   line-height: rem-calc(16);
+      //   min-height: rem-calc(16);
+      // }
+      // @include breakpoint("xlarge") {
+      //   line-height: rem-calc(16);
+      //   min-height: rem-calc(16);
+      // }
+
+      // &[disabled] {
+      //   color: $grey;
+      //   background-color: $white;
+      // }
+    }
+  }
+
+  // &__error {
+  //   font-size: rem-calc(12);
+  //   height: rem-calc(18);
+  //   line-height: rem-calc(18);
+  //   color: $error-color;
+  // }
+}

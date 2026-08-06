@@ -1,0 +1,46 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: table-cell;
+  vertical-align: middle;
+
+  &.cell__header:not(.cell__is-empty) {
+    .cell {
+      color: $white;
+      background-color: $primary-color;
+      z-index: 5;
+    }
+  }
+
+  &.cell__highlight {
+    background: $light-blue;
+  }
+}
+
+.cell {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: rem-calc(35);
+  color: $black;
+  text-align: center;
+  white-space: nowrap;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    padding: 0 rem-calc(5);
+    max-width:rem-calc(550);
+    flex-wrap:wrap;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    ::ng-deep a {
+      color: $secondary-color;
+    }
+    ::ng-deep [type="checkbox"],
+    ::ng-deep [type="radio"] {
+      vertical-align: middle;
+    }
+  }
+}

@@ -1,0 +1,163 @@
+@import "~src/styles/base/index";
+@import "~src/styles/global/page";
+
+:host {
+  @extend .page;
+  @extend .page--list;
+}
+
+.phist {
+
+  &__table {
+    display: inline-block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    height: 100%;
+    width: 100%;
+    min-width: 1890px;
+    background: padding-box;
+  }
+
+  //Anchos de columnas fijos
+  &__anchoC0 {
+    width: 23px;
+  }
+  &__anchoC1 {
+    width: 125px;
+  }  
+  &__anchoC13 {
+    width: 20px;
+    height: 12px;
+  }
+  &__fitcontent {
+    min-width: fit-content;
+  }
+  &__maxcontent {
+    max-width: 175px;
+  }
+  &__mincontentOrigen {
+    min-width: 120px;
+  }
+  &__mincontentFecha {
+    min-width: 88px;
+  }
+
+  &__icon-span {
+    position: static;
+    display: contents;
+    justify-content: center;
+
+    &--cmr {
+      position: absolute;
+      border-radius: 12px;
+      width: 21px;
+      height: 21px;
+      left: 36px;
+      margin-bottom: 10px;
+    }
+
+    &--fac {
+      position: absolute;
+      border-radius: 12px;
+      width: 21px;
+      height: 21px;
+      left: 76px;
+      margin-bottom: 10px;
+    }
+
+    &--otr {
+      position: absolute;
+      border-radius: 12px;
+      width: 21px;
+      height: 21px;
+      left: 115px;
+      margin-bottom: 10px;
+    }
+  
+    &--anot {
+      position: absolute;
+      width: 5px;
+      height: 18px;
+      margin-bottom: 10px;
+      right: 13px;
+    }
+
+  }
+
+  //Para la fila del motivo de rechazo::
+  &__rejectedFile__label {
+    display: inline-block;
+    //text-align: center;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $dark-red;
+    padding: 10px 0px 0px 0px;
+    //height: 22px;
+    width: 1020px;
+    position: absolute;
+    left: 170px;
+    top: 0px;
+  }
+
+  //Para la fila de anotaciones::
+  &__anotation__label {
+    display: inline-block;
+    //text-align: center;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $primary-color;
+    padding: 10px 0px 0px 0px;
+    //height: 22px;
+    width: 1020px;
+    position: absolute;
+    left: 170px;
+    top: 0px;
+  }
+
+  //Para la fila del motivo de anulacion::
+  &__anulado__label {
+    display: inline-block;
+    //text-align: center;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $grey;
+    padding: 10px 0px 0px 0px;
+    //height: 22px;
+    width: 1020px;
+    position: absolute;
+    left: 170px;
+    top: 0px;
+  }
+
+  &__esteRelative {
+    position: relative;
+    display: table-cell;
+  }
+
+  &__noResults2show__label {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: $primary-color;
+    height: 22px;
+    width: 100%;
+    margin-top: 96px;
+  }
+
+  &__fecReal {
+    font-family: $primary-font;
+    font-weight: bold;
+    width: 265px;
+
+    &--value {
+      color: $primary-color;
+    }
+  }
+  
+}

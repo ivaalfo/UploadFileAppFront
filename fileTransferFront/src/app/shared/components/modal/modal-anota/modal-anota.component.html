@@ -1,0 +1,20 @@
+<m-modal [opener$]="opener$" [canClose]="canBeClosed" [header]="header" [data]="data" (closed)="cancel()">
+  <form (ngSubmit)="submit()">
+    <div class="modal-anota__wrapper">
+      <div class="modal-anota__icon"><img src="{{ icon }}" /></div>
+      <div class="modal-anota__content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="modal-anota__buttons">
+      <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
+      <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked" class="modal-anota__button" icon="blue-check.png" [inverted]="true"
+        [typeSubmit]="true">
+        {{ 'BUTTONS.CONFIRM' | translate }}</m-action-button>
+      <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked" class="modal-anota__button" icon="cross-blue.png" [inverted]="true" (click)="delete()">
+        {{ 'BUTTONS.DELETE_NOTE' | translate }}</m-action-button>
+      <m-action-button *ngIf="canBeClosed" class="modal-anota__button" icon="cross.png" (click)="cancel()">
+        {{ 'BUTTONS.CANCEL' | translate }}</m-action-button>
+    </div>
+  </form>
+</m-modal>

@@ -1,0 +1,23 @@
+.root .md-drppicker {
+  & thead {
+    background: transparent;
+  }
+
+  & td.active,
+  & td.active:hover {
+    background-color: $primary-color;
+  }
+
+  & .btn {
+    background-color: $primary-color;
+  }
+
+  & .btn:focus,
+  & .btn:hover {
+    background-color: $secondary-color;
+  }
+
+  & .btn.clear svg {
+    display: none;
+  }
+}

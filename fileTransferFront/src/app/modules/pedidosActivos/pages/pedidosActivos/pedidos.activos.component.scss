@@ -1,0 +1,285 @@
+@import "~src/styles/base/index";
+@import "~src/styles/global/page";
+
+:host {
+  @extend .page;
+  @extend .page--list;
+}
+
+.pactivos {
+
+  &__table {
+    display: inline-block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    height: 100%;
+    width: 100%;
+    min-width: 1890px;
+    background: padding-box;
+  }
+
+  //Anchos de columnas fijos
+  &__anchoC1 {
+    width: 30px;
+  }
+  &__anchoC2 {
+    width: 150px;
+  }
+  &__anchoC3 {
+    width: 125px;
+  }
+  &__anchoC5 {
+    width: 155px;
+  }
+  &__anchoC13 {
+    width: 130px;
+  }
+  &__anchoC14 {
+    width: 10px;
+  }
+  &__fitcontent {
+    min-width: fit-content;
+  }
+  &__maxcontent {
+    max-width: 175px;
+  }
+  &__mincontentFecha {
+    min-width: 100px;
+  }
+
+  &__icon-span {
+    position: static;
+    display: contents;
+    justify-content: center;
+
+    &--cmr {
+      position: absolute;
+      border-radius: 12px;
+      width: 21px;
+      height: 21px;
+      right: 108px;
+      margin-bottom: 10px;
+    }
+
+    &--fac {
+      position: absolute;
+      border-radius: 12px;
+      width: 21px;
+      height: 21px;
+      right: 70px;
+      margin-bottom: 10px;
+    }
+
+    &--otr {
+      position: absolute;
+      border-radius: 12px;
+      width: 21px;
+      height: 21px;
+      right: 31px;
+      margin-bottom: 10px;
+    }
+
+    &--anot {
+      position: absolute;
+      width: 5px;
+      height: 18px;
+      right: 15px;
+      margin-bottom: 10px;
+    }
+  }
+
+  //Para la fila de anotaciones::
+  &__anotation__label {
+    display: inline-block;
+    text-align: center;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $primary-color;
+    padding: 4px 0px 0px 0px;
+    height: 22px;
+    width: 475px;
+    position: absolute;
+    left: 20px;
+    top: 0px;
+  }
+
+  //Para la fila de subida de docs::
+  &__rejectedFile__label {
+    display: inline-block;
+    text-align: center;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $dark-red;
+    padding: 4px 0px 0px 0px;
+    height: 22px;
+    width: 475px;
+    position: absolute;
+    left: 20px;
+    top: 0px;
+  }
+
+  &__addCMR__label {
+    display: inline-block;
+    text-align: center;
+    background-color: $primary-color;
+    font-family: $primary-font;
+    color: white;
+    padding: 4px 0px 0px 0px;
+    width: 65px;
+    height: 22px;
+    position: absolute;
+    left: 545px;
+    top: 7px;
+
+    &--disabled {
+      background-color: grey;
+      display: inline-block;
+      text-align: center;
+      font-family: $primary-font;
+      color: white;
+      padding: 4px 0px 0px 0px;
+      width: 65px;
+      height: 22px;
+      position: absolute;
+      left: 545px;
+      top: 7px;
+    }
+  }
+
+  &__addFAC__label {
+    display: inline-block;
+    text-align: center;
+    background-color: $primary-color;
+    font-family: $primary-font;
+    color: white;
+    padding: 4px 0px 0px 0px;
+    width: 65px;
+    height: 22px;
+    position: absolute;
+    left: 940px;
+    top: 7px;
+
+    &--disabled {
+      background-color: grey;
+      display: inline-block;
+      text-align: center;
+      font-family: $primary-font;
+      color: white;
+      padding: 4px 0px 0px 0px;
+      width: 65px;
+      height: 22px;
+      position: absolute;
+      left: 940px;
+      top: 7px;
+    }
+  }
+
+  &__addOTR__label {
+    display: inline-block;
+    text-align: center;
+    background-color: $primary-color;
+    font-family: $primary-font;
+    color: white;
+    padding: 4px 0px 0px 0px;
+    width: 65px;
+    height: 22px;
+    position: absolute;
+    left: 1335px;
+    top: 7px;
+  }
+
+  &__addCMR__input {
+    background-color: rgb(218, 216, 214);
+    display: inline-block;
+    position: absolute;
+    font-size: smaller;
+    top: 9px;
+    left: 610px;
+    width: 285px;
+  }
+
+  &__addFAC__input {
+    background-color: rgb(218, 216, 214);
+    display: inline-block;
+    position: absolute;
+    font-size: smaller;
+    top: 9px;
+    left: 1005px;
+    width: 285px;
+  }
+
+  &__addOTR__input {
+    background-color: rgb(218, 216, 214);
+    display: inline-block;
+    position: absolute;
+    font-size: smaller;
+    top: 9px;
+    left: 1400px;
+    width: 270px;
+  }
+
+  &__addFile__button {
+    display: inline-block;
+    text-align: center;
+    background-color: $primary-color;
+    font-family: $primary-font;
+    color: white;
+    height: 22px;
+    width: 55px;
+    position: absolute;
+    left: 1780px;
+    top: 7px;
+    border-radius: 9px;
+
+    &--disabled {
+      display: inline-block;
+      text-align: center;
+      background-color: grey;
+      padding: 4px 0px 0px 0px;
+      font-family: $primary-font;
+      color: white;
+      height: 22px;
+      width: 55px;
+      position: absolute;
+      left: 1780px;
+      top: 7px;
+      border-radius: 9px;
+    }
+  }
+
+  &__esteRelative {
+    position: relative;
+    display: table-cell;
+  }
+
+  &__noResults2show__label {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: $primary-color;
+    height: 22px;
+    width: 100%;
+    margin-top: 96px;
+  }
+
+  &__fecReal {
+    width: 288px;
+    font-family: $primary-font;
+    font-weight: bold;
+
+    &--label {
+      color: $dark-red
+    }
+    
+    &--value {
+      color: $primary-color;
+    }
+  }
+
+}

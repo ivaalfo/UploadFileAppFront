@@ -1,0 +1,19 @@
+<div class="table animated fadeIn" [ngClass]="{'table--sortable':canSortRows, 'table--show-row-border':showRowBorder}" role="table">
+  <div class="table__header">
+    <m-row *ngIf="headers && headers.length > 0">
+      <m-cell *ngIf="hasCheckableColumn" [isHeader]="true">
+        <ng-container *ngIf="canCheckMultipleColumns">
+          <input *ngIf="canCheckMultipleColumns" type="checkbox" [checked]="allChecked"
+            [disabled]="disabledMultipleCheck" (change)="onCheckboxChanged($event)" />
+        </ng-container>
+      </m-cell>
+      <m-cell [isHeader]="true" [isNarrow]="tableHeader.narrow" *ngFor="let tableHeader of headers; index as i"
+        [tooltip]="tableHeader.tooltip | translate" [isSortable]= "tableHeader.sorted" [name]= "tableHeader.property" (sort)="sortedColumn($event)" [ngClass]="{'inactive': selectedIndex !== i}" (click)="select(i)">
+        {{ tableHeader.title | translate }}  </m-cell>
+    </m-row>
+  </div>
+  <div class="table__body" [sortablejs]="sortItems" [sortablejsOptions]="sortOptions">
+    <ng-content></ng-content>
+  </div>
+
+</div>

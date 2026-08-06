@@ -1,0 +1,260 @@
+<m-table-header header="PEDIDOS_ACTIV.TITLE">
+  <m-userFilter-input (onSearch)="getPedidos({provName: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByProv"></m-userFilter-input>
+  <m-trackFilter-input (onSearch)="getPedidos({trFilterValue: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByTrack"></m-trackFilter-input>
+  <m-expFilter-input (onSearch)="getPedidos({expediente: $event})" (onClear)="limpiarFiltros()"></m-expFilter-input>
+  <m-refCargaFilter-input (onSearch)="getPedidos({refCharge: $event})" (onClear)="limpiarFiltros()"></m-refCargaFilter-input>
+</m-table-header>
+
+
+<m-table id="pactivos_table" class="page__content pactivos__table" 
+  [headers]="tableHeaders" 
+  [hasCheckableColumn]="true"
+  [canCheckMultipleColumns]="false"
+  [scroller$]="tableScroller$"
+  [sortItems]="pedidos"
+  (columnSorted)="onColumnSorted($event)">
+
+  <ng-container *ngFor="let pedido of pedidos; trackBy: pActivosTrackById">
+    <m-row [id]="'fila-'+pedido.track+'-'+pedido.expediente"
+      [key]="pedido.proveedorKy" 
+      [isSelectedRow]="pedido.isSelected" 
+      [isGrupRow]="pedido.isGrupaje" 
+      [isSelectedGrup]="pedido.isSelected && pedido.isGrupaje" 
+      [isNoAplicaRow]="pedido.isGrupaje && pedido.hasCMR===7"
+      [isNoAplicaSelectedRow]="pedido.isSelected && pedido.isGrupaje && pedido.hasCMR===7"
+      (click)="onClick(pedido)"
+      (doubleClickEvent)="onDoubleClick(pedido)">
+
+      <m-cell class="pactivos__anchoC1">
+        <input type="checkbox" 
+        [id]="'check-'+pedido.track+'-'+pedido.expediente"
+        name="{{ pedido.expediente }}" 
+        [checked]="pedido.isCheckActive"
+        (change)="onCheckboxChanged($event, pedido)"
+        (click)="$event.stopPropagation()" />
+      </m-cell>
+
+      <m-cell class="pactivos__fitcontent">{{ pedido.proveedorUser }}</m-cell>
+      <m-cell class="pactivos__anchoC2">{{ pedido.grupaje ? pedido.grupTR : pedido.track }}</m-cell>
+      <m-cell class="pactivos__anchoC3">{{ pedido.expediente }}</m-cell>
+      <m-cell class="pactivos__mincontentFecha">{{ pedido.fechaCarga }}</m-cell>
+      <m-cell class="pactivos__anchoC5">{{ pedido.refCarga }}</m-cell>
+      <m-cell class="pactivos__mincontentFecha">{{ pedido.fechaDescarga }}</m-cell>
+      <m-cell class="pactivos__fitcontent">{{ pedido.refDescarga }}</m-cell>
+      <m-cell class="pactivos__fitcontent">{{ pedido.origen }}</m-cell>
+      <m-cell class="pactivos__maxcontent">{{ pedido.destino }}</m-cell>
+      <m-cell class="pactivos__fitcontent">{{ pedido.numPalets }}</m-cell>
+      <m-cell class="pactivos__fitcontent">{{ pedido.matriculaCamion }}</m-cell>
+      <m-cell class="pactivos__fitcontent">{{ pedido.matriculaRemolque }}</m-cell>
+      <m-cell class="pactivos__anchoC13">
+        <span class="pactivos__icon-span" title="Sin CMR">
+          <img class="pactivos__icon-span--cmr" *ngIf="pedido.hasCMR==0" src="assets/images/icons/check-black.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Pendiente de validar">
+          <img class="pactivos__icon-span--cmr" *ngIf="pedido.hasCMR==1" src="assets/images/icons/check-orange.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Validado">
+          <img class="pactivos__icon-span--cmr" *ngIf="pedido.hasCMR==2" src="assets/images/icons/check-green.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Rechazado">
+          <img class="pactivos__icon-span--cmr" *ngIf="pedido.hasCMR==3" src="assets/images/icons/check-red.png" />
+        </span>
+        <span class="pactivos__icon-span" title="No aplica">
+          <img class="pactivos__icon-span--cmr" *ngIf="pedido.hasCMR==7" src="assets/images/icons/check-black-cross.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Sin Activar">
+          <img class="pactivos__icon-span--cmr" *ngIf="pedido.hasCMR==8" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        
+        <span class="pactivos__icon-span" title="Sin Factura">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==0" src="assets/images/icons/check-black.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Pendiente de validar">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==1 || pedido.hasFAC==4 || pedido.hasFAC==5" src="assets/images/icons/check-orange.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Validada">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==2" src="assets/images/icons/check-green.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Rechazada">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==3" src="assets/images/icons/check-red.png" />
+        </span>
+        <span class="pactivos__icon-span" title="No contabilizar">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==6" src="assets/images/icons/check-orange-cross.png" />
+        </span>
+        <span class="pactivos__icon-span" title="No aplica">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==7" src="assets/images/icons/check-black-cross.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Sin Activar">
+          <img class="pactivos__icon-span--fac" *ngIf="pedido.hasFAC==8" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        
+        <span class="pactivos__icon-span" title="Sin documentos">
+          <img class="pactivos__icon-span--otr" *ngIf="pedido.hasOTR==0" src="assets/images/icons/check-black.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Con documentos">
+          <img class="pactivos__icon-span--otr" *ngIf="pedido.hasOTR==1" src="assets/images/icons/check-green.png" />
+        </span>
+        <span class="pactivos__icon-span" title="Sin Activar">
+          <img class="pactivos__icon-span--otr" *ngIf="pedido.hasOTR==8" src="assets/images/icons/check-light-grey.png" />
+        </span>
+      </m-cell>
+      <m-cell class="pactivos__anchoC14">
+        <span class="pactivos__icon-span" title="Con anotaciones">
+          <img class="pactivos__icon-span--anot" *ngIf="pedido.anotaciones==1 && !isExternoUser" src="assets/images/icons/exclamation-red.png" />
+        </span>
+      </m-cell>
+    </m-row>
+
+    <!--ADD-FILES-ROW para INDIVIDUALES-->
+    <m-row *ngIf="pedido.isSelected && !pedido.isGrupaje" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="15">
+        <div class="pactivos__esteRelative">
+
+          <label *ngIf="!isExternoUser && pedido.anotaciones==1" class="pactivos__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
+          <label *ngIf="pedido.isRejected" class="pactivos__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+
+          <!--CMR-->
+          <div *ngIf="pedido.hasCMR === 0 || pedido.hasCMR === 3">
+            <label [attr.for]="'cmr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addCMR__label">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
+            <input [id]="'cmr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onCMRFileSelected($event, pedido)" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
+          </div>
+          <div *ngIf="pedido.hasCMR === 1 || pedido.hasCMR === 2">
+            <label class="pactivos__addCMR__label--disabled">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
+            <input disabled type="file" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
+          </div>
+          <!--FAC-->
+          <div *ngIf="pedido.hasFAC === 0 || pedido.hasFAC === 3">
+            <label [attr.for]="'fac-'+pedido.track+'-'+pedido.expediente" class="pactivos__addFAC__label">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
+            <input [id]="'fac-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onFactFileSelected($event, pedido)" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
+          </div>
+          <div *ngIf="pedido.hasFAC !== 0 && pedido.hasFAC !== 3">
+            <label class="pactivos__addFAC__label--disabled">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
+            <input disabled type="file" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
+          </div>
+          <!--OTR-->
+          <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
+          <input [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          <!--Boton Enviar-->
+          <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
+            *ngIf="activeSendButton && !isConsultaUser">{{'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</button>
+          <label class="pactivos__addFile__button--disabled" 
+            *ngIf="!activeSendButton || isConsultaUser">{{'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</label>
+        </div>
+      </td>
+    </m-row>
+
+    <!--ADD-FILES-ROW para GRUPAJES-->
+    <m-row *ngIf="pedido.isSelected && pedido.isGrupaje && isGrupReady" [isAddFilesRow]="true">
+      <td colspan="15">
+        <div class="pactivos__esteRelative">
+
+          <label *ngIf="!isExternoUser && pedido.anotaciones==1" class="pactivos__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
+          <label *ngIf="pedido.isRejected" class="pactivos__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+
+          <!--CMR-->
+          <div *ngIf="pedido.hasCMR === 0 || pedido.hasCMR === 3">
+            <label [attr.for]="'cmr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addCMR__label">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
+            <input [id]="'cmr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onCMRFileSelected($event, pedido)" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
+          </div>
+          <div *ngIf="pedido.hasCMR === 1 || pedido.hasCMR === 2 || pedido.hasCMR === 7">
+            <label class="pactivos__addCMR__label--disabled">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
+            <input disabled type="file" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
+          </div>
+          <!--FAC-->
+          <div *ngIf="pedido.hasFAC === 0 || pedido.hasFAC === 3">
+            <label [attr.for]="'fac-'+pedido.track+'-'+pedido.expediente" class="pactivos__addFAC__label">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
+            <input [id]="'fac-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onFactFileSelected($event, pedido)" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
+          </div>
+          <div *ngIf="pedido.hasFAC !== 0 && pedido.hasFAC !== 3">
+            <label class="pactivos__addFAC__label--disabled">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
+            <input disabled type="file" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
+          </div>
+          <!--OTR-->
+          <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
+          <input [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          <!--Boton Enviar-->
+          <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
+            *ngIf="puedoEnviarGrupaje(pedido) && !isConsultaUser">{{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</button>
+          <label class="pactivos__addFile__button--disabled" 
+            *ngIf="!puedoEnviarGrupaje(pedido) || isConsultaUser">{{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</label>
+        </div>
+      </td>
+    </m-row>
+  </ng-container>
+
+  <m-row *ngIf="noResults2show" [isMessageRow]="noResults2show">
+    <td colspan="15">
+      <div class="pactivos_esteRelative">
+        <label class="pactivos__noResults2show__label">{{ 'PEDIDOS_ACTIV.TABLE.NORESULTS2SHOW' | translate }}</label>
+      </div>
+    </td>
+  </m-row>
+
+</m-table>
+
+
+<m-assign-ddate-form 
+  [opener$]="fdescModalOpener$" 
+  [header]="actionTitle" 
+  [pedidoSelected]="selectedPedido">
+</m-assign-ddate-form>
+
+<m-assign-grup-form 
+  [opener$]="grupsModalOpener$" 
+  [header]="actionTitle" 
+  [pedidoSelected]="selectedPedido" 
+  [grupLista]="listaGrupaje">
+</m-assign-grup-form>
+
+<m-invalidate-order-form 
+  [opener$]="anularModalOpener$" 
+  [header]="actionTitle" 
+  [pedidoSelected]="selectedPedido" 
+  [action]="actionToConfirm"
+  [directo]="true">
+</m-invalidate-order-form>
+
+<m-view-activ-docs-form [opener$]="viewDocsModalOpener$" [pedidoSelected]="selectedPedido">
+</m-view-activ-docs-form>
+
+<m-action-button-container>
+  <div left>
+    <m-action-button (click)="refresh()" icon="refresh.png">
+      {{ 'BUTTONS.REFRESH' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isExternoUser" [disabled]="this.pedidos.length===0" (click)="convertToExcelExternos()" icon="table.png">
+      {{ 'BUTTONS.EXCEL' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="!isExternoUser" [disabled]="this.pedidos.length===0" (click)="convertToExcelInternos()" icon="table.png">
+      {{ 'BUTTONS.EXCEL' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isAdminUser || isInterUser"
+      [disabled]="!selectedPedido.isSelected" (click)="openModalAnular(selectedPedido)" icon="cross-red.png" [inverted]="true">
+      {{ 'PEDIDOS_ACTIV.BUTTONS.ANULAR' | translate }}
+    </m-action-button>
+    <m-action-button [disabled]="!activeFRealButton || isConsultaUser" (click)="setDescargaDate(selectedPedido)" icon="schedule.png">
+      {{ 'PEDIDOS_ACTIV.BUTTONS.FECREAL' | translate }}
+    </m-action-button>
+    <div class="pactivos__fecReal">
+      <span class="pactivos__fecReal--label" *ngIf="selectedPedido.isCheckActive && !selectedPedido.fechaEntReal">{{ 'PEDIDOS_ACTIV.TEXT.SETFREAL' | translate }}</span>
+      <span class="pactivos__fecReal--value" *ngIf="selectedPedido.isCheckActive && selectedPedido.fechaEntReal">{{ this.fecRealRef | translate }}</span>
+    </div>
+  </div>
+  <div right>
+    <m-action-button [disabled]="!selectedPedido.isSelected || !haveDocs(selectedPedido)" (click)="onViewCMRselected(selectedPedido)" icon="document.png">
+      {{ 'PEDIDOS_ACTIV.BUTTONS.VIEW_DOCS' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isAdminUser || isInterUser || isConsultaUser" 
+      [disabled]="!selectedPedido.isGrupaje || isConsultaUser || isGrupajeBloqueado(selectedPedido)" 
+      (click)="setGrupajeMode(selectedPedido)" icon="table.png">
+      {{ 'PEDIDOS_ACTIV.BUTTONS.GRUPS' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="canViewPedidosValidador" [disabled]="selectedPedido.isSelected" (click)="navigateToCMRvalidator()" icon="arrow-blue-right.png" [rightIcon]="true"
+      [inverted]="true">
+      {{ 'VALIDADOR.TITLE' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isExternoUser" [disabled]="selectedPedido.isSelected" (click)="navigateToHistorico()" icon="arrow-blue-right.png" [rightIcon]="true" [inverted]="true">
+      {{ 'PEDIDOS_HIST.TITLE' | translate }}
+    </m-action-button>
+  </div>
+</m-action-button-container>

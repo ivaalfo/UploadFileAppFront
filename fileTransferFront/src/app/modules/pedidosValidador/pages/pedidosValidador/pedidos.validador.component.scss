@@ -1,0 +1,93 @@
+@import "~src/styles/base/index";
+@import "~src/styles/global/page";
+
+:host {
+  @extend .page;
+  @extend .page--list;
+}
+
+.pval {
+
+  &__table {
+    display: inline-block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    height: 100%;
+    width: 100%;
+    min-width: 1890px;
+    background: padding-box;
+  }
+
+  &__fitcontent {
+    min-width: fit-content;
+  }
+  &__maxcontent {
+    max-width: 175px;
+  }
+  /*&__mincontent {
+    min-width: 175px;
+  }*/
+  &__mincontentFecha {
+    min-width: 100px;
+  }
+
+  &__icon-span {
+    position: static;
+    display: contents;
+    justify-content: center;
+
+    &--anot {
+      position: absolute;
+      width: 5px;
+      height: 18px;
+      right: 17px;
+      margin-bottom: 10px;
+    }
+  }
+
+  //Para la fila de anotaciones::
+  &__anotation__label {
+    display: inline-block;
+    //text-align: center;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $primary-color;
+    padding: 10px 0px 0px 0px;
+    //height: 22px;
+    width: 1020px;
+    position: absolute;
+    left: 170px;
+    top: 0px;
+  }
+
+  &__esteRelative {
+    position: relative;
+    display: table-cell;
+  }
+
+  &__not4validate__label {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: $primary-color;
+    height: 22px;
+    width: 100%;
+    margin-top: 96px;
+  }
+
+  &__aplica {
+    font-family: $primary-font;
+    font-weight: bold;
+    width: 265px;
+
+    &--value {
+      color: $dark-red;
+    }
+  }
+}

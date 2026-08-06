@@ -1,0 +1,102 @@
+@import "~src/styles/base/index";
+:host {
+  display: table-cell;
+  vertical-align: text-top;
+  &.cell__header {
+    width: fit-content;
+    position: sticky;
+    top: 0;
+    text-transform: uppercase;
+    vertical-align: middle;
+    z-index: 1;
+    &__sortable {
+      cursor: pointer;
+      width: fit-content;
+      .cell {
+        &__content {
+          padding-right: 15px;
+          background: url("src/assets/images/icons/arrows-updown.png") no-repeat 100% 43%;
+          background-size: 15px 15px;
+          display: table;
+        }
+      }
+    }
+  }
+  &.cell__narrow {
+    width: 30px;
+  }
+  &.cell__sortable-asc:not(.inactive) {
+    .cell {
+      &__content {
+        padding-right: 15px;
+        background: url("src/assets/images/icons/arrow-up.png") no-repeat 100% 100%;
+        background-size: 15px 15px;
+      }
+    }
+  }
+  &.cell__sortable-desc:not(.inactive) {
+    .cell {
+      &__content {
+        padding-right: 15px;
+        background: url("src/assets/images/icons/arrow-down.png") no-repeat 100% 0%;
+        background-size: 15px 15px;
+      }
+    }
+  }
+  &.cell__header:not(.cell__is-empty) {
+    .cell {
+      color: $white;
+      background-color: $primary-color;
+      z-index: 5;
+      min-height: 21px;
+    }
+  }
+  &.cell__highlight {
+    background: $cyan2;
+  }
+  &.cell__multiline {
+    .cell {
+      white-space: normal;
+    }
+  }
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 15px;
+  //color: $black;
+  color: var(--cell-text-color, $black);
+  text-align: center;
+  //white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word; // Break long words to correct overwriten text in descriptions
+
+  /*@include breakpoint("medium") {
+    min-height: 30px;
+  }
+  @include breakpoint("large") {
+    min-height: 30px;
+  }
+  @include breakpoint("xlarge") {
+    min-height: 30px;
+  }*/
+
+  &__content {
+    display: contents;
+    align-items: center;
+    padding-right: 15px;
+    max-width: 380px;
+    ::ng-deep a {
+      color: $secondary-color;
+    }
+    ::ng-deep [type="checkbox"],
+    ::ng-deep [type="radio"] {
+      vertical-align: middle;
+      width: rem-calc(20);
+      height: 12px;   //rem-calc(20);
+      margin-top: 8px;
+    }
+  }
+}

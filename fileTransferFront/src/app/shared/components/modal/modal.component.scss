@@ -1,0 +1,64 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  background: rgba($primary-color, 0.5);
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+:host-context(.modal--show) {
+  opacity: 1;
+  pointer-events: initial;
+  z-index: 50;
+}
+
+.modal {
+  background: $white;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $primary-color;
+    margin: rem-calc(15) rem-calc(15) rem-calc(10) rem-calc(15);
+  }
+
+  &__title {
+    font-family: $secondary-font;
+    font-size: rem-calc(16);
+    font-weight: bold;
+    color: $white;
+    padding: rem-calc(10) rem-calc(20);
+  }
+
+  &__data {
+    max-width: rem-calc(900);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0 rem-calc(15) rem-calc(15) rem-calc(15);
+
+    > h4 {
+
+      padding: rem-calc(6);
+      background-color: $primary-color;
+      border-radius: rem-calc(10);
+      font-family: $secondary-font;
+      font-size: rem-calc(12);
+      font-weight: bold;
+      color: $white;
+      margin:rem-calc(4);
+    }
+  }
+  
+}

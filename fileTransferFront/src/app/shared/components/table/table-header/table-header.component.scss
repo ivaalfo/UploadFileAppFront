@@ -1,0 +1,21 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-header {
+  &__title {
+    font-size: rem-calc(35);
+    letter-spacing: 1px;
+    font-weight: 500;
+    color: $primary-color;
+  }
+
+  &__filters {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

@@ -1,0 +1,65 @@
+<m-table-header header="MAINTENANCES.USERS.TITLE"></m-table-header>
+
+<div id="maintenanceButtonDiv" class="maintenance__button-div">
+  <m-action-button icon="add.png" (click)="onUserAction(true)" *ngIf="isAdminUser">{{'MAINTENANCES.USERS.ADD' | translate}}
+  </m-action-button>
+</div>
+
+
+<!-- <m-table class="page__content maintenance_users__table" 
+  [headers]="tableHeaders" 
+  [scroller$]="tableScroller$"
+  [sortItems]="users"
+  (columnSorted)="onColumnSorted($event)">
+  <m-row *ngFor="let user of users; trackBy: userTrackById" 
+    (doubleClickEvent)="onUserAction(false, user)"            //QUITO EL DOUBLECLICK de la ROW  -->
+
+<m-table class="page__content maintenance_users__table" 
+  [headers]="tableHeaders" 
+  [scroller$]="tableScroller$"
+  [sortItems]="users"
+  (columnSorted)="onColumnSorted($event)">
+  <m-row *ngFor="let user of users; trackBy: userTrackById" 
+    [isGoingToExpired]="user.isTerminated">
+    <m-cell>{{ user.clinom }}</m-cell>
+    <m-cell>{{ user.clidir }}</m-cell>
+    <m-cell>{{ user.clicif }}</m-cell>
+    <m-cell>{{ user.w2usuario }}</m-cell>
+    <m-cell>{{ user.w2email }}</m-cell>
+    <m-cell>{{ user.roles }}</m-cell>
+    <m-cell class="maintenance__fitcontent">
+      <span *ngIf="!user.isEditable" class="maintenance__icon-span" >
+        <img class="maintenance__icon-span--image" src="assets/images/icons/edit-white.png" />
+      </span>
+      <span *ngIf="user.isEditable" class="maintenance__icon-span" title="Editar" (click)="onUserAction(false, user)">
+        <img class="maintenance__icon-span--image" src="assets/images/icons/edit.png" />
+      </span>
+      <span *ngIf="isAdminUser && !user.isTerminated" class="maintenance__icon-span" title="Borrar" (click)="openModalDeleteUser(user)">
+        <img class="maintenance__icon-span--image" src="assets/images/icons/delete.png" />
+      </span>
+      <span *ngIf="isAdminUser && user.isTerminated" class="maintenance__icon-span" title="Reactivar" (click)="openModalReactivateUser(user)">
+        <img class="maintenance__icon-span--image" src="assets/images/icons/reactivate.png" />
+      </span>
+    </m-cell>
+  </m-row>
+</m-table>
+
+<m-user-form [opener$]="userModalOpener$" [userNi]="selectedUserNi" (done)="getUsers()">
+</m-user-form>
+
+<m-modal-confirmation [header]="actionTitle" icon="assets/images/icons/big-warning.png" [opener$]="confirmModalOpener$"
+  (accepted)="onDeleteUser()">{{actionToConfirm | translate: { model: type | lowercase , id: selectedUser.username } }}
+</m-modal-confirmation>
+
+<m-modal-confirmation [header]="actionTitle" icon="assets/images/icons/big-warning.png" [opener$]="reactivateConfirmModalOpener$"
+  (accepted)="onReactivateUser()">{{actionToConfirm | translate: { model: type | lowercase , id: selectedUser.username } }}
+</m-modal-confirmation>
+
+<m-action-button-container>
+  <div right>
+    <m-action-button icon="arrow-blue-down.png" (click)="downloadEnglishManual()" *ngIf="isExternoUser || isConsultaUser || isInternoUser || isAdminUser" [inverted]="true">{{'MAINTENANCES.USERS.DOWNLOAD_MAN_EN' | translate}}
+    </m-action-button>
+    <m-action-button icon="arrow-blue-down.png" (click)="downloadEspanishManual()" *ngIf="isExternoUser || isConsultaUser || isInternoUser || isAdminUser" [inverted]="true">{{'MAINTENANCES.USERS.DOWNLOAD_MAN_ES' | translate}}
+    </m-action-button>
+  </div>
+</m-action-button-container>

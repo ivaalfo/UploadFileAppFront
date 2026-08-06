@@ -1,0 +1,14 @@
+@import "~src/styles/base/index";
+
+.label {
+  padding-right: rem-calc(4);
+  color: $black;
+  font-family: $secondary-font;
+/*   text-overflow: ellipsis;
+  overflow: hidden; */
+  white-space: nowrap;
+
+  &::after {
+    content: ":";
+  }
+}

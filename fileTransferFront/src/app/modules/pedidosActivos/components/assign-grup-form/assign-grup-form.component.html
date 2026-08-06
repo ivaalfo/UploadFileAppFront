@@ -1,0 +1,39 @@
+<m-modal-form [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
+  [header]="header" 
+  [pedidoSelected]="pedidoSelected" 
+  [grupLista]="grupLista"
+  [canBeClosed]="!isLoading" 
+  (accepted)="accept()" (canceled)="canceled()">
+
+    <div *ngIf="showForm && grupForm" class="modal-form__wrapper">
+        
+        <!-- CONTENIDO (Solo se ve cuando termina de cargar) -->
+        <div [formGroup]="grupForm" class="modal-form__content">
+                
+            <!--TIP GRUPAJES-->
+            <div class="assign-grup-form__grupFormTip" >
+                {{ 'PEDIDOS_ACTIV.FORM.GRUPS.TIP' | translate }}
+            </div>
+                
+            <m-table class="page__content" [scroller$]="tableScroller$" [sortItems]="grupLista" [headers]="grupTableHeaders">
+                <!--Filas dinámicas -->
+                <m-row *ngFor="let item of grupLista; index as i; trackBy: trackGrupaje">
+                    <m-cell>{{ item.grupNum }}</m-cell>
+                    <m-cell>{{ item.expediente }}</m-cell>
+                    <m-cell>{{ item.refCarga }}</m-cell>
+                    <m-cell>
+                        <input *ngIf="grupForm.get('checkCMR_' + i)" type="checkbox" [formControlName]="'checkCMR_' + i">
+                    </m-cell>
+                    <m-cell>
+                        <input *ngIf="grupForm.get('checkFAC_' + i)" type="checkbox" [formControlName]="'checkFAC_' + i">
+                    </m-cell>
+                </m-row>
+            </m-table>
+            <!-- Mensaje de error específico -->
+            <div *ngIf="submitted && grupForm.hasError('required')" class="assign-grup-form__grupFormError" >
+                {{ 'PEDIDOS_ACTIV.FORM.GRUPS.FAIL' | translate }}
+            </div>
+        </div>
+    </div>
+
+</m-modal-form>

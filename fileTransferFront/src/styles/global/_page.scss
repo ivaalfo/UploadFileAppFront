@@ -1,0 +1,29 @@
+@import "~src/styles/base/index";
+
+.page {
+  $page: &;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-top: rem-calc(1) solid $white;
+  background: $light-blue;
+
+  &--list {
+    padding: 0 rem-calc(15);
+  }
+
+  &--detail {
+    > * {
+      padding: 0 rem-calc(40);
+    }
+  }
+
+  &__content {
+    flex: 1 0 0;
+
+    #{$page}--detail & {
+      background: $white;
+    }
+  }
+}

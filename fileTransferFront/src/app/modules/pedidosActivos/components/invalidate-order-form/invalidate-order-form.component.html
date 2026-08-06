@@ -1,0 +1,25 @@
+<m-modal-anota [opener$]="modalOpener$" icon="assets/images/icons/exclamation-red.png" 
+  [header]="header" [pedidoSelected]="pedidoSelected"
+  [canBeClosed]="!isLoading" 
+  [directANOT]="directo"
+  (accepted)="acceptInvalidate()" 
+  (deleted)="deleteInvalidate()"
+  (canceled)="cancelInvalidate()">
+  
+  
+  <div *ngIf="pedidoForm" [formGroup]="pedidoForm">
+  
+    <div class="form-group">
+      <label for="invalidate-input">{{ 'PEDIDOS_ACTIV.FORM.ANULAR.TEXT' | translate }}</label>
+    </div>
+    <div class="form-group">
+      <div class="form-group__field">
+        <input type="text" id="invalidate-input" name="invalidate-input" formControlName="invalidate" />
+        <div class="form-group__error">
+          <span *ngIf="error('invalidate')">{{ error('invalidate') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</m-modal-anota>

@@ -1,0 +1,41 @@
+@import "~src/styles/base/index";
+
+$gap: 12px;
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: $gap;
+  align-items: center;
+  height: rem-calc(42);
+
+  @include breakpoint("large") {
+    height: rem-calc(52);
+  }
+  @include breakpoint("xlarge") {
+    height: rem-calc(62);
+  }
+}
+
+.action-button-container {
+  &__content {
+    display: flex;
+
+    &--left {
+      justify-content: flex-start;
+    }
+    &--center {
+      justify-content: center;
+    }
+    &--right {
+      justify-content: flex-end;
+    }
+
+    ::ng-deep > * {
+      display: grid;
+      align-items: center;
+      grid-gap: $gap;
+      grid-auto-flow: column;
+    }
+  }
+}

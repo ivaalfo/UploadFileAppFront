@@ -1,0 +1,182 @@
+@import "~src/styles/base/index";
+
+$height: rem-calc(26);
+$clear-width: rem-calc(17);
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 5px;
+
+  label {
+    @extend .label;
+    display: inline-block;
+    width: rem-calc(100);
+    margin-right: rem-calc(40);
+    margin-top: 4px;
+  }
+
+  &__label {
+    margin-top: 4px;
+    &--wide {
+      margin-right: rem-calc(100)!important;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: none;
+    margin-right: rem-calc(20);
+
+    @include breakpoint("large") {
+      flex-direction: column;
+      flex: 1;
+    }
+    @include breakpoint("xlarge") {
+      flex-direction: column;
+      flex: 1;
+    }
+    flex: 1;
+    height: 100%;
+
+    > input,
+    > select,
+    > textarea {
+      padding-bottom: 0;
+      flex: 1;
+      width: 100%;
+      color: $secondary-color;
+      border: 0;
+      border-bottom: rem-calc(1) solid $primary-color;
+      font-family: $secondary-font;
+
+      &[ngxDaterangepickerMd] {
+        background: url("src/assets/images/icons/calendar.png") no-repeat 100% 50%;
+        padding-right: rem-calc(30);
+        cursor: pointer;
+      }
+
+      &[disabled] {
+        color: $grey;
+        background-color: $white;
+      }
+    }
+    > a {
+      > input {
+        background: transparent;
+        padding-bottom: 0;
+        flex: 1;
+        width: 100%;
+        color: $secondary-color;
+        border: 0;
+        border-bottom: rem-calc(1) solid $primary-color;
+        font-family: $secondary-font;
+      }
+    }
+
+    > textarea {
+      resize: vertical;
+    }
+
+    > select {
+      cursor: pointer;
+    }
+    &__label--show {
+      padding-right: 0.25rem;
+      color: #000000;
+      font-family: "Arial";
+      white-space: nowrap;
+      display: inline-block;
+      width: 6.25rem;
+      margin-right: 2.5rem;
+      margin-top: 4px;
+    }
+    &--flex {
+      display: flex;
+      flex-direction: row;
+      &--narrow {
+        padding-bottom: 0;
+        flex: 1;
+        color: $secondary-color;
+        border: 0;
+        border-bottom: rem-calc(1) solid $primary-color;
+        font-family: $secondary-font;
+        width: 150px !important;
+        margin-bottom: 15px;
+        margin-right: 5px;
+        &[disabled] {
+          color: $grey;
+          background-color: $white;
+        }
+        .form-group__field {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+      &--check {
+        margin-left: 0px;
+        box-sizing: border-box;
+        padding: 0;
+        margin-bottom: 15px;
+        margin-top: 6px;
+      }
+      &--username {
+        background: transparent;
+        padding-bottom: 0;
+        flex: 1;
+        width: 100%;
+        color: $secondary-color;
+        border: 0;
+        border-bottom: rem-calc(1) solid $primary-color;
+        font-family: $secondary-font;
+        &--disabled {
+          color: $grey;
+          background-color: $white;
+          padding-bottom: 0;
+          flex: 1;
+          border: 0;
+          border-bottom: rem-calc(1) solid $primary-color;
+          font-family: $secondary-font;
+        }
+      }
+      &--clicodpro {
+        padding-bottom: 0;
+        flex: 1;
+        color: $secondary-color;
+        border: 0;
+        border-bottom: rem-calc(1) solid $primary-color;
+        font-family: $secondary-font;
+        width: 150px !important;
+        margin-bottom: 15px;
+        margin-right: 5px;
+        &--disabled {
+          color: $grey;
+          background-color: $white;
+          padding-bottom: 0;
+          flex: 1;
+          border: 0;
+          border-bottom: rem-calc(1) solid $primary-color;
+          font-family: $secondary-font;
+          width: 150px !important;
+          margin-bottom: 15px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  &__error {
+    font-size: rem-calc(12);
+    height: rem-calc(18);
+    line-height: rem-calc(18);
+    color: $error-color;
+    &--short {
+      font-size: rem-calc(12);
+      height: rem-calc(18);
+      line-height: 33px;
+      color: $error-color;
+    }
+  }
+  
+}

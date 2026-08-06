@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../dist/fileTransfer/shared",
+  "lib": {
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "base-64": "base-64",
+      "crypto-js": "crypto-js",
+      "@ngx-translate/core": "@ngx-translate/core",
+      "@ngx-translate/http-loader": "@ngx-translate/http-loader"
+    }
+  },
+  "deleteDestPath": false
+}

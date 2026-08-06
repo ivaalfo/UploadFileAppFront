@@ -1,0 +1,12 @@
+<div class="userFilter">
+  <form class="userFilter__box">
+    <div class="userFilter__searcher">
+      <label class="userFilter__label" [for]="search">{{ 'FILTERS.USER_FILTER' | translate }}:</label>
+        <input id="userFilter-input" class="userFilter__input" placeholder="{{ 'FILTERS.TITLE_USER_FILTER' | translate }}" type="text" name="s" [(ngModel)]="search"/>
+          <div class="userFilter__buttons">
+            <button class="userFilter__filterButton" type="submit" (click)="submit()" [attr.title]="'FILTERS.FILTER' | translate"></button>
+            <button class="userFilter__clearButton" type="submit" (click)="clearClicked()" [attr.title]="'FILTERS.CLEAR_FILTER' | translate"></button>
+          </div>
+    </div>
+  </form>
+</div>

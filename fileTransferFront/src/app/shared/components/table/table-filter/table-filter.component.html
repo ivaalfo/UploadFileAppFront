@@ -1,0 +1,4 @@
+<label class="table-filter__label" [for]="name">{{ label | translate }}:</label>
+<ng-content></ng-content>
+<button class="table-filter__clear" [ngClass]="{'table-filter__clear--show': hasValue }" (click)="clearClicked()"
+  [attr.title]="'CLEAR_FILTER' | translate">⨉</button>

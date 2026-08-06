@@ -1,0 +1,19 @@
+<m-modal [opener$]="opener$" [canClose]="canBeClosed" [header]="header" (closed)="cancel()">
+  <form (ngSubmit)="submit()">
+    <div class="modal-form__wrapper">
+      <div class="modal-form__icon"><img src="{{ icon }}" /></div>
+      <div class="modal-form__content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="modal-form__buttons">
+      <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
+      <m-action-button *ngIf="canBeClosed" class="modal-form__button" icon="blue-check.png" [inverted]="true" [typeSubmit]="true">
+        {{ buttonText | translate }}
+      </m-action-button>
+      <m-action-button *ngIf="canBeClosed && !onlyConfirm" class="modal-form__button" icon="cross.png" (click)="cancel()">
+        {{ 'BUTTONS.CANCEL' | translate }}
+      </m-action-button>
+    </div>
+  </form>
+</m-modal>

@@ -1,0 +1,68 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  background: $white;
+  scroll-behavior: smooth;
+  font-family: $secondary-font;
+}
+
+.table {
+  width: 100%;
+  display: table;
+
+  .row--total {
+    background-color: rgba($color: #d40101, $alpha: 0.2);
+  }
+  &--show-row-border {
+    ::ng-deep {
+      .cell {
+        border-bottom: rem-calc(1) solid $primary-color;
+      }
+    }
+  }
+
+  &--sortable {
+    ::ng-deep {
+      .cell__highlight {
+        // in chrome, :hover & .sortable-ghost box shadow does not appear with original highlight color
+        background-color: rgba(darken($light-blue, 5%), 0.5);
+      }
+      .sortable-ghost {
+        box-shadow: rem-calc(0) rem-calc(6) rem-calc(11) rem-calc(0) rgba(0, 0, 0, 0.22),
+          0px -6px 11px rgba(0, 0, 0, 0.22);
+      }
+      .sortable-drag {
+        opacity: 0;
+      }
+    }
+  }
+
+  &--sortable:not(&--sorting) {
+    ::ng-deep {
+      .row {
+        transition: background-color 0.5s ease;
+      }
+      .row--hover {
+        box-shadow: rem-calc(0) rem-calc(2) rem-calc(6) rem-calc(0) rgba(0, 0, 0, 0.1), 0px -2px 6px rgba(0, 0, 0, 0.1);
+        cursor: grab;
+      }
+      .row--sorted {
+        background-color: #cbffd6;
+      }
+
+    }
+  }
+
+  &__header {
+    display: table-header-group;
+  }
+
+  &__body {
+    display: table-row-group;
+  }
+}

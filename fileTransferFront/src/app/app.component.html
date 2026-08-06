@@ -1,0 +1,15 @@
+<m-toaster-notification></m-toaster-notification>
+<m-global-spinner></m-global-spinner>
+<router-outlet></router-outlet>
+
+<m-modal-confirmation 
+  [header]="versionModalTitle" 
+  [onlyConfirm]="true" 
+  [buttonText] = "'BUTTONS.UPDATE' | translate"
+  icon="assets/images/icons/big-warning.png"
+  [opener$]="confirmModalOpener$" 
+  (accepted)="refresh()">
+
+  <div class="modal-form__content__changelog">{{ changeLogText }}</div>
+  
+</m-modal-confirmation>

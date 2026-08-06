@@ -1,0 +1,122 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: grid;
+  @include size(100%, 100%);
+  grid-template-rows: 30px 1fr 25px;
+  grid-column-gap: 0;
+
+  @include breakpoint("large") {
+    grid-template-rows: 40px 1fr 25px;
+  }
+  @include breakpoint("xlarge") {
+    grid-template-rows: 70px 1fr 44px;
+  }
+}
+
+.content-layout {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 rem-calc(30);
+    border-bottom: rem-calc(2) solid $primary-color;
+    max-width: rem-calc(1920);
+
+    @include breakpoint("medium") {
+      max-width: 100%;
+    }
+    @include breakpoint("large") {
+      max-width: 100%;
+    }
+    @include breakpoint("xlarge") {
+      max-width: 100%;
+    }
+
+  }
+
+  &__header-left-side {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &__header-search {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    left: rem-calc(275);
+
+    @include breakpoint("medium") {
+      left: rem-calc(150);
+    }
+    @include breakpoint("large") {
+      left: rem-calc(200);
+    }
+    @include breakpoint("xlarge") {
+      left: rem-calc(275);
+    }
+  }
+
+  &__header-right-side {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__body {
+    max-width: rem-calc(1920);
+
+    @include breakpoint("medium") {
+      max-width: 100%;
+    }
+    @include breakpoint("large") {
+      max-width: 100%;
+    }
+    @include breakpoint("xlarge") {
+      max-width: 100%;
+    }
+  }
+
+  &__footer {
+    background: $primary-color;
+    color: $white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 rem-calc(30);
+    max-width: rem-calc(1920);
+
+    @include breakpoint("medium") {
+      max-width: 100%;
+    }
+    @include breakpoint("large") {
+      max-width: 100%;
+    }
+    @include breakpoint("xlarge") {
+      max-width: 100%;
+    }
+  }
+
+  &__footer-left-side {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    & > * {
+      margin-right: rem-calc(10);
+    }
+  }
+
+  &__img {
+    @include size(rem-calc(94), rem-calc(27));
+
+    @include breakpoint("large") {
+      @include size(rem-calc(133), rem-calc(38));
+    }
+    @include breakpoint("xlarge") {
+      @include size(rem-calc(221), rem-calc(63));
+    }
+  }
+}

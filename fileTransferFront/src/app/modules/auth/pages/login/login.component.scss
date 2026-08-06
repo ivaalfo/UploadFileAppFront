@@ -1,0 +1,42 @@
+@import "~src/styles/base/index";
+
+:host {
+  width: 325px;
+  text-align: center;
+}
+
+.login {
+  &__title {
+    margin: 0 0 100px 0;
+    border-radius: 40px 0 40px 0;
+    line-height: 85px;
+    background-color: $white;
+    font-size: rem-calc(50);
+    color: $primary-color;
+    text-align: center;
+  }
+
+  &__button {
+    line-height: 62px;
+    margin-top: 60px;
+    width: 100%;
+    background: $secondary-color;
+    border-radius: 31px;
+    font-size: rem-calc(33);
+    color: $white;
+  }
+
+  &__error {
+    margin-top: 10px;
+    height: 30px;
+    color: $error-color;
+    text-align: center;
+  }
+
+  &__remember {
+    display: inline-block;
+    margin-top: 30px;
+    color: $white;
+    font-size: rem-calc(20px);
+  }
+}

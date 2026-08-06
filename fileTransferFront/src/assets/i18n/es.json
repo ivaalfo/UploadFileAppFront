@@ -1,0 +1,433 @@
+{
+  "HEADER_TITLE": " DFC",
+  "FOOTER_COMPANY": " DFC - Martico S.L.",
+  "FOOTER_COPYRIGHT": "&copy; Copyright 2025",
+  "LOGIN_TITLE": "Login",
+  "LOGIN_BUTTON": "Acceder",
+  "LOGIN_USERNAME": "Usuario",
+  "LOGIN_PASSWORD": "Contraseña",
+  "LOGIN_REMEMBER": "Recuérdame",
+  "LOGIN_EXPIRED": "Tu sesión ha expirado",
+  "LOGIN_LOGOUT": "Salir",
+  "LOGOUT_SUCCESS": "Cierre de sesión exitoso!",
+  
+  "FORM_ERROR": {
+    "required": "(!) Campo requerido.",
+    "maxlength": "(!) Superado tamaño máximo.",
+    "email": "(!) Formato email erróneo.",
+    "pattern": "(!) Caracteres no válidos."
+  },
+
+  "FILE_UPLOAD": {
+    "TITLE": "Digitalización de Facturas y CMR",
+    "SUCCES": {
+      "FILE_SAVED": "Fichero cargado con éxito.",
+      "FILES_SAVED": "Fichero/s cargado/s con éxito: {{refped}}",
+      "CMR_SAVED": "CMR actualizado: {{cmrName}}",
+      "FAC_SAVED": "Factura actualizada: {{facName}}",
+      "OTR_SAVED": "Otros documentos añadidos con éxito."
+    },
+    "ERROR": {
+      "FILE_ERROR": "Error subiendo fichero/s: {{refped}}",
+      "FILE_NOT_SAVED": "{{name}} : Fichero no guardado.",
+      "CMR_SIZE_ERROR": "El archivo CMR que se está cargando es demasiado grande. El tamaño máximo permitido es: {{maxSize}} MB.",
+      "FAC_SIZE_ERROR": "La Factura que se está cargando es demasiado grande. El tamaño máximo permitido es: {{maxSize}} MB.",
+      "OTR_SIZE_ERROR": "El documento que se está cargando es demasiado grande. El tamaño máximo permitido es: {{maxSize}} MB.",
+      "TOTAL_SIZE_ERROR": "Los documentos que se están cargando superan el total de tamaño máximo permitido, que es: {{maxSize}} MB.",
+      "CMR_VALIDATE_ERROR": "CMR ya validado: {{rCarga}}",
+      "CMR_VALIDATING_ERROR": "El CMR está siendo validado: {{rCarga}}",
+      "FAC_VALIDATE_ERROR": "Factura ya validada: {{refped}}",
+      "FAC_VALIDATING_ERROR": "La Factura está siendo validada: {{refped}}",
+      "NO_FILE_SELECTED": "Ningún fichero seleccionado.",
+      "CMR_TYPE_ERROR": "Formato de CMR no aceptado.",
+      "FAC_TYPE_ERROR": "Formato de Factura no aceptado.",
+      "OTR_TYPE_ERROR": "Formato de fichero no aceptado.",
+      "CMR_LENGTH_ERROR": "Nombre de CMR excede el TAMAÑO permitido.",
+      "FAC_LENGTH_ERROR": "Nombre de Factura excede el TAMAÑO permitido.",
+      "OTR_LENGTH_ERROR": "Nombre de fichero Otros excede el TAMAÑO permitido.",
+      "CMR_CHARS_ERROR": "El nombre del CMR contiene CARACTERES no permitidos.",
+      "FAC_CHARS_ERROR": "El nombre de la Factura contiene CARACTERES no permitidos.",
+      "OTR_CHARS_ERROR": "El nombre de un fichero 'Otros' contiene CARACTERES no permitidos."
+    }
+  },
+
+  "PEDIDOS_ACTIV": {
+    "MENU": "Pedidos Activos",
+    "TITLE": "Pedidos Activos",
+    "CMR_LABEL": "CMR",
+    "FAC_LABEL": "Factura",
+    "OTR_LABEL": "Otros",
+    "ACTION": {
+      "ENVIAR": "Enviar",
+      "CONFIRMAR": "Confirmar"
+    },
+    "TABLE": {
+      "USUPROV": "Prov.User",
+      "TR": "TR",
+      "EXPEDIENTE": "Expediente",
+      "F_CARGA": "F.Carga",
+      "REF_CARGA": "Ref.Carga",
+      "F_DESCARGA": "F.Descarga",
+      "R_DESCARGA": "Ref.Descarga",
+      "ORIGEN": "Origen",
+      "DESTINO": "Destino",
+      "PALETS": "Palets",
+      "CAMION": "Camion",
+      "REMOLQUE": "Remolque",
+      "CMR": "CMR",
+      "FAC": "FAC",
+      "OTHER": "OTROS",
+      "FILES": "CMR / FAC / OTR",
+      "NORESULTS2SHOW": "No hay pedidos activos con esos criterios de búsqueda."
+    },
+    "TEXT": {
+      "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}",
+      "SETFREAL": "Debe establecer una Fecha Real de Entrega para poder subir documentación."
+    },
+    "BUTTONS": {
+      "FECREAL": "F.Entrega",
+      "ANULAR": "Deshabilitar pedido",
+      "GRUPS": "Combinación Documentos",
+      "VIEW_DOCS": "Ver Documentación"
+    },
+    "EXCEL": {
+      "EST_CMR": "Estado CMR",
+      "EST_FAC": "Estado FAC",
+      "F_ENT_REAL": "Fecha Entrega Real",
+      "ANOTA": "Anotaciones"
+    },
+    "FORM": {
+      "FECREAL": {
+        "TITLE": "{{refped}} : Establecer Fecha Real de Entrega",
+        "FECREAL": "Fecha de Entrega: ",
+        "SUCCES": {
+          "UPDATE_FREAL": "Fecha Real de Entrega actualizada para: {{refped}}"
+        },
+        "ERROR": {
+          "DATE_LIMIT_ERROR": "La Fecha de Entrega no puede ser anterior a la Fecha de Carga.",
+          "UPDATE_FREAL": "Error actualizando la Fecha Real de Entrega para: {{refped}}"
+        }
+      },
+      "GRUPS": {
+        "TITLE": "{{refped}} : Establecer las combinaciones de documentación",
+        "GRUTR": "Pedido",
+        "EXP": "Expediente",
+        "RCARGA": "Ref.Carga",
+        "CMR": "CMR",
+        "FAC": "FAC",
+        "TIP": "Seleccione los pedidos en los que procede subir documentación. Las casillas no seleccionadas no se activarán y se entiende que 'no aplica' la subida de documentación. Una vez que se ha enviado algún documento no se podrá cambiar la combinación de los mismos.",
+        "FAIL": "ERROR: Se debe seleccionar como mínimo un CMR para adjuntar.",
+        "SUCCES": {
+          "UPDATE_GRUP": "Opciones de Grupaje guardadas para: {{refped}}"
+        },
+        "ERROR": {
+          "UPDATE_GRUP": "Error actualizando las Opciones de Grupaje para: {{refped}}"
+        }
+      },
+      "ANULAR": {
+        "TITLE": "Deshabilitar pedido. TR: {{refped}}",
+        "TEXT": "Indica el motivo de la anulación",
+        "NO_POSIBLE": "No es posible deshabilitar este pedido. TR: {{refped}}",
+        "ERROR": "ERROR. No se ha podido deshabilitar el pedido con TR: {{refped}}",
+        "DELETE_ERROR": "ERROR. No se ha podido actualizar el pedido con TR: {{refped}}",
+        "SUCCES": "Pedido deshabilitado. TR: {{refped}}",
+        "SUCCES_GRUP": "Grulog deshabilitado. TR: {{gruptr}}",
+        "DELETE_SUCCES": "Pedido actualizado: {{refped}}",
+        "DELETE_SUCCES_GRUP": "Grulog actualizado: {{gruptr}}"
+      },
+      "FILENAME": "{{filename}}",
+      "BUTTONS": {
+        "DOWNLOAD_CMR": "Descargar CMR",
+        "DOWNLOAD_FAC": "Descargar Factura",
+        "EXIT": "Salir"
+      },
+      "SUCCES": {
+        "CMR_DOWNLOADED": "CMR descargado: {{refped}}",
+        "FAC_DOWNLOADED": "Factura descargada: {{refped}}"
+      },
+      "MESSAGES": {
+        "NO_FAC_AVAILABLE": "Factura no disponible.",
+        "MODAL_MESSAGE": "{{modalMessage}}"
+      }
+    }
+  },
+
+  "VALIDADOR": {
+    "MENU": "Validar CMR",
+    "TITLE": "Validar CMR",
+    "TABLE": {
+      "PROVEEDOR": "Prov.Cod.",
+      "USUPROV": "Prov.User",
+      "TR": "TR",
+      "EXPEDIENTE": "Expediente",
+      "F_CARGA": "F.Carga",
+      "REF_CARGA": "Ref.Carga",
+      "F_DESCARGA": "F.Descarga",
+      "R_DESCARGA": "Ref.Descarga",
+      "ORIGEN": "Origen",
+      "DESTINO": "Destino",
+      "PALETS": "Palets",
+      "CAMION": "Camion",
+      "REMOLQUE": "Remolque",
+      "F_SUBIDA_CMR": "Fecha CMR",
+      "ANOTACIONES": "",
+      "NOT4VALIDATE": "No hay ningún CMR pendiente de validación con esos criterios de búsqueda."
+    },
+    "TEXT": {
+      "NO_APLICA": "Sin CMR. No aplica validación.",
+      "YA_VALIDADO": "CMR ya validado."
+    },
+    "BUTTONS": {
+      "ANOT_CMR": "Anotaciones",
+      "REJECT_CMR": "Rechazar CMR",
+      "VALIDATE_CMR": "Ver CMR"
+    },
+    "FORM": {
+      "FILENAME": "{{filename}}",
+      "BUTTONS": {
+        "VALIDATE_CMR": "Validar CMR",
+        "REJECT_CMR": "Rechazar CMR",
+        "ANOT_CMR": "Anotaciones",
+        "REJECT_FAC": "Rechazar FAC",
+        "EXIT_CMR": "Salir"
+      },
+      "SUCCES": {
+        "CMR_VALIDATED": "CMR validado: {{refped}}",
+        "CMR_REJECTED": "CMR rechazado: {{refped}}",
+        "FAC_REJECTED": "FAC rechazada: {{refped}}",
+        "PEDIDO_UPDATE": "Anotaciones actualizadas: {{refped}}"
+      },
+      "ERROR": {
+        "CMR_VALIDATION_ERROR": "CMR no validado: {{refped}}",
+        "CMR_REJECTION_ERROR": "Error rechazando CMR: {{refped}}",
+        "FAC_REJECTION_ERROR": "Error rechazando FAC: {{refped}}",
+        "CMR_ANOTATION_ERROR": "CMR no actualizado: {{refped}}",
+        "CMR_ANOTA_ERROR": "Acción no disponible",
+        "CMR_DELETE_ERROR": "El CMR no tiene anotaciones que borrar"
+      },
+      "ACTIONS": {
+        "REJECT": {
+          "CMR_TITLE": "Rechazar CMR: {{refped}}",
+          "FAC_TITLE": "Rechazar FAC: {{refped}}",
+          "MOTREC": "Indique el motivo del rechazo"
+        },
+        "ANOTATION": {
+          "TITLE": "Anotaciones TR: {{refped}}",
+          "ANOT": "Establecer anotaciones"
+        }
+      },
+      "MESSAGES": {
+        "NO_FAC_AVAILABLE": "Factura no disponible."
+      }
+    }
+  },
+
+  "PEDIDOS_HIST": {
+    "MENU": "Histórico de Pedidos",
+    "TITLE": "Histórico de Pedidos",
+    "TABLE": {
+      "FILES": "CMR / FAC / OTR",
+      "USUPROV": "Prov.",
+      "TR": "TR",
+      "EXPEDIENTE": "Expediente",
+      "F_CARGA": "F.Carga",
+      "REF_CARGA": "Ref.Carga",
+      "F_DESCARGA": "F.Descarga",
+      "R_DESCARGA": "Ref.Descarga",
+      "ORIGEN": "Origen",
+      "DESTINO": "Destino",
+      "PALETS": "Palets",
+      "CAMION": "Camion",
+      "REMOLQUE": "Remolque",
+      "CMR": "CMR",
+      "FAC": "FAC",
+      "OTHER": "OTROS",
+      "ANOTACIONES": "",
+      "F_SUB_CMR": "F.CMR",
+      "F_SUB_FAC": "F.FAC",
+      "NORESULTS2SHOW": "No existe histórico de pedidos con esos criterios de búsqueda."
+    },
+    "TEXT": {
+      "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}"
+    },
+    "EXCEL": {
+      "EST_CMR": "Estado CMR",
+      "EST_FAC": "Estado FAC",
+      "NUM_FAC": "Nº Factura",
+      "F_SUBIDA_CMR": "F.Subida CMR",
+      "F_SUBIDA_FAC": "F.Subida FAC",
+      "F_ENT_REAL": "Fecha Entrega Real",
+      "ANOTA": "Anotaciones"
+    },
+    "BUTTONS": {
+      "VIEW_DOCS": "Ver Documentación",
+      "ANOT_CMR": "Anotaciones",
+      "REACTIVAR": "Reactivar pedido",
+      "DOWNLOAD_CMR": "Descargar CMR",
+      "DOWNLOAD_FAC": "Descargar Factura",
+      "DOWNLOAD_OTR": "Descargar Otros"
+    },
+    "FORM": {
+      "FILENAME": "{{filename}}",
+      "BUTTONS": {
+        "DOWNLOAD_CMR": "Descargar CMR",
+        "DOWNLOAD_FAC": "Descargar Factura",
+        "EXIT": "Salir"
+      },
+      "ERROR": {
+        "CMR_ANOTATION_ERROR": "CMR no actualizado: {{refped}}",
+        "CMR_ANOTA_ERROR": "Acción no disponible",
+        "CMR_DELETE_ERROR": "El CMR no tiene anotaciones que borrar"
+      },
+      "SUCCES": {
+        "CMR_DOWNLOADED": "CMR descargado: {{refped}}",
+        "FAC_DOWNLOADED": "Factura descargada: {{refped}}",
+        "OTR_DOWNLOADED": "Archivos descargados: {{refped}}",
+        "PEDIDO_UPDATE": "Anotaciones actualizadas: {{refped}}"
+      },
+      "ACTIONS": {
+        "ANOTATION": {
+          "TITLE": "Anotaciones TR: {{refped}}",
+          "ANOT": "Establecer anotaciones"
+        }
+      },
+      "MESSAGES": {
+        "NO_FAC_AVAILABLE": "Factura no disponible."
+      }
+    },
+    "ACTIONS": {
+      "REACTIVAR": {
+        "TITLE": "Reactivación de pedido. TR: {{refped}}",
+        "TEXT": " Se reactivará el pedido con TR: {{refped}} y EXP: {{exp}}",
+        "TEXT_GRUP": " Se reactivará todo el grulog con TR: {{gruptr}}",
+        "SUCCES": "Pedido reactivado. TR: {{refped}}",
+        "SUCCES_GRUP":"Grulog reactivado. TR: {{gruptr}}",
+        "ERROR": "Error Reactivando pedido. TR: {{refped}}"
+      }
+    }
+  },
+
+  "MAINTENANCES": {
+    "MENU": "Mantenimientos",
+    "USUARIOS": "Mantenimiento Usuarios",
+    "USERS": {
+      "TITLE": "Mantenimiento de Usuarios",
+      "ADD": "Añadir usuario",
+      "DOWNLOAD_MAN_ES": "Manual de usuario",
+      "DOWNLOAD_MAN_EN": "User guide",
+      "SUCCES_MAN_DOWNLOADED": "Manual descargado",
+      "TABLE": {
+        "CLINOM": "Nombre",
+        "CLIDIR": "Dirección",
+        "CLICIF": "CIF",
+        "W2USUARIO": "Usuario",
+        "W2EMAIL": "Email",
+        "W3TIPO": "Tipo",
+        "ACTIONS": "Acciones"
+      },
+      "FORM": {
+        "W2USUARIO": "Usuario",
+        "W2EMAIL": "Email",
+        "W2CONTRAS": "Contraseña",
+        "PASSWORD_EDIT": "Editar contraseña",
+        "CLICODPRO": "COD. Proveedor",
+        "PROFILE": "Perfil",
+        "SEL_PROFILE": "Seleccione un perfil",
+        "SUCCES": {
+          "USER_SAVED": "Usuario guardado correctamente.",
+          "USER_REACTIVATED": "Usuario reactivado correctamente.",
+          "USER_DELETED": "Usuario dado de baja correctamente."
+        },
+        "ERROR": {
+          "USER_NOT_SAVED": "Error. Usuario no guardado.",
+          "USER_NOT_MODIFIED": "Error. Usuario no modificado."
+        }
+      }
+    },
+    "ACTIONS": {
+      "DELETE": {
+        "TITLE": "Eliminación de {{model}}",
+        "TEXT": "¿Seguro que desea borrar el {{model}}: {{id}}?"
+      },
+      "REACTIVATE": {
+        "TITLE": "Reactivación de {{model}}",
+        "TEXT": "¿Seguro que desea reactivar el {{model}}: {{id}}?"
+      }
+    }
+  },
+  
+  "FILTERS": {
+    "FILTER": "Filtrar",
+    "CLEAR_FILTER": "Limpiar filtro",
+    "MIN_CHARS": "Introduce un mínimo de 3 carácteres para filtrar.",
+    "EXP_FILTER": "Exp.",
+    "TITLE_EXP_FILTER": "Código expediente",
+    "USER_FILTER": "Prov.",
+    "TITLE_USER_FILTER": "Usuario proveedor",
+    "FAC_FILTER": "Factura",
+    "TITLE_FAC_FILTER": "Número factura",
+    "TR_FILTER": "TR",
+    "TITLE_TR_FILTER": "Referencia pedido",
+    "RCARGA_FILTER": "R.Carga",
+    "TITLE_RCARGA_FILTER": "Referencia carga"
+  },
+  
+  "BUTTONS": {
+    "CONFIRM": "Confirmar",
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar",
+    "REFRESH": "Renovar",
+    "UPDATE": "Actualizar App",
+    "EXCEL": "Excel",
+    "DELETE_NOTE": "Borrar Nota"
+  },
+
+  "ERROR": {
+    "API_ERROR": "Error obteniendo datos. Contacte con su administrador.",
+    "API_LOCK_ERROR": "Error en los bloqueos. Contacte con su administrador.",
+    "DUPLICATED_KEY": "Error. Clave duplicada.",
+    "DATA_NOT_SAVED": "Error. Datos no guardados.",
+    "DOWNLOAD_FILE_ERROR": "Error descargando o mostrando el archivo.",
+    "DOWNLOAD_SIGN_ERROR": "Error descargando o mostrando la firma."
+  },
+
+  "MESSAGES": {
+    "LOCKED_BY": "Bloqueado por el usuario: {{user}}"
+  },
+
+  "ACTION": {
+    "UNLOCK": {
+      "TITLE": "Desbloqueo de {{model}}",
+      "TEXT": "Tiempo de inactividad excedido.\n El pedido con TR: {{id}} ha sido desbloqueado."
+    }
+  },
+
+  "EXCEL": {
+    "PACTIV_FNAME": "PedidosActivos.xlsx", 
+    "PACTIV_TITLE": "Pedidos Activos",
+    "PHIST_FNAME": "HistóricoDePedidos.xlsx",
+    "PHIST_TITLE": "Histórico de Pedidos",
+    "HOJA_EXCEL": "Hoja 1",
+    "FECHA_EXCEL": "Fecha : "
+  },
+
+  "CONTROL_VERSION": {
+    "TITLE": "Nueva versión disponible v{{version}}",
+    "CONTENT": "Notas de la versión :: {{fecha}} : \n{{cambios}}"
+  },
+
+  "DATA_NOT_FOUND": "No hay resultados",
+
+
+  "NOT_USED":"----------DESDE AQUI NO SE USAN DE MOMENTO--------------",
+
+  "USER_VALIDATING": "El usuario: {{user}}, está validando este CMR",
+  "DATA_SAVED": "Datos guardados correctamente.",
+  "DATA_REACTIVATED": "Datos reactivados correctamente.",
+  "DATA_DELETED": "Datos dados de baja correctamente.",
+  "ARTICLE_CONTAINER_NOT_FOUND": "No hay artículo/contenedor para esa busqueda",
+  "SEARCH": "Búsqueda",
+  "SEARCH_ACTION": "Buscar",
+  "FROM_TO": "Desde - Hasta"
+
+}

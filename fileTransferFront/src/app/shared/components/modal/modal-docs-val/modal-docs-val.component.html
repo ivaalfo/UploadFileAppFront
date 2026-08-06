@@ -1,0 +1,42 @@
+<m-modal [opener$]="opener$" 
+  [canClose]="canBeClosed" 
+  [header]="header" 
+  [data]="data" 
+  (closed)="cancel()">
+  
+  <form (ngSubmit)="validate()">
+    <div class="modal-docs-val__wrapper">
+      <div class="modal-docs-val__icon">
+        <img src="{{ icon }}" />
+      </div>
+      <div class="modal-docs-val__content">
+        <ng-content select="[cmr]"></ng-content>
+      </div>
+      <div class="modal-docs-val__content">
+        <ng-content select="[fac]"></ng-content>
+      </div>
+    </div>
+
+    <div *ngIf="!isUserExter && pedidoSelected.anotaciones==1 && pedidoSelected.hasCMR!==3 && pedidoSelected.hasFAC!==3" class="modal-docs-val__anota-mesagge">{{ pedidoSelected.motivoRechazo | translate }}</div>
+    <div *ngIf="pedidoSelected.hasCMR==3 && pedidoSelected.hasFAC!=3" class="modal-docs-val__reject-mesagge">{{ pedidoSelected.motivoRechazo | translate }}</div>
+    <div *ngIf="pedidoSelected.hasCMR!=3 && pedidoSelected.hasFAC==3" class="modal-docs-val__reject-mesagge">{{ pedidoSelected.motivoRechazo | translate }}</div>
+    <div *ngIf="pedidoSelected.hasCMR==3 && pedidoSelected.hasFAC==3" class="modal-docs-val__reject-mesagge">{{ pedidoSelected.motivoRechazo | translate }}</div>
+    
+    <div class="modal-docs-val__buttons">
+      <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
+      <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || pedidoSelected.hasCMR===2" class="modal-docs-val__button" id="checkCMRbutton" icon="blue-check.png" [inverted]="true" [typeSubmit]="true"> 
+        {{ 'VALIDADOR.FORM.BUTTONS.VALIDATE_CMR' | translate }}</m-action-button>
+      <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || pedidoSelected.hasCMR===2" class="modal-docs-val__button" icon="cross-blue.png" [inverted]="true" (click)="rejectCMR()">   
+        {{ 'VALIDADOR.FORM.BUTTONS.REJECT_CMR' | translate }}</m-action-button>
+      <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta" class="modal-docs-val__button" icon="edit-white.png" (click)="anotCMR()">   
+        {{ 'VALIDADOR.FORM.BUTTONS.ANOT_CMR' | translate }}</m-action-button>
+      <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || pedidoSelected.hasFAC!==1" class="modal-docs-val__button" icon="cross-red.png" [inverted]="true" (click)="rejectFAC()">
+        {{ 'VALIDADOR.FORM.BUTTONS.REJECT_FAC' | translate }}
+      </m-action-button>
+      <m-action-button *ngIf="canBeClosed" class="modal-docs-val__button" icon="cross.png" (click)="cancel()">
+        {{ 'VALIDADOR.FORM.BUTTONS.EXIT_CMR' | translate }}</m-action-button>
+
+    </div>
+  </form>
+
+</m-modal>

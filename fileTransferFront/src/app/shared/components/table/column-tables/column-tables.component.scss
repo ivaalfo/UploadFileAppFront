@@ -1,0 +1,54 @@
+@import "~src/styles/base/index";
+
+@mixin grid-auto-columns-for-breakpoint($breakpoint) {
+  $columns: get-container-columns($breakpoint);
+  @include grid-auto-columns-with-cols($columns);
+}
+
+@mixin grid-auto-columns-with-cols($columns) {
+  $sizeToSubstractInEachColumnBecauseOfGaps: $container-column-gap * ($columns - 1) / $columns;
+  grid-auto-columns: calc(100% / #{$columns} - #{$sizeToSubstractInEachColumnBecauseOfGaps});
+}
+
+:host {
+  ::ng-deep {
+    m-table-horizontal-scroll {
+      overflow-y: hidden;
+
+      .cell {
+        min-height: var(--row-height);
+      }
+    }
+  }
+}
+
+.column-tables {
+  &__container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    grid-column-gap: $container-column-gap;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    grid-template-columns: repeat(var(--num-tables), var(--percent));
+
+    @include breakpoint("medium") {
+      @include grid-auto-columns-for-breakpoint("medium");
+    }
+
+    @include breakpoint("large") {
+      @include grid-auto-columns-for-breakpoint("large");
+    }
+
+    @include breakpoint("xlarge") {
+      @include grid-auto-columns-for-breakpoint("xlarge");
+    }
+
+    &--3-cols {
+      @include breakpoint("xlarge") {
+        @include grid-auto-columns-with-cols(5);
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@import "~src/styles/base/index";
+
+:host {
+  border-bottom: 1px solid $primary-color;
+}
+
+.detail-box {
+  &__header {
+    display: flex;
+    align-items: center;
+    height: rem-calc(36);
+    padding: 0 10px;
+    color: $white;
+    background-color: $primary-color;
+    font-family: $secondary-font;
+    font-weight: bold;
+    text-transform: uppercase;
+    height: rem-calc(36);
+    @include breakpoint("medium") {
+      height: rem-calc(26);
+    }
+    @include breakpoint("large") {
+      height: rem-calc(36);
+    }
+  }
+
+  &__icon {
+    height: rem-calc(23);
+    margin-right: 10px;
+  }
+
+  &__content {
+    padding: 10px 0;
+  }
+}

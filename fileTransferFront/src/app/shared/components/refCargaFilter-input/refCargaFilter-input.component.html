@@ -1,0 +1,12 @@
+<div class="refCargaFilter">
+  <form class="refCargaFilter__box">
+    <div class="refCargaFilter__searcher">
+      <label class="refCargaFilter__label" [for]="search">{{ 'FILTERS.RCARGA_FILTER' | translate }}:</label>
+        <input id="refCargaFilter-input" class="refCargaFilter__input" placeholder="{{ 'FILTERS.TITLE_RCARGA_FILTER' | translate }}" type="text" name="s" [(ngModel)]="search"/>
+          <div class="refCargaFilter__buttons">
+            <button class="refCargaFilter__filterButton" type="submit" (click)="submit()" [attr.title]="'FILTERS.FILTER' | translate"></button>
+            <button class="refCargaFilter__clearButton" type="submit" (click)="clearClicked()" [attr.title]="'FILTERS.CLEAR_FILTER' | translate"></button>
+          </div>
+    </div>
+  </form>
+</div>

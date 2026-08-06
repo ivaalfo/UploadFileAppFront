@@ -1,0 +1,58 @@
+<div class="home__search">
+  <form class="home__box">
+    <label for="home-search" class="home__label">{{ 'FILE_UPLOAD.TITLE' | translate }}</label>
+    <div class="home__searcher">
+      
+      <!--<input disabled (change)="onFileSelected($event)" class="home__fileinput" enctype="multipart/form-data" id="fileInput" multiple="multiple" type="file">-->
+      <!--<button [disabled]="true"  class="home__filebutton" icon="add.png" type="submit" (click)="submit()">{{'FILE_UPLOAD.ACTION.BOTON_SUBIR' | translate}}</button>-->
+
+    </div>
+  </form>
+</div>
+<nav class="home__nav">
+  <ul class="home__links">
+    <li *ngIf="canViewPedidosActivos">
+      <a [routerLink]="['pedidosActivos']" class="home__link home__link--activos">
+        <span [innerHTML]="'PEDIDOS_ACTIV.MENU' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>
+    <li *ngIf="canViewPedidosValidador">
+      <a [routerLink]="['pedidosValidador']" class="home__link home__link--validador">
+        <span [innerHTML]="'VALIDADOR.MENU' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>
+    <li *ngIf="canViewPedidosHistorico">
+      <a [routerLink]="['pedidosHistorico']" class="home__link home__link--historico">
+        <span [innerHTML]="'PEDIDOS_HIST.MENU' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>
+    <!--<li>
+      <a [routerLink]="['transport']" class="home__link home__link--transport">
+        <span [innerHTML]="'TRANSPORT_PLANIFICATION' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['returns']" class="home__link home__link--returns">
+        <span [innerHTML]="'CONTAINER_RETURN' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>-->
+    <!--<li *ngIf="canViewMaintenance">
+      <a [routerLink]="['maintenance']" class="home__link home__link--maintenance">
+        <span [innerHTML]="'MAINTENANCES.MENU' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>
+    <li>-->
+    <li *ngIf="canViewMaintenanceUsers">
+      <a [routerLink]="['users']" class="home__link home__link--maintenance">
+        <span [innerHTML]="'MAINTENANCES.USUARIOS' | translate | homeLinkLastWord "></span>
+      </a>
+    </li>
+    <!--<li>
+      <a [routerLink]="['maintenance/users']" class="home__link home__link--maintenance">
+        <span [innerHTML]="'MAINTENANCES.USUARIOS' | translate | homeLinkLastWord"></span>
+      </a>
+    </li>-->
+  </ul>
+</nav>
+<!--<m-article-by-arrivals [opener$]="articleByArrivalModalOpener$" header="SEARCH.ARTICLE" [articles]="articles"></m-article-by-arrivals>
+<m-list-containers [opener$]="containerListModalOpener$" header="SEARCH.CONTAINER" [containers]="containers"></m-list-containers>-->

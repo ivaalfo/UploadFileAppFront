@@ -1,0 +1,55 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: flex;
+}
+
+.modal-form {
+  &__wrapper {
+    padding: 0 15px 15px 15px;
+    display: flex;
+    align-items: flex-start;
+  }
+  &__content {
+    width: auto !important;     /* Permite que crezca */
+    min-width: 450px;           /* Evita que sea muy estrecha */
+    max-width: 655px;           /* Evita que sea gigante */
+    height: auto !important;
+    max-height: 60vh;           /* Si es muy largo, pone scroll */
+    overflow-y: auto;
+
+    border-left: 2px solid $primary-color;
+    margin-left: 15px;
+    
+    font-size: 15px;
+    line-height: 1.4;
+    white-space: pre-wrap;    /* Respeta saltos de línea (\n) del JSON */
+  }
+
+  &__buttons {
+    background: $light-blue;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    display: flex;
+    height: 62px;
+  }
+
+  &__button {
+    margin: 0 10px;
+  }
+}
+
+:host ::ng-deep {
+  .modal-form__content__changelog {
+    padding: 0 20px 0 20px;     /* Espacio para el scroll */
+    white-space: pre-wrap;    /* Respeta saltos de línea (\n) del JSON */
+    tab-size: 2;                /* Para las tabulaciones (\t) del JSON */
+    -moz-tab-size: 2;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.4;
+    word-break: break-word;
+    text-indent: -0.8em;
+  }
+}

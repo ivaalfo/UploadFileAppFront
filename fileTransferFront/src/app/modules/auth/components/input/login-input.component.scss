@@ -1,0 +1,49 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: block;
+  position: relative;
+  height: 90px;
+  width: 100%;
+}
+
+.login-input {
+  &__input {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 3px solid $white;
+    color: $white;
+    font-size: rem-calc(25);
+    text-align: center;
+    line-height: 60px;
+    height: 60px;
+    padding-left: 40px;
+    background-repeat: no-repeat;
+    background-position: left center;
+
+    &::placeholder {
+      color: $cyan;
+      opacity: 1; /* Firefox */
+    }
+
+    &--key {
+      background-image: url("src/assets/images/icons/key.png");
+    }
+
+    &--user {
+      background-image: url("src/assets/images/icons/user.png");
+    }
+
+    &--error {
+      border-bottom: 3px solid $error-color;
+    }
+  }
+
+  &__error {
+    color: $error-color;
+    padding-top: 3px;
+  }
+}

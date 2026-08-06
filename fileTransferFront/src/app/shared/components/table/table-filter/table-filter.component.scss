@@ -1,0 +1,142 @@
+@import "~src/styles/base/index";
+
+$height: 26px;
+$clear-width: 17px;
+
+:host {
+  display: flex;
+  margin-left: 50px;
+  align-items: center;
+  position: relative;
+
+  ::ng-deep {
+    input:not([type="checkbox"]),
+    select {
+      border: 0;
+      border-bottom: 2px solid $primary-color;
+      width: 210px;
+      text-align: center;
+      padding-left: 25px;
+      line-height: $height;
+      height: $height;
+      text-align-last: center;
+      font-weight: 500;
+    }
+
+    select:invalid {
+      color: $grey;
+    }
+
+    option {
+      text-align: center;
+
+      &[value=""] {
+        color: $grey;
+      }
+    }
+
+    ::placeholder {
+      font-weight: 500;
+      color: $grey;
+    }
+
+    .multiselect {
+      position: static; // disable original position relative in order to positionate popup relative with clear button
+    }
+
+    .multiselect__popup,
+    .md-drppicker {
+      right: $clear-width !important; //override library styles
+      left: auto !important;
+      top: $height + 4px !important;
+    }
+
+    .md-drppicker {
+      margin: 0 !important; //override library styles
+      transition: all 0.2s !important;
+      transform: none !important;
+      width: 0;
+
+      &.hidden {
+        opacity: 0;
+        visibility: visible;
+        pointer-events: none;
+        width: 0;
+
+        .calendar {
+          display: initial;
+        }
+      }
+
+      &.shown {
+        width: 100%;
+        opacity: 1;
+
+        .calendar {
+          float: none;
+          max-width: none;
+          padding: 0;
+
+          .calendar-table {
+            padding: 0 !important; //override library styles
+          }
+        }
+      }
+    }
+  }
+
+  &.table-filter__has-icon {
+    &.table-filter__has-icon--calendar ::ng-deep {
+      input,
+      select {
+        background: url("src/assets/images/icons/calendar.png") no-repeat 0% 50%;
+        cursor: pointer;
+      }
+    }
+
+    &.table-filter__has-icon--store ::ng-deep {
+      input,
+      select {
+        background: url("src/assets/images/icons/blue-check.png") no-repeat 0% 50%;
+        cursor: pointer;
+      }
+    }
+
+    &.table-filter__has-icon--shipper ::ng-deep {
+      input,
+      select {
+        background: url("src/assets/images/icons/blue-check.png") no-repeat 0% 50%;
+        cursor: pointer;
+      }
+    }
+
+    &.table-filter__has-icon--storePoint ::ng-deep {
+      input,
+      select {
+        background: url("src/assets/images/icons/blue-check.png") no-repeat 0% 50%;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.table-filter {
+  &__label {
+    color: $primary-color;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+
+  &__clear {
+    width: $clear-width;
+    padding: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+
+    &--show {
+      opacity: 1;
+      pointer-events: initial;
+    }
+  }
+}

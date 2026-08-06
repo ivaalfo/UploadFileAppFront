@@ -1,0 +1,130 @@
+@import "~src/styles/base/index";
+
+.expFilter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 60px;
+  margin-right: -90px;
+
+  &__searcher {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__box {
+    text-align: center;
+  }
+
+  &__label {
+    color: $primary-color;
+    font-weight: bold;
+    margin-right: 10px;
+    position: relative;
+    margin-left: -100px;
+  }
+
+  &__input {
+    max-width: 100%;
+    width: 175px;
+    border: 0;
+    border-bottom: 2px solid $primary-color;
+    background: transparent;
+    height: rem-calc(40);
+
+    @include breakpoint("medium") {
+      height: rem-calc(25);
+    }
+    @include breakpoint("large") {
+      height: rem-calc(35);
+    }
+    @include breakpoint("xlarge") {
+      height: rem-calc(40);
+    }
+
+    color: $primary-color;
+    font-size: rem-calc(21);
+    padding: 17px 45px 0 5px;
+
+    &::placeholder {
+      color: $grey;
+      font-size: rem-calc(12);
+      font-weight: normal;
+    }
+  }
+
+  &__buttons {
+    margin: -25px 4px 0px 265px;
+    position: relative;
+    left: -90px;
+  }
+
+  &__filterButton {
+    top: rem-calc(10);
+    @include size(rem-calc(24));
+    background-size: rem-calc(24) rem-calc(24);
+
+    @include breakpoint("xlarge") {
+      top: rem-calc(10);
+      @include size(rem-calc(24));
+      background-size: rem-calc(24) rem-calc(24);
+    }
+
+    @include breakpoint("medium") {
+      top: rem-calc(2);
+      @include size(rem-calc(20));
+      background-size: rem-calc(15) rem-calc(15);
+    }
+
+    @include breakpoint("large") {
+      top: rem-calc(10);
+      @include size(rem-calc(22));
+      background-size: rem-calc(18) rem-calc(18);
+    }
+
+    right: 23px;
+    background: url("src/assets/images/icons/blue-search.png") no-repeat 50% 50%;
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    text-indent: -9999px;
+    z-index: 2;
+  }
+
+  &__clearButton {
+    top: rem-calc(10);
+    @include size(rem-calc(24));
+    background-size: rem-calc(24) rem-calc(24);
+
+    @include breakpoint("xlarge") {
+      top: rem-calc(10);
+      @include size(rem-calc(24));
+      background-size: rem-calc(24) rem-calc(24);
+    }
+
+    @include breakpoint("medium") {
+      top: rem-calc(2);
+      @include size(rem-calc(20));
+      background-size: rem-calc(15) rem-calc(15);
+    }
+
+    @include breakpoint("large") {
+      top: rem-calc(10);
+      @include size(rem-calc(22));
+      background-size: rem-calc(18) rem-calc(18);
+    }
+
+    right: 0px;
+    background: url("src/assets/images/icons/delete.png") no-repeat 50% 50%;
+    background-color: transparent;
+    overflow: hidden;
+    text-indent: -9999px;
+    z-index: 2;
+  }
+
+}
+
+
+
+
+

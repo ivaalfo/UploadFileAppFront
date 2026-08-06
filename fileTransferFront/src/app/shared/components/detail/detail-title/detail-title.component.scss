@@ -1,0 +1,38 @@
+@import "~src/styles/base/index";
+
+.detail-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: $cyan;
+  margin: rem-calc(5) 0;
+  font-size: rem-calc(26);
+
+  @include breakpoint("xlarge") {
+    font-size: rem-calc(36);
+    margin: rem-calc(10) 0;
+  }
+
+  &__title {
+    font-family: $primary-font;
+    margin: 0 rem-calc(14);
+    color: $primary-color;
+  }
+
+  &__img_article {
+    @include size(rem-calc(29), rem-calc(26));
+
+    @include breakpoint("xlarge") {
+      @include size(rem-calc(39), rem-calc(36));
+    }
+  }
+
+  &__img {
+    @include size(rem-calc(19), rem-calc(16));
+
+    @include breakpoint("xlarge") {
+      @include size(rem-calc(29), rem-calc(26));
+    }
+  }
+}

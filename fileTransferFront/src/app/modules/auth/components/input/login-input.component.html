@@ -1,0 +1,5 @@
+<input [type]="type" class="login-input__input login-input__input--{{icon}}" [placeholder]="label"
+  [ngClass]="{'login-input__input--error': error}" [formControlName]="name" />
+<div class="login-input__error" *ngIf="error">
+  {{ error | translate }}
+</div>

@@ -1,0 +1,11 @@
+<div class="modal animated zoomIn" *ngIf="isModalShown">
+  <div class="modal__content">
+    <h2 class="modal__title">{{ header | translate }} </h2>
+    <h2 *ngIf="data && data.length === 1" class="modal__title">{{ data[0] }}</h2>
+  </div>
+  <!-- *ngIf="data && data.length > 1" -->
+  <div class="modal__data" *ngIf="data && data.length > 1">
+    <h4 *ngFor="let item of data">{{item.valueOf()}}</h4>
+  </div>
+  <ng-content></ng-content>
+</div>

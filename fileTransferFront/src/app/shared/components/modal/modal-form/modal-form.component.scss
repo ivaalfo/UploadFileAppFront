@@ -1,0 +1,39 @@
+@import "~src/styles/base/index";
+
+:host {
+  display: flex;
+}
+
+.modal-form {
+  &__wrapper {
+    padding: 0 15px 15px 15px;
+    display: flex;
+  }
+  
+  &__content {
+    width: 555px;
+    border-left: 1px solid $primary-color;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+
+  &__buttons {
+    background: $light-blue;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    display: flex;
+    height: 62px;
+  }
+
+  &__button {
+    margin: 0 10px;
+  }
+}
+
+:host-context(.icon-bottom) .modal-form__icon {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5%;
+  align-items: center;
+}

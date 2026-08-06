@@ -1,0 +1,42 @@
+<m-modal-docs-activ [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
+  [header]="viewValidCMRheaderText" 
+  [pedidoSelected]="pedidoSelected" 
+  [isUserExter]="isExternoUser"
+  [isNotFACdoc]="noFac2show"
+  [canBeClosed]="!isLoading"  
+  (downloadedCMR)="downloadCMR()" 
+  (downloadedFAC)="downloadFAC()"
+  (canceled)="onCancel()">
+  
+  <!--CMR-->
+  <div cmr [class.is-rejected]="pedidoSelected.hasCMR===3" class="document-container">
+    <div *ngIf="isImgFile">
+      <img id="imgActivDocDiv" [src]="cmrPath" alt="image" class="view-activ-docs-form__imgJPG">
+    </div>
+    <div *ngIf="isPdfFile" id="pdfActivDocDiv" class="view-activ-docs-form__pdfDiv">
+      <iframe #myIframe id="pdfActivIframe" src="" width="100%" height="100%" [frameBorder]="0"></iframe>
+    </div>
+    <div *ngIf="isTifFile">
+      <img id="tifActivDocDiv" [src]="cmrPath" alt="image" class="view-activ-docs-form__imgTIF">
+    </div>
+  </div>
+
+  <!--FAC-->
+  <div fac [class.is-rejected]="pedidoSelected.hasFAC===3" class="document-container">
+    <ng-container *ngIf="!noFac2show; else noFacMessage">
+      <!-- Solo puede ser PDF-->
+      <div *ngIf="isPdfFileFAC" id="pdfActivDocDivFAC" class="view-activ-docs-form__pdfDiv">
+        <iframe #myIframeFAC id="pdfActivIframeFAC" src="" width="100%" height="100%" [frameBorder]="0"></iframe>
+      </div>
+    </ng-container>
+
+    <!-- Template para cuando no hay factura -->
+    <ng-template #noFacMessage>
+      <div class="view-activ-docs-form__noFac2showMessage">
+        <p>{{ 'PEDIDOS_ACTIV.FORM.MESSAGES.NO_FAC_AVAILABLE' | translate }}</p>
+      </div>
+    </ng-template>
+  </div>
+
+</m-modal-docs-activ>
+

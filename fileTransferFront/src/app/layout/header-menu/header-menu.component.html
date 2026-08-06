@@ -1,0 +1,6 @@
+<div class="header-menu__button">
+  <img class="{{ iconSizeStyle }}" src="{{ icon }}" (mouseenter)="showMenu()" />
+</div>
+<ul class="header-menu__dropdown animated fadeIn" [ngClass]="{'header-menu__dropdown--active': isMenuShown}">
+  <ng-content></ng-content>
+</ul>

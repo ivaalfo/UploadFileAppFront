@@ -1,0 +1,28 @@
+<m-modal-form [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
+  [header]="header" [pedidoSelected]="pedidoSelected"
+  [canBeClosed]="!isLoading" 
+  (accepted)="accept()" (canceled)="canceled()">
+  
+  
+  <div *ngIf="pedidoForm" [formGroup]="pedidoForm">
+  
+    <div class="form-group">
+      <label for="fechaEntReal-input">{{ 'PEDIDOS_ACTIV.FORM.FECREAL.FECREAL' | translate }}</label>
+      <div class="form-group__field">
+        <input type="text" id="fechaEntReal-input" name="fechaEntReal-input"
+          formControlName="fechaEntReal" ngxDaterangepickerMd [singleDatePicker]="true" [autoApply]="true"
+          [locale]="{format: 'DD/MM/YYYY'}" autocomplete="off" readonly placeholder="Seleccione fecha"/>
+        <div class="form-group__error">
+          <span *ngIf="pedidoForm?.get('fechaEntReal')?.hasError('required')">
+            {{ error('fechaEntReal') | translate }}
+          </span>
+          <span *ngIf="pedidoForm?.get('fechaEntReal')?.hasError('invalidDate')">
+            {{ 'PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR' | translate}}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</m-modal-form>
+

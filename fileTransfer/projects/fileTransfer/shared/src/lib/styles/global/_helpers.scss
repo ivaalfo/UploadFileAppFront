@@ -1,0 +1,17 @@
+@import "../../styles/base/index";
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.color-cyan {
+  color: $cyan !important;
+}
+
+.link_underline {
+  text-decoration: underline;
+}

@@ -1,0 +1,27 @@
+<div class="table" [ngClass]="{'table--sortable':canSortRows, 'table--show-row-border':showRowBorder}" role="table">
+  <div class="table__header">
+    <m-row *ngIf="headers && headers.length > 0;">
+      <m-cell class="table__check" *ngIf="hasCheckableInitColumn" [isHeader]="true">
+        <img src="assets/images/icons/warning.png" />
+        <ng-container *ngIf="canCheckMultipleInitColumns && name=='0'">
+          <input *ngIf="canCheckMultipleInitColumns" type="checkbox" [checked]="allFirstColumnChecked"
+            (change)="onInitColumnCheckboxChanged($event)" />
+        </ng-container>
+      </m-cell>
+      <m-cell [isHeader]="true" [isNarrow]="tableHeader.narrow" *ngFor="let tableHeader of headers"
+        [tooltip]="tableHeader.tooltip | translate">
+        {{ tableHeader.title | translate }}</m-cell>
+      <m-cell *ngIf="hasCheckableEndColumn" [isHeader]="true">
+        <img src="assets/images/icons/block.png" />
+        <ng-container *ngIf="canCheckMultipleEndColumns && name=='0'">
+          <input *ngIf="canCheckMultipleEndColumns" type="checkbox" [checked]="allLastColumnChecked"
+            (change)="onEndColumnCheckboxChanged($event)" />
+        </ng-container>
+      </m-cell>
+    </m-row>
+  </div>
+  <div class="table__body">
+    <ng-content></ng-content>
+  </div>
+
+</div>

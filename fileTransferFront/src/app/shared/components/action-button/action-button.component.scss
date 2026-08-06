@@ -1,0 +1,95 @@
+@import "~src/styles/base/index";
+
+.action-button {
+  background: transparent;
+  border: 2px solid $primary-color;
+  color: $primary-color;
+  font-family: $primary-font;
+  border-radius: 14px;
+  font-weight: 600;
+  padding: 0 15px;
+  position: relative;
+  white-space: nowrap;
+
+  min-width: rem-calc(80);
+
+  @include breakpoint("xlarge") {
+    min-width: rem-calc(100);
+    font-weight: 600;
+  }
+
+  line-height: 20px;
+
+  @include breakpoint("medium") {
+    line-height: 20px;
+    font-weight: 300;
+    padding: 0 3px;
+
+  }
+
+  @include breakpoint("large") {
+    line-height: 20px;
+    font-weight: 600;
+  }
+
+  @include breakpoint("xlarge") {
+    line-height: 27px;
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &--icon-left {
+    padding-left: 30px;
+  }
+
+  &--icon-right {
+    padding-right: 30px;
+  }
+
+  &__icon-span {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $primary-color;
+    border-radius: 13px;
+
+    @include size(rem-calc(16));
+
+    @include breakpoint("medium") {
+      @include size(rem-calc(16));
+    }
+
+    @include breakpoint("large") {
+      @include size(rem-calc(18));
+    }
+
+    @include breakpoint("xlarge") {
+      @include size(rem-calc(23));
+    }
+
+    &--right {
+      right: 2px;
+      left: auto;
+    }
+  }
+
+  &__icon {
+    width: 100%;
+    height: auto;
+  }
+
+  &--inverted {
+    background: $primary-color;
+    color: $white;
+
+    .action-button__icon-span {
+      background: $white;
+    }
+  }
+}

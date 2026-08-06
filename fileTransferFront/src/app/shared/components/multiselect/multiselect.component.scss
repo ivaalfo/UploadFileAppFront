@@ -1,0 +1,63 @@
+@import "~src/styles/base/index";
+
+:host {
+  position: relative;
+}
+
+.multiselect {
+  &__popup {
+    position: absolute;
+    z-index: 1000;
+    width: 0;
+    left: auto;
+    right: 0;
+    top: 30px;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s;
+    overflow: hidden;
+
+    &--show {
+      opacity: 1;
+      width: 100%;
+      pointer-events: initial;
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+  }
+
+  &__check {
+    transform: translateY(2px);
+  }
+
+  &__label {
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    width: auto;
+    height: rem-calc(19);
+    vertical-align: auto;
+  }
+
+  &__input {
+    flex: 2;
+    width: 100%;
+    color: $secondary-color;
+    border: 0;
+    border-bottom: 1px solid $primary-color;
+    line-height: 20px;
+    min-height: 20px;
+    font-family: $secondary-font;
+    text-transform: uppercase;
+  }
+}

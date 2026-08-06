@@ -1,0 +1,9 @@
+<div id="toaster-notification__container" class="toaster-notification__container" *ngIf="toasters">
+  <div class="toaster-notification__toast {{cssClass(item) }}" aria-live="polite" *ngFor="let item of toasters">
+    <button type="button" class="toaster-notification__close" role="button"
+      (click)="removeNotification(item)">×</button>
+    <div class="toaster-notification__message">
+      {{ item.message | translate}}
+    </div>
+  </div>
+</div>
