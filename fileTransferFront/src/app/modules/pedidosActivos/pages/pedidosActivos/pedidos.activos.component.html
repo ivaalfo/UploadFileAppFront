@@ -174,9 +174,13 @@
           <input [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
           <!--Boton Enviar-->
           <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
-            *ngIf="puedoEnviarGrupaje(pedido) && !isConsultaUser">{{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</button>
+            *ngIf="puedoEnviarGrupaje(pedido) && !isConsultaUser">
+            {{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}
+          </button>
           <label class="pactivos__addFile__button--disabled" 
-            *ngIf="!puedoEnviarGrupaje(pedido) || isConsultaUser">{{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</label>
+            *ngIf="!puedoEnviarGrupaje(pedido) || isConsultaUser">
+            {{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}
+          </label>
         </div>
       </td>
     </m-row>
@@ -185,7 +189,9 @@
   <m-row *ngIf="noResults2show" [isMessageRow]="noResults2show">
     <td colspan="15">
       <div class="pactivos_esteRelative">
-        <label class="pactivos__noResults2show__label">{{ 'PEDIDOS_ACTIV.TABLE.NORESULTS2SHOW' | translate }}</label>
+        <label class="pactivos__noResults2show__label">
+          {{ 'PEDIDOS_ACTIV.TABLE.NORESULTS2SHOW' | translate }}
+        </label>
       </div>
     </td>
   </m-row>
@@ -236,8 +242,10 @@
       {{ 'PEDIDOS_ACTIV.BUTTONS.FECREAL' | translate }}
     </m-action-button>
     <div class="pactivos__fecReal">
-      <span class="pactivos__fecReal--label" *ngIf="selectedPedido.isCheckActive && !selectedPedido.fechaEntReal">{{ 'PEDIDOS_ACTIV.TEXT.SETFREAL' | translate }}</span>
-      <span class="pactivos__fecReal--value" *ngIf="selectedPedido.isCheckActive && selectedPedido.fechaEntReal">{{ this.fecRealRef | translate }}</span>
+      <span class="pactivos__fecReal--label" *ngIf="selectedPedido.isCheckActive && !selectedPedido.fechaEntReal">
+        {{ 'PEDIDOS_ACTIV.TEXT.SETFREAL' | translate }}</span>
+      <span class="pactivos__fecReal--value" *ngIf="selectedPedido.isCheckActive && selectedPedido.fechaEntReal">
+        {{ this.fecRealRef | translate }}</span>
     </div>
   </div>
   <div right>
