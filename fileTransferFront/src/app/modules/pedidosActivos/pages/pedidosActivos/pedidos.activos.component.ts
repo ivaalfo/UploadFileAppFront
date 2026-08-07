@@ -19,6 +19,7 @@ import { ExcelService } from '@core/services/excel/excel.service';
 import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-pedidos-activos.service';
 import * as moment from 'moment';
 import { PedidoFiles, PedidoFilesDto } from '@data/pedidos/pedido-files';
+import { GrupajeItem } from '@data/pedidos/pedido-grupaje';
 
 
 @Component({
@@ -49,9 +50,9 @@ export class PedidosActivosComponent implements OnInit {
   public noResults2show = false;
   private filtrosActivos: { expediente?: string, provName?: string, trFilterValue?: string, refCharge?: string } = {};
   
-  //Definimos la estructura: la clave es el grupTR y el valor es el array de grupNum
-  private grupajesAgrupados: { [key: string]: string[] } = {};
-  public listaGrupaje: String[] = [];
+  //Definimos la estructura: la clave es el grupTR y el valor es el array de GrupajeItem
+  private grupajesAgrupados: { [key: string]: GrupajeItem[] } = {};
+  public listaGrupaje: GrupajeItem[] = [];
   public grupsModalOpener$ = new Subject<ModalAction>();
   public isGrupReady = false;
   
@@ -133,7 +134,7 @@ export class PedidosActivosComponent implements OnInit {
     return item.track + '-' + item.expediente + '-' + item.isCheckActive;
   }
 
-  public onCheckboxChanged(event: UIEvent, pedido: PedidoProveedor): void {
+  public onCheckboxChanged(event: Event, pedido: PedidoProveedor): void {
     const checkBox = event.target as HTMLInputElement;
     if (checkBox.checked) {
       this.activeSendButton = false;
@@ -209,8 +210,14 @@ export class PedidosActivosComponent implements OnInit {
         if (!this.grupajesAgrupados[pedido.grupTR]) {
           this.grupajesAgrupados[pedido.grupTR] = [];
         }
-        //Añadimos el grupNum a ese grupo específico
-        this.grupajesAgrupados[pedido.grupTR].push(pedido.grupNum);
+        //Añadimos el GrupajeItem a ese grupo específico
+        this.grupajesAgrupados[pedido.grupTR].push({
+          grupNum: pedido.grupNum,
+          expediente: pedido.expediente,
+          refCarga: pedido.refCarga,
+          opcionCMR: false,
+          opcionFAC: false
+        });
       }
     });
     //console.log("Grupajes organizados:", this.grupajesAgrupados);

@@ -1,5 +1,7 @@
 {
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "tslint.alwaysShowRuleFailuresAsWarnings": false,
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "angular.experimental.ivy": false,
+  "extensions.autoUpdate": false
 }
