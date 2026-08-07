@@ -130,7 +130,7 @@ export class AnotaValCMRFormComponent implements OnInit, OnDestroy {
           this.anotaCMRaction(this.pedidoSelected);
         } else {
           const errorTitle = this.translate.instant("VALIDADOR.FORM.ERROR.CMR_ANOTA_ERROR");
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         }
       }
     }
@@ -145,7 +145,7 @@ export class AnotaValCMRFormComponent implements OnInit, OnDestroy {
           this.anotaCMRaction(this.pedidoSelected);
         } else {
           const errorTitle = this.translate.instant("VALIDADOR.FORM.ERROR.CMR_DELETE_ERROR");
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         }
       }
     }
@@ -208,7 +208,7 @@ export class AnotaValCMRFormComponent implements OnInit, OnDestroy {
         this.onAnotaActionSuccess();
       } else {
         const errorTitle = this.translate.instant("VALIDADOR.FORM.ERROR.CMR_ANOTATION_ERROR", {refped: _pedido.track});
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         this.onActionFinalize();
       }
     }, error => {
@@ -259,7 +259,7 @@ export class AnotaValCMRFormComponent implements OnInit, OnDestroy {
   }
   
   private onActionFailed(msg: string) {
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     setTimeout((function() {
       document.location.reload();
     }), 2300);

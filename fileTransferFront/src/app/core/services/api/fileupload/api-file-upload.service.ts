@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiResponse, ApiResponseWithData } from '@core/services/api/api.response';
+import { ApiResponseWithData } from '@core/services/api/api.response';
 import { ApiClient } from '@core/services/api/api-client.service';
 import { LockEntities } from '@data/shared/locks';
 
@@ -61,12 +61,12 @@ export class FileUploadApiClient extends ApiClient {
     });
   }
 
-  public fileUpload(lockType: LockEntities, files: FormData): Observable<boolean> {
-    return this.http.post<ApiResponse>(`${this.config.apiBaseUrl}${FILE_UPLOAD_POST}/${lockType}` , 
+  public fileUpload(lockType: LockEntities, files: FormData): Observable<ApiResponseWithData> {
+    return this.http.post<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_POST}/${lockType}` , 
       files
     )
     .pipe(
-      map(response => this.mapResponse(response))
+      map(response => this.mapResponseWithDataWithoutWarning(response))
     );
   }
 

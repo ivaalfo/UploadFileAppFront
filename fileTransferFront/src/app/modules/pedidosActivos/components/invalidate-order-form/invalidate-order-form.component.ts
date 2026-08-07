@@ -107,7 +107,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
           this.anulaOrderAction(this.pedido);
         } else {
           const errorTitle = this.translate.instant("PEDIDOS_ACTIV.FORM.ANULAR.ERROR", {refped: this.pedido.track});
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         }
       }
     }
@@ -122,7 +122,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
           this.deleteMotivoAction(this.pedido);
         } else {
           const errorTitle = this.translate.instant("PEDIDOS_ACTIV.FORM.ANULAR.DELETE_ERROR", {refped: this.pedido.track});
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         }
       }
     }
@@ -181,7 +181,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
         this.onAnularActionSuccess();
       } else {
         const errorTitle = this.translate.instant("PEDIDOS_ACTIV.FORM.ANULAR.ERROR", {refped: _pedido.track});
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         this.onActionFinalize();
       }
     }, error => {
@@ -224,7 +224,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
   }
 
   private onActionFailed(msg: string) {
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     setTimeout((function() {
       document.location.reload();
     }), 2300);
@@ -239,7 +239,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
         this.onDeleteMotivoSuccess();
       } else {
         const errorTitle = this.translate.instant("PEDIDOS_ACTIV.FORM.ANULAR.DELETE_ERROR", {refped: _pedido.track});
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         this.onActionFinalize();
       }
     }, error => {

@@ -29,6 +29,7 @@
     },
     "ERROR": {
       "FILE_ERROR": "Error subiendo fichero/s: {{refped}}",
+      "FILE_VALIDATE_ERROR": "El archivo parece estar dañado o corrupto. Por favor, asegúrese de que abre correctamente en su equipo local y vuelva a subirlo.",
       "FILE_NOT_SAVED": "{{name}} : Fichero no guardado.",
       "CMR_SIZE_ERROR": "El archivo CMR que se está cargando es demasiado grande. El tamaño máximo permitido es: {{maxSize}} MB.",
       "FAC_SIZE_ERROR": "La Factura que se está cargando es demasiado grande. El tamaño máximo permitido es: {{maxSize}} MB.",

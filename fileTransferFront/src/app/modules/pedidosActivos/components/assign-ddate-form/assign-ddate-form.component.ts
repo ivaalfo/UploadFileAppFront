@@ -130,7 +130,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
               dateControl.setErrors({'invalidDate': true});
             }
             const errorMsg = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR');
-            this.notification.error(errorMsg, true, true);
+            this.notification.error(errorMsg, true, false);
             return;
           }
         }

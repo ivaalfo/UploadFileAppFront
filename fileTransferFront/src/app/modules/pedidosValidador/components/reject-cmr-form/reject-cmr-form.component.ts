@@ -191,7 +191,7 @@ export class RejectCMRFormComponent implements OnInit, OnDestroy {
         this.onRejectActionSuccess();
       } else {
         const errorTitle = this.translate.instant("VALIDADOR.FORM.ERROR.CMR_REJECTION_ERROR", {refped: _pedido.track});
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         this.onActionFinalize(true);
       }
     }, error => {
@@ -239,7 +239,7 @@ export class RejectCMRFormComponent implements OnInit, OnDestroy {
   }
 
   private onActionFailed(msg: string) {
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     setTimeout((function() {
       document.location.reload();
     }), 2300);

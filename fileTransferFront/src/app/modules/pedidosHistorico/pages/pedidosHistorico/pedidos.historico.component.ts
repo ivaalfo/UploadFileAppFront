@@ -487,7 +487,7 @@ export class PedidosHistoricoComponent implements OnInit {
     }, error => {
       console.error('Error downloading or displaying the file. ', error);
       const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
-      this.notification.error(downloadedError, true, true);
+      this.notification.error(downloadedError, true, false);
     });
   }
 
@@ -588,7 +588,7 @@ export class PedidosHistoricoComponent implements OnInit {
   }
 
   private onActionReactivarFailed(msg: string){
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     this.spinnerService.hide();
     this.onCancelReactivar();
   }

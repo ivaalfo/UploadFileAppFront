@@ -1,6 +1,6 @@
 {
-    "version": "1.0.50",
-    "fecha": "31/07/2026",
-    "expira": "2026-08-08T00:00:00.000Z",
-    "mejoras": "\n\t- Modificado el comportamiento de la ventana 'Notas de la versión'. Solo será visible durante los dos días posteriores al cambio de versión.\n\t- Añadido un nuevo filtro (Ref. Carga) en las pantallas Activos, Validador e Histórico.\n\n\t- Añadida la acción 'Ver Documentación' en la pantalla Pedidos Activos (no funciona con el doble click, a diferencia de otras pantallas).\n\t- Añadido el 'Motivo de Rechazo' o 'Anotación' en el visor de documentos de todas las pantallas.\n\t- Añadido recuadro de color rojo para los archivos rechazados en el visor de documentos de todas las pantallas.\n\n\t- Añadido un nuevo icono para los estados de las facturas 'No contabilizar' y 'Duplicada' en la pantalla Histórico.\n\t- Añadidos nuevos iconos para los pedidos deshabilitados en la pantalla Histórico.\n\n\tPara usuarios internos:\n\t- Modificada la acción 'Deshabilitar pedido'. Ahora se requiere introducir un comentario para poder deshabilitarlo.\n\t- Añadida la acción 'Reactivar pedido' desde la pantalla Histórico.\n\t- Modificación en la pantalla Validador: pedidos ordenados por fecha de subida del CMR, mostrando el más antiguo primero.\n\t- Corregido un error (bug) en la pantalla Validador que hacía invisibles algunos pedidos.\n\t- Cambiada la nomenclatura de los archivos tipo CMR para evitar duplicados: CMR_Tr_refCarga_docName.ext\n\t- Añadida la acción 'Rechazar Factura' en el visor de documentos de la pantalla Validador.\n\t- Añadidas varias correcciones en el Excel de 'Activos' e 'Histórico'.\n\t- Incluidos los números de facturas no contabilizadas en el Excel de 'Histórico de Pedidos'.\n\n"
+    "version": "1.0.51",
+    "fecha": "07/08/2026",
+    "expira": "2026-08-12T00:00:00.000Z",
+    "mejoras": "\n\t- Controlada la subida de archivos corruptos o dañados.\n\t- Next.\n\n"
 }

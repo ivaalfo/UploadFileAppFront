@@ -154,7 +154,7 @@ export class ViewActivDocsFormComponent implements OnInit, OnDestroy {
     }, error => {
       console.error('Error downloading or displaying the file. ', error);
       const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
-      this.notification.error(downloadedError, true, true);
+      this.notification.error(downloadedError, true, false);
     });
   }
   
@@ -207,7 +207,7 @@ export class ViewActivDocsFormComponent implements OnInit, OnDestroy {
     }, error => {
       console.error('Error downloading or displaying the file. ', error);
       const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
-      this.notification.error(downloadedError, true, true);
+      this.notification.error(downloadedError, true, false);
     });
   }
   

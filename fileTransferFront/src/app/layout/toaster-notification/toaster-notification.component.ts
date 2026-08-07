@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Notification, NotificationType } from '@core/services/notifications/toaster-notification';
 import { NotificationService } from '@core/services/notifications/toaster-notification.service';
 
-const TOASTER_NOTIFICATION_TIME = 5500;
+const TOASTER_NOTIFICATION_TIME = 7700;
 
 @Component({
   selector: 'm-toaster-notification',

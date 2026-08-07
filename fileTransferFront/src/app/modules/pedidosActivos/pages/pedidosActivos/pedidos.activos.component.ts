@@ -20,6 +20,7 @@ import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-p
 import * as moment from 'moment';
 import { PedidoFiles, PedidoFilesDto } from '@data/pedidos/pedido-files';
 import { GrupajeItem } from '@data/pedidos/pedido-grupaje';
+import { ApiResponseWithData } from '@core/services/api/api.response';
 
 
 @Component({
@@ -288,7 +289,7 @@ export class PedidosActivosComponent implements OnInit {
       //Validación file size
       if(file.size > CMR_MAX_SIZE_BYTES){
         const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.CMR_SIZE_ERROR', { maxSize: CMR_MAX_SIZE_MB });
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
         return;
       }
@@ -302,17 +303,17 @@ export class PedidosActivosComponent implements OnInit {
 
 			if(nombreCMR.length>149){    //se tiene en cuenta el path (MAX_200char) y posterior ../validados.../rechazados
 				const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.CMR_LENGTH_ERROR');
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
 			} else if(this.isNotValidName(nombreCMR) || this.haveNotValidChars(nombreCMR) || this.hasMultipleDots(nombreCMR)){
 				const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.CMR_CHARS_ERROR');
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
 			} else if(!file.type || !this.hasValidExtension(file.name) || !et.accept.includes(file.type) ){
         //Controlo los formatos de los archivos seleccionados
         //Ya que (imput type File) SI permite seleccionar formatos distintos a los aceptados y se podrian subir
         const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.CMR_TYPE_ERROR');
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
       }
     }
@@ -335,7 +336,7 @@ export class PedidosActivosComponent implements OnInit {
       //Validación file size
       if(file.size > FAC_MAX_SIZE_BYTES){
         const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.FAC_SIZE_ERROR', { maxSize: FAC_MAX_SIZE_MB });
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
         return;
       }
@@ -345,17 +346,17 @@ export class PedidosActivosComponent implements OnInit {
 
 			if(nombreFAC.length>149){    //se tiene en cuenta el path (MAX_200char) y posterior ../rechazadas
 				const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.FAC_LENGTH_ERROR');
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
 			} else if(this.isNotValidName(nombreFAC) || this.haveNotValidChars(nombreFAC) || this.hasMultipleDots(nombreFAC)){
 				const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.FAC_CHARS_ERROR');
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
 			} else if(!file.type || !this.hasValidExtension(file.name) || !et.accept.includes(file.type) ){
         //Controlo los formatos de los archivos seleccionados
         //Ya que (imput type File) SI permite seleccionar formatos distintos a los aceptados y se podrian subir
         const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.FAC_TYPE_ERROR');
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         et.value = '';
       }
     }
@@ -377,24 +378,24 @@ export class PedidosActivosComponent implements OnInit {
         //Validación file size
         if(files[i].size > OTR_MAX_SIZE_BYTES){
           const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.OTR_SIZE_ERROR', { maxSize: OTR_MAX_SIZE_MB });
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
           et.value = '';
           return;
         }
 
         if(nombreOTR.length>60){    //se tiene en cuenta el path (MAX_1000char) como pueden ser varios 100c/u
           const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.OTR_LENGTH_ERROR');
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
           et.value = '';
         } else if(this.isNotValidName(nombreOTR) || this.haveNotValidChars(nombreOTR) || this.hasMultipleDots(nombreOTR)){
           const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.OTR_CHARS_ERROR');
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
           et.value = '';
         } else if(!files[i].type || !this.hasValidExtension(files[i].name) || !et.accept.includes(files[i].type) ){
           //Controlo los formatos de los archivos seleccionados
           //Ya que (imput type File) SI permite seleccionar formatos distintos a los aceptados y se podrian subir
           const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.OTR_TYPE_ERROR');
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
           et.value = '';
         }
       }
@@ -424,7 +425,7 @@ export class PedidosActivosComponent implements OnInit {
     //Validación de seguridad global
     if(totalRequestSize > MAX_REQUEST_BYTES) {
       const errorTitle = this.translate.instant('FILE_UPLOAD.ERROR.TOTAL_SIZE_ERROR', { maxSize: MAX_REQUEST_MB });
-      this.notification.error(errorTitle, true, true);
+      this.notification.error(errorTitle, true, false);
       return false;
     }
     return true;
@@ -481,26 +482,57 @@ export class PedidosActivosComponent implements OnInit {
     
     this.apiFileUpload.fileUpload(LockEntities.LOCK_VALIDATOR, data)
     .pipe(take(1))
-    .subscribe((response: boolean) => {
-      if (response) {
+    .subscribe((response: ApiResponseWithData) => {
+      if (response && (!response.errores || response.errores.length === 0)) {
         this.onActionSuccess(pedido, cmrArray, facArray, otrArray);
       } else {
-        //Manejo de errores
-        if (cmrArray.length > 0 && pedido.hasCMR == 2) {
-          const errorValidateCMR = this.translate.instant('FILE_UPLOAD.ERROR.CMR_VALIDATE_ERROR', { rCarga: pedido.refCarga });
-          this.notification.error(errorValidateCMR, true, true);
-        } 
-        if (cmrArray.length > 0 && pedido.hasCMR == 1) {
-          const errorTitle = this.translate.instant("FILE_UPLOAD.ERROR.CMR_VALIDATING_ERROR", { rCarga: pedido.refCarga });
-          this.notification.error(errorTitle, true, true);
-        }
-        if (facArray.length > 0 && pedido.hasFAC == 2) {
-          const errorValFAC = this.translate.instant('FILE_UPLOAD.ERROR.FAC_VALIDATE_ERROR', { refped: pedido.track });
-          this.notification.error(errorValFAC, true, true);
-        }
-        if((facArray.length > 0) && (pedido.hasFAC == 1 || pedido.hasFAC == 4 || pedido.hasFAC == 5 || pedido.hasFAC == 6)){
-          const errorValidatingFAC = this.translate.instant('FILE_UPLOAD.ERROR.FAC_VALIDATING_ERROR', {refped: pedido.track});
-          this.notification.error(errorValidatingFAC, true, true);
+        if (response && response.errores && response.errores.length > 0) {
+          const haFalladoCMR = response.errores.some(err => {
+            const descripcion = err.descripcion ? err.descripcion.toLowerCase() : '';
+            //Buscamos la palabra clave del error en el back:
+            return descripcion.includes('integridad de archivo cmr') || descripcion.includes('archivo cmr');
+          });
+          if (cmrArray.length > 0 && !haFalladoCMR) {
+            const successCMR = this.translate.instant("FILE_UPLOAD.SUCCES.CMR_SAVED", {cmrName: cmrArray[0].name});
+            this.notification.success(successCMR, true, true);
+            
+            if (!pedido.track.startsWith("GRU")) {
+              const successTitle = this.translate.instant("FILE_UPLOAD.SUCCES.FILES_SAVED", {refped: pedido.track});
+              this.notification.info(successTitle, true, true);
+            }
+          }
+
+          const warnTitle = this.translate.instant("FILE_UPLOAD.ERROR.FILE_ERROR", {refped: pedido.track});
+          this.notification.warn(warnTitle, true, false);
+
+          response.errores.forEach(err => {
+            const mensajeBackend = this.translate.instant(err.descripcion) || err.descripcion;
+            this.notification.error(mensajeBackend, true, false);
+            const errorInvalidFile = this.translate.instant("FILE_UPLOAD.ERROR.FILE_VALIDATE_ERROR", {refped: pedido.track});
+            this.notification.error(errorInvalidFile, true, false);
+          });
+
+          //Limpiamos los inputs de esta fila específica para que no se re-envíe el archivo malo
+          //this.limpiarInputsFila(pedido.track, pedido.expediente);
+
+        } else {
+          //Manejo de errores por ESTADOS
+          if (cmrArray.length > 0 && pedido.hasCMR == 2) {
+            const errorValidateCMR = this.translate.instant('FILE_UPLOAD.ERROR.CMR_VALIDATE_ERROR', { rCarga: pedido.refCarga });
+            this.notification.error(errorValidateCMR, true, false);
+          } 
+          if (cmrArray.length > 0 && pedido.hasCMR == 1) {
+            const errorTitle = this.translate.instant("FILE_UPLOAD.ERROR.CMR_VALIDATING_ERROR", { rCarga: pedido.refCarga });
+            this.notification.error(errorTitle, true, false);
+          }
+          if (facArray.length > 0 && pedido.hasFAC == 2) {
+            const errorValFAC = this.translate.instant('FILE_UPLOAD.ERROR.FAC_VALIDATE_ERROR', { refped: pedido.track });
+            this.notification.error(errorValFAC, true, false);
+          }
+          if((facArray.length > 0) && (pedido.hasFAC == 1 || pedido.hasFAC == 4 || pedido.hasFAC == 5 || pedido.hasFAC == 6)){
+            const errorValidatingFAC = this.translate.instant('FILE_UPLOAD.ERROR.FAC_VALIDATING_ERROR', {refped: pedido.track});
+            this.notification.error(errorValidatingFAC, true, false);
+          }
         }
             
         this.onActionFinalize();
@@ -741,7 +773,7 @@ export class PedidosActivosComponent implements OnInit {
   }
   
   private onActionFailed(msg: string) {
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     this.onActionFinalize();
   }
 
@@ -983,7 +1015,7 @@ export class PedidosActivosComponent implements OnInit {
     }, error => {
       console.error('Error downloading or displaying the file. ', error);
       const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
-      this.notification.error(downloadedError, true, true);
+      this.notification.error(downloadedError, true, false);
     });
   }
 
@@ -1011,6 +1043,16 @@ export class PedidosActivosComponent implements OnInit {
   }
   /** FIN PARTE DE VISUALIZACION DE DOCS */
 
+  /*private limpiarInputsFila(track: string, expediente: string) {
+    const suffix = track + '-' + expediente;
+    const inputCMR = document.getElementById('cmr-' + suffix) as HTMLInputElement;
+    const inputFAC = document.getElementById('fac-' + suffix) as HTMLInputElement;
+    const inputOTR = document.getElementById('otr-' + suffix) as HTMLInputElement;
+
+    if (inputCMR) inputCMR.value = '';
+    if (inputFAC) inputFAC.value = '';
+    if (inputOTR) inputOTR.value = '';
+  }*/
 
   //EXPORT TO EXCELL
   public convertToExcelExternos(): void {

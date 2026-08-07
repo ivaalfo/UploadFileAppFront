@@ -33,7 +33,7 @@ export class UserFilterInputComponent {
       this.clearClicked();
     } else if(this.search.length < 3){
       const errorTitle = this.translate.instant('FILTERS.MIN_CHARS');
-      this.notification.error(errorTitle, true, true);
+      this.notification.error(errorTitle, true, false);
       return;
     }
     //Si tiene contenido válido (3 o más caracteres), filtramos

@@ -104,7 +104,7 @@ export class AnotaHistCMRFormComponent implements OnInit, OnDestroy {
           this.anotaCMRaction(this.pedido);
         } else {
           const errorTitle = this.translate.instant("PEDIDOS_HIST.FORM.ERROR.CMR_ANOTA_ERROR");
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         }
       }
     }
@@ -119,7 +119,7 @@ export class AnotaHistCMRFormComponent implements OnInit, OnDestroy {
           this.anotaCMRaction(this.pedido);
         } else {
           const errorTitle = this.translate.instant("PEDIDOS_HIST.FORM.ERROR.CMR_DELETE_ERROR");
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         }
       }
     }
@@ -180,7 +180,7 @@ export class AnotaHistCMRFormComponent implements OnInit, OnDestroy {
         this.onAnotaActionSuccess();
       } else {
         const errorTitle = this.translate.instant("PEDIDOS_HIST.FORM.ERROR.CMR_ANOTATION_ERROR", {refped: _pedido.track});
-        this.notification.error(errorTitle, true, true);
+        this.notification.error(errorTitle, true, false);
         this.onActionFinalize();
       }
     }, error => {
@@ -219,7 +219,7 @@ export class AnotaHistCMRFormComponent implements OnInit, OnDestroy {
   }
 
   private onActionFailed(msg: string) {
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     setTimeout((function() {
       document.location.reload();
     }), 2300);

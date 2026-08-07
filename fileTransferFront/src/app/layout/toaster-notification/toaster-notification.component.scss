@@ -30,14 +30,17 @@
     z-index: 1000;
     top: 0;
     right: 0;
+    display: flex;
+    flex-direction: column;   //Apila los toasts verticalmente
+    align-items: flex-end;    //Alinea todos los toasts estrictamente a la derecha
+    padding: rem-calc(80) rem-calc(10) rem-calc(10) rem-calc(10);
   }
 
   &__toast {
     position: relative;
     overflow: hidden;
-    margin: rem-calc(80) rem-calc(10) rem-calc(10) rem-calc(10);
+    margin-bottom: rem-calc(10); 
     padding: 15px 15px 15px 50px;
-    //width: 500px;   ancho fijo
     width: fit-content;
     min-width: 500px;
     border-radius: 3px;

@@ -162,16 +162,14 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
     }, error => {
       console.error('Error downloading or displaying the sign. ', error);
       const signError = this.translate.instant('ERROR.DOWNLOAD_SIGN_ERROR');
-      this.notification.error(signError, true, true);
+      this.notification.error(signError, true, false);
     });
   }
 
   public onValidateCMR(): void {
     this.isLoading = true;
     this.apiFileUpload.validateFile(LockEntities.LOCK_VALIDATOR, this.formData)
-    .pipe(
-      take(1)
-    )
+    .pipe(take(1))
     .subscribe((response: ApiResponseWithData) => {
       if (response && (!response.errores || response.errores.length === 0)) {
         this.onActionSuccess();
@@ -180,7 +178,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
         this.notification.warn(warnTitle, true, true);
         response.errores.forEach(err => {
           const errorTitle = this.translate.instant(err.descripcion);
-          this.notification.error(errorTitle, true, true);
+          this.notification.error(errorTitle, true, false);
         });
         this.onActionFinalize(true);
       }
@@ -343,7 +341,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
     }, error => {
       console.error('Error descargando archivo', error);
       const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
-      this.notification.error(downloadedError, true, true);
+      this.notification.error(downloadedError, true, false);
     });
   }
 
@@ -467,7 +465,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
     }, error => {
       console.error('Error descargando archivo', error);
       const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
-      this.notification.error(downloadedError, true, true);
+      this.notification.error(downloadedError, true, false);
     });
   }
 
@@ -484,7 +482,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
   }
 
   private onActionFailed(msg: string) {
-    this.notification.error(msg, true, true);
+    this.notification.error(msg, true, false);
     setTimeout((function() {
       document.location.reload();
     }), 3300);
