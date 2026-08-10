@@ -67,15 +67,12 @@ export class UsersMaintenanceComponent implements OnInit {
 
   public getTableHeaders() {
     return [
-      //{ title: 'MAINTENANCES.USER' },
-      //{ title: 'MAINTENANCES.USERS.COMPANY' },
-      //{ title: 'MAINTENANCES.USERS.PROFILE' },
-      { title: 'MAINTENANCES.USERS.TABLE.CLINOM', sorted: true, property: 'clinom'},
-      { title: 'MAINTENANCES.USERS.TABLE.CLIDIR' },
-      { title: 'MAINTENANCES.USERS.TABLE.CLICIF' },
+      { title: 'MAINTENANCES.USERS.TABLE.CLINOM', sorted: true, property: 'clinom' },
+      { title: 'MAINTENANCES.USERS.TABLE.CLIDIR', sorted: true, property: 'clidir' },
+      { title: 'MAINTENANCES.USERS.TABLE.CLICIF', sorted: true, property: 'clicif' },
       { title: 'MAINTENANCES.USERS.TABLE.W2USUARIO', sorted: true, property: 'w2usuario' },
       { title: 'MAINTENANCES.USERS.TABLE.W2EMAIL', sorted: true, property: 'w2email' },
-      { title: 'MAINTENANCES.USERS.TABLE.W3TIPO', sorted: true, property: 'w3tipo'},
+      { title: 'MAINTENANCES.USERS.TABLE.W3TIPO', sorted: true, property: 'w3tipo' },
       { title: 'MAINTENANCES.USERS.TABLE.ACTIONS' }
     ];
   }
@@ -170,14 +167,47 @@ export class UsersMaintenanceComponent implements OnInit {
   }
 
   private sortedBy(users: User[]): User[] {
-    //return users.sort(sortArrayBy('fechaBajaShort'));
-    //return users.sort(sortArrayBy('clinom'));
-    //return users.sort(sortArrayBy('w3tipo'));
-    return users;
+    //Orden personalizado: 264, 265, 287, 267, 266 (coincide con DB CASE ordering)
+    const order = [264, 265, 287, 267, 266];
+    const indexOf = (val: any) => {
+      const n = Number(val);
+      const idx = order.indexOf(n);
+      return idx === -1 ? order.length : idx;
+    };
+
+    return users.sort((a: User, b: User) => {
+      const ia = indexOf(a.w3tipo);
+      const ib = indexOf(b.w3tipo);
+      if (ia !== ib) {
+        return ia - ib;
+      }
+      //fallback: ordenar por nombre de cliente como en el back
+      return (a.clinom || '').localeCompare(b.clinom || '');
+    });
   }
 
   public onColumnSorted(event: any): void {
-    this.users = sortByProperty(this.users, event.column, event.directionSort);
+    //Si la columna es el tipo (w3tipo) respeto el orden custom
+    if (event.column === 'w3tipo') {
+      const order = [264, 265, 287, 267, 266];
+      const indexOf = (val: any) => {
+        const n = Number(val);
+        const idx = order.indexOf(n);
+        return idx === -1 ? order.length : idx;
+      };
+
+      this.users = this.users.sort((a: any, b: any) => {
+        const ia = indexOf(a.w3tipo);
+        const ib = indexOf(b.w3tipo);
+        const diff = ia - ib;
+        if (diff !== 0) {
+          return event.directionSort === 'asc' ? diff : -diff;
+        }
+        return (a.clinom || '').localeCompare(b.clinom || '');
+      });
+    } else {
+      this.users = sortByProperty(this.users, event.column, event.directionSort);
+    }
   }
 
   private getRoles() {
@@ -208,22 +238,45 @@ export class UsersMaintenanceComponent implements OnInit {
     return logedRol[0] == UserRoles.Externo ? true : false;
   }
 
+  /*
+  FTADM = 'DFC administrador' : TBDETNI = 264;
+  FTINTER = 'Usuario interno DFC' : TBDETNI = 265;
+  FTCONSUL = 'Usuario consulta DFC' : TBDETNI = 287;
+  FTEXTER = 'Usuario externo DFC' : TBDETNI = 266;
+  FTNO = 'Sin acceso DFC' : TBDETNI = 267;
+*/
   public canEdit(users: User[]): void {
     for (let i = 0; i < users.length; i++) {
-        if(this.isAdminUser){
-          users[i].isEditable = true;
-        } else if(this.isInternoUser){
-          if(users[i].w3tipo === 265 || users[i].w3tipo === 287 || users[i].w3tipo === 266){
-            users[i].isEditable = true;
-          }
-        } else if(this.isConsultaUser){
-          if(users[i].w3tipo === 287 || users[i].w3tipo === 266){
-            users[i].isEditable = true;
-          }
-        } else if(this.isExternoUser && users[i].w3tipo === 266){
+      
+      if(this.isAdminUser){
+        //Admin edita a todos los usuarios
+        users[i].isEditable = true;
+
+      } else if(this.isInternoUser){
+        //Interno edita a los usuarios Consulta y Externos (287 y 266)
+        if(users[i].w3tipo === 287 || users[i].w3tipo === 266){
           users[i].isEditable = true;
         }
+        //Y a si mismo (265)
+        if(users[i].w3tipo === 265 && users[i].w2usuario === this.authService.getLoginData()!.username){
+          users[i].isEditable = true;
+        }
+
+      } else if(this.isConsultaUser){
+        //Consulta edita a los usuarios Externos (266)
+        if(users[i].w3tipo === 266){
+          users[i].isEditable = true;
+        }
+        //Y a si mismo (287)
+        if(users[i].w3tipo === 287 && users[i].w2usuario === this.authService.getLoginData()!.username){
+          users[i].isEditable = true;
+        }
+
+      } else if(this.isExternoUser && users[i].w3tipo === 266){
+        //Externo solo se ve y edita a si mismo
+        users[i].isEditable = true;
       }
+    }
   }
 
   public downloadEspanishManual() {

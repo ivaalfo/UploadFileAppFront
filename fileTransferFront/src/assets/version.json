@@ -1,6 +1,6 @@
 {
-    "version": "1.0.52",
+    "version": "1.0.53",
     "fecha": "10/08/2026",
     "expira": "2026-08-15T00:00:00.000Z",
-    "mejoras": "\n\t- Controlada la subida de archivos corruptos o dañados.\n\t- Mejorada la gestión de errores en el visor de documentos de todas las pantallas.\n\t- Next.\n\n"
+    "mejoras": "\n\t- Controlada la subida de archivos corruptos o dañados.\n\t- Mejorada la gestión de errores en el visor de documentos de todas las pantallas.\n\t- Añadidas correcciones y mejoras en el mantenimiento de usuarios.\n\t- Next.\n\n"
 }
