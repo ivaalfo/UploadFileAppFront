@@ -32,6 +32,9 @@ export class ModalDocsHistComponent {
   public isNotFACdoc= false;
 
   @Input()
+  public noHaveFiles = false;
+
+  @Input()
   public isUserExter = false;
 
   @Input()

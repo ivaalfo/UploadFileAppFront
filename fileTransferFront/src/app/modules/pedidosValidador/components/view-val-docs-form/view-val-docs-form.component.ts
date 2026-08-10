@@ -160,7 +160,8 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
     .subscribe(blob => {
       this.signUrl = window.URL.createObjectURL(blob);
     }, error => {
-      console.error('Error downloading or displaying the sign. ', error);
+      this.pedidoSelected.isBlocked = true;
+      console.error('Error descargando o mostrando la firma', error);
       const signError = this.translate.instant('ERROR.DOWNLOAD_SIGN_ERROR');
       this.notification.error(signError, true, false);
     });
@@ -339,8 +340,9 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
         this.drawCMRPdf();
       }
     }, error => {
-      console.error('Error descargando archivo', error);
-      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
+      this.pedidoSelected.isBlocked = true;
+      console.error('Error descargando o mostrando el archivo', error);
+      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR', {filename: this.filename});
       this.notification.error(downloadedError, true, false);
     });
   }
@@ -463,8 +465,9 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
       this.drawFACfile();
 
     }, error => {
-      console.error('Error descargando archivo', error);
-      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
+      this.pedidoSelected.isBlocked = true;
+      console.error('Error descargando o mostrando el archivo', error);
+      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR', {filename: this.filenameFAC});
       this.notification.error(downloadedError, true, false);
     });
   }

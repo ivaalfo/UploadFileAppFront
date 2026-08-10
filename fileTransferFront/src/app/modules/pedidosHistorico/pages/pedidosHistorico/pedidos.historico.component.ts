@@ -39,6 +39,7 @@ export class PedidosHistoricoComponent implements OnInit {
   
   public selectedCMR!: File[];
   public viewDocsModalOpener$ = new Subject<ModalAction>();
+  private lastClickTime = 0;
   
   public anotaModalOpener$ = new Subject<ModalAction>();
   public anotaTitle!: string;
@@ -194,6 +195,17 @@ export class PedidosHistoricoComponent implements OnInit {
   }
 
   public onClick(pedido: PedidoProveedor){
+    const currentTime = new Date().getTime();
+    const timeDiff = currentTime - this.lastClickTime;
+    this.lastClickTime = currentTime;
+
+    //Si el intervalo entre el primer clic y el segundo es menor a 300ms,
+    //significa que el usuario está haciendo un doble clic. 
+    //Ignoramos el segundo clic para que no ejecute el 'unselectPedido' por error.
+    if (timeDiff < 300) {
+        return; 
+    }
+
     if(this.selectedPedido !== pedido){
       this.selectedPedido.isCheckActive = false;
       this.selectedPedido.isSelected = false;

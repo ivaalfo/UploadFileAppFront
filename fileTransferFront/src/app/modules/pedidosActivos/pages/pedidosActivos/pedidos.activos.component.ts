@@ -512,9 +512,6 @@ export class PedidosActivosComponent implements OnInit {
             this.notification.error(errorInvalidFile, true, false);
           });
 
-          //Limpiamos los inputs de esta fila específica para que no se re-envíe el archivo malo
-          //this.limpiarInputsFila(pedido.track, pedido.expediente);
-
         } else {
           //Manejo de errores por ESTADOS
           if (cmrArray.length > 0 && pedido.hasCMR == 2) {

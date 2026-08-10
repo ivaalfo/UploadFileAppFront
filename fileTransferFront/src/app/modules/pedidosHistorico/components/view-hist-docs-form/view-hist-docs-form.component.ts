@@ -65,6 +65,7 @@ export class ViewHistDocsFormComponent implements OnInit, OnDestroy {
   public isTifFileFAC = false;
 
   public noFac2show = false;
+  public fileNotFound: boolean = false;
   
 
   public constructor (
@@ -84,8 +85,8 @@ export class ViewHistDocsFormComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.spinnerService.show();
     this.openerSubscription = this.opener$.subscribe(_ => {
-      this.spinnerService.show();
       this.modalOpener$.next(ModalAction.Open);
+      this.fileNotFound = false;
       this.getPedidoArchivos();
     });
   }
@@ -152,8 +153,9 @@ export class ViewHistDocsFormComponent implements OnInit, OnDestroy {
       this.drawCMRImages();                  
       
     }, error => {
-      console.error('Error downloading or displaying the file. ', error);
-      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
+      this.fileNotFound = true;
+      console.error('Error descargando o mostrando el archivo', error);
+      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR', {filename: this.filename});
       this.notification.error(downloadedError, true, false);
     });
   }
@@ -199,8 +201,9 @@ export class ViewHistDocsFormComponent implements OnInit, OnDestroy {
       this.drawFACfile();                  
       
     }, error => {
-      console.error('Error downloading or displaying the file. ', error);
-      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
+      this.fileNotFound = true;
+      console.error('Error descargando o mostrando el archivo', error);
+      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR', {filename: this.filenameFAC});
       this.notification.error(downloadedError, true, false);
     });
   }
@@ -218,22 +221,19 @@ export class ViewHistDocsFormComponent implements OnInit, OnDestroy {
   }
   
   public onCancel(): void {   //Esta modal NO es bloqueante
-    //if(unlock){
-      this.onActionFinalize();
-      
-      if(this.modalANOTactiva === true){
-        this.spinnerService.show();
-        const modalHija = document.getElementById('anotaModalB');
-        if(modalHija != null){
-          this.modalANOTactiva = false;
-          modalHija.style.display = 'none';
-        }
-      }
-    //} else {
-      setTimeout(() => {
+    this.onActionFinalize();
+    
+    if(this.modalANOTactiva === true){
+      this.spinnerService.show();
+      const modalHija = document.getElementById('anotaModalB');
+      if(modalHija != null){
         this.modalANOTactiva = false;
-      }, 333);
-    //}
+        modalHija.style.display = 'none';
+      }
+    }
+    setTimeout(() => {
+      this.modalANOTactiva = false;
+    }, 333);
   }
 
   public downloadCMR(): void {

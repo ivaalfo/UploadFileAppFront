@@ -24,14 +24,18 @@
 
     <div class="modal-docs-hist__buttons">
       <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
-      <m-action-button *ngIf="true" class="modal-docs-hist__button" icon="arrow-blue-down.png" [inverted]="true" (click)="downloadCMR()">   
-        {{ 'PEDIDOS_HIST.FORM.BUTTONS.DOWNLOAD_CMR' | translate }}</m-action-button>
-      <m-action-button *ngIf="true" [disabled]="isNotFACdoc" class="modal-docs-hist__button" icon="arrow-blue-down.png" [inverted]="true" (click)="downloadFAC()">   
-        {{ 'PEDIDOS_HIST.FORM.BUTTONS.DOWNLOAD_FAC' | translate }}</m-action-button>
-      <m-action-button *ngIf="!isUserExter" [disabled]="pedidoSelected.isBlocked || isUserConsulta" class="modal-docs-val__button" icon="edit-white.png" (click)="anotCMR()">   
-        {{ 'PEDIDOS_HIST.BUTTONS.ANOT_CMR' | translate }}</m-action-button>
+      <m-action-button *ngIf="true" [disabled]="noHaveFiles" class="modal-docs-hist__button" icon="arrow-blue-down.png" [inverted]="true" (click)="downloadCMR()">   
+        {{ 'PEDIDOS_HIST.FORM.BUTTONS.DOWNLOAD_CMR' | translate }}
+      </m-action-button>
+      <m-action-button *ngIf="true" [disabled]="noHaveFiles || isNotFACdoc" class="modal-docs-hist__button" icon="arrow-blue-down.png" [inverted]="true" (click)="downloadFAC()">   
+        {{ 'PEDIDOS_HIST.FORM.BUTTONS.DOWNLOAD_FAC' | translate }}
+      </m-action-button>
+      <m-action-button *ngIf="!isUserExter" [disabled]="noHaveFiles || isUserConsulta" class="modal-docs-val__button" icon="edit-white.png" (click)="anotCMR()">   
+        {{ 'PEDIDOS_HIST.BUTTONS.ANOT_CMR' | translate }}
+      </m-action-button>
       <m-action-button *ngIf="canBeClosed" class="modal-docs-hist__button" icon="cross.png" (click)="cancel()">
-        {{ 'PEDIDOS_HIST.FORM.BUTTONS.EXIT' | translate }}</m-action-button>
+        {{ 'PEDIDOS_HIST.FORM.BUTTONS.EXIT' | translate }}
+      </m-action-button>
     </div>
   </form>
 

@@ -152,8 +152,9 @@ export class ViewActivDocsFormComponent implements OnInit, OnDestroy {
       this.drawCMRImages();                  
       
     }, error => {
-      console.error('Error downloading or displaying the file. ', error);
-      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
+      this.pedidoSelected.isBlocked = true;
+      console.error('Error descargando o mostrando el archivo', error);
+      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR', {filename: this.filename});
       this.notification.error(downloadedError, true, false);
     });
   }
@@ -205,8 +206,9 @@ export class ViewActivDocsFormComponent implements OnInit, OnDestroy {
       this.drawFACfile();                  
       
     }, error => {
-      console.error('Error downloading or displaying the file. ', error);
-      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR');
+      this.pedidoSelected.isBlocked = true;
+      console.error('Error descargando o mostrando el archivo', error);
+      const downloadedError = this.translate.instant('ERROR.DOWNLOAD_FILE_ERROR', {filename: this.filenameFAC});
       this.notification.error(downloadedError, true, false);
     });
   }

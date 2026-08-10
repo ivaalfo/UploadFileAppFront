@@ -388,7 +388,7 @@
     "API_LOCK_ERROR": "Error en los bloqueos. Contacte con su administrador.",
     "DUPLICATED_KEY": "Error. Clave duplicada.",
     "DATA_NOT_SAVED": "Error. Datos no guardados.",
-    "DOWNLOAD_FILE_ERROR": "Error descargando o mostrando el archivo.",
+    "DOWNLOAD_FILE_ERROR": "Error descargando o mostrando el archivo: {{filename}}",
     "DOWNLOAD_SIGN_ERROR": "Error descargando o mostrando la firma."
   },
 
