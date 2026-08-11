@@ -8,5 +8,5 @@ export interface GrupajeItem {
 
 export interface PedidoGrupaje {
   grupTR: string;
-  seleccionados: GrupajeItem[];
+  arrayGrulog: GrupajeItem[];
 }

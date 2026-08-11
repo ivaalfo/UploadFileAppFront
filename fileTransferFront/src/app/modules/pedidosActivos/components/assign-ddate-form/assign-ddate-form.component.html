@@ -1,24 +1,53 @@
-<m-modal-form [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
+<m-modal-form class="small-modal" [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
   [header]="header" [pedidoSelected]="pedidoSelected"
   [canBeClosed]="!isLoading" 
   (accepted)="accept()" (canceled)="canceled()">
   
   
-  <div *ngIf="pedidoForm" [formGroup]="pedidoForm">
-  
-    <div class="form-group">
-      <label for="fechaEntReal-input">{{ 'PEDIDOS_ACTIV.FORM.FECREAL.FECREAL' | translate }}</label>
-      <div class="form-group__field">
-        <input type="text" id="fechaEntReal-input" name="fechaEntReal-input"
-          formControlName="fechaEntReal" ngxDaterangepickerMd [singleDatePicker]="true" [autoApply]="true"
-          [locale]="{format: 'DD/MM/YYYY'}" autocomplete="off" readonly placeholder="Seleccione fecha"/>
-        <div class="form-group__error">
-          <span *ngIf="pedidoForm?.get('fechaEntReal')?.hasError('required')">
-            {{ error('fechaEntReal') | translate }}
-          </span>
-          <span *ngIf="pedidoForm?.get('fechaEntReal')?.hasError('invalidDate')">
-            {{ 'PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR' | translate}}
-          </span>
+  <div class="assign-ddate-body" *ngIf="pedidoForm" [formGroup]="pedidoForm">
+    <div class="form-group" *ngIf="!isGrulogMode">
+      <div class="form-group__row">
+        <label for="fechaEntReal-input" class="pedido-label">
+          <div><span class="label-key">TR:</span> {{ pedidoSelected?.track }}</div>
+          <div><span class="label-key">Exp:</span> {{ pedidoSelected?.expediente }}</div>
+        </label>
+        <div class="form-group__field">
+          <input #fechaEntRealInput type="text" id="fechaEntReal-input" name="fechaEntReal-input"
+            formControlName="fechaEntReal" ngxDaterangepickerMd [singleDatePicker]="true" [autoApply]="true"
+            [locale]="{format: 'DD/MM/YYYY'}" autocomplete="off" readonly [placeholder]="getSinglePlaceholder()"/>
+          <div class="form-group__error">
+            <span *ngIf="pedidoForm?.get('fechaEntReal')?.hasError('required')">
+              {{ error('fechaEntReal') | translate }}
+            </span>
+            <span *ngIf="pedidoForm?.get('fechaEntReal')?.hasError('invalidDate')">
+              {{ 'PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR' | translate}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="isGrulogMode && renderFechas" [formGroup]="pedidoForm">
+      <div class="form-group__header"></div>
+      <div *ngIf="renderFechas">
+        <div *ngFor="let ctrl of fechaControls; let i = index" class="form-group__row">
+          <label [for]="'fechaEntReal-'+i" class="pedido-label">
+            <div class="pedido-track"><span class="label-key">TR:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].track : ('#' + (i+1)) }}</div>
+            <div class="pedido-exp"><span class="label-key">Exp:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].expediente : '' }}</div>
+          </label>
+            <div class="form-group__field">
+            <input #fechaEntRealInput type="text" [id]="'fechaEntReal-'+i" [name]="'fechaEntReal-'+i"
+              [formControl]="fechaControls[i]" ngxDaterangepickerMd [singleDatePicker]="true" [autoApply]="true"
+              [locale]="{format: 'DD/MM/YYYY'}" autocomplete="off" readonly [placeholder]="getPlaceholderForIndex(i)"/>
+            <div class="form-group__error">
+              <span *ngIf="(pedidoForm?.get('fechasEntReal')?.get(i.toString())?.hasError('required')) && (submitted || (pedidoForm?.get('fechasEntReal')?.get(i.toString())?.touched))">
+                {{ 'PEDIDOS_ACTIV.FORM.FECREAL.ERROR.REQUIRED' | translate }}
+              </span>
+              <span *ngIf="(pedidoForm?.get('fechasEntReal')?.get(i.toString())?.hasError('invalidDate')) && (submitted || (pedidoForm?.get('fechasEntReal')?.get(i.toString())?.touched))">
+                {{ 'PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR' | translate}}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

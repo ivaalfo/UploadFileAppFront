@@ -4,6 +4,10 @@
   display: flex;
 }
 
+:host(.small-modal) .modal-form__content {
+  width: 480px;
+}
+
 .modal-form {
   &__wrapper {
     padding: 0 15px 15px 15px;
@@ -16,6 +20,7 @@
     margin-left: 10px;
     padding-left: 10px;
   }
+
 
   &__buttons {
     background: $light-blue;

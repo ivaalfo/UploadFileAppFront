@@ -127,7 +127,7 @@ export class AssignGrupFormComponent implements OnInit, OnDestroy {
         )
         .subscribe(
             (grupRecuperado: PedidoGrupaje) => {
-                this.grupLista = grupRecuperado.seleccionados || [];
+                this.grupLista = grupRecuperado.arrayGrulog || [];
             },
             (_error) => {
                 this.isLoading = false;
@@ -210,7 +210,7 @@ export class AssignGrupFormComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const seleccionados = this.grupLista.map((item, i) => {
+        const arrayGrulog = this.grupLista.map((item, i) => {
             const ctrlA = this.grupForm.get(`checkCMR_${i}`);
             const ctrlB = this.grupForm.get(`checkFAC_${i}`);
             return {
@@ -222,13 +222,13 @@ export class AssignGrupFormComponent implements OnInit, OnDestroy {
             };
         });
 
-        //console.log('Enviando al back:', seleccionados);
-        this.putGrupajeOptions(seleccionados);
+        //console.log('Enviando al back:', arrayGrulog);
+        this.putGrupajeOptions(arrayGrulog);
     }
 
-    private putGrupajeOptions(seleccionados: { grupNum: String; refCarga: String; opcionCMR: any; opcionFAC: any; }[]){
+    private putGrupajeOptions(arrayGrulog: { grupNum: String; refCarga: String; opcionCMR: any; opcionFAC: any; }[]){
         this.isLoading = true;
-        this.apiPactivosClient.setGrupaje(this.pedidoSelected.grupTR, seleccionados)
+        this.apiPactivosClient.setGrupaje(this.pedidoSelected.grupTR, arrayGrulog)
         .pipe(
             take(1)
         )

@@ -67,6 +67,7 @@ export class PedidosActivosComponent implements OnInit {
   public viewDocsModalOpener$ = new Subject<ModalAction>();
   public pedidoFiles = new PedidoFiles();
   public fileURL!: string;
+  public modalSubPedidos: PedidoProveedor[] = [];
 
   public constructor (
     private readonly authService: AuthService,
@@ -657,9 +658,9 @@ export class PedidosActivosComponent implements OnInit {
 
   public onDoubleClick(pedido: PedidoProveedor) {
     if(pedido.hasCMR === 7 || pedido.hasCMR === 8 || pedido.hasCMR === 0) {
-      //Si es no aplica, no tiene nada que mostrar
-      //Hacemos que el doubleClick no haga nada
-      //o ahora puede ser tambien 0 u 8 deshabilitados
+      // Si es no aplica, no tiene nada que mostrar
+      // Hacemos que el doubleClick no haga nada
+      // o ahora puede ser tambien 0 u 8 deshabilitados
       return;
     }
     this.selectPedido(pedido);
@@ -682,7 +683,14 @@ export class PedidosActivosComponent implements OnInit {
 
   public setDescargaDate(pedido: PedidoProveedor): void {
     this.selectedPedido = pedido;
-    this.actionTitle = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.TITLE', { refped: this.selectedPedido.track });
+    // Si el pedido es grupaje, el título debe mostrar grupTR y pasar los miembros del grupo al modal
+    if (pedido && pedido.isGrupaje) {
+      this.modalSubPedidos = this.pedidos.filter(p => p.grupTR === pedido.grupTR);
+      this.actionTitle = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.TITLE', { refped: pedido.grupTR });
+    } else {
+      this.modalSubPedidos = [];
+      this.actionTitle = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.TITLE', { refped: this.selectedPedido.track });
+    }
     setTimeout(() => {
       this.fdescModalOpener$.next(ModalAction.Open);
     }, 0);

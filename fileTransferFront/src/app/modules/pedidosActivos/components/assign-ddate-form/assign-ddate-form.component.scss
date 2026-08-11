@@ -1,0 +1,49 @@
+.form-group__row{
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	margin-bottom:12px;
+}
+.pedido-label{
+	width:40%;
+	display:flex;
+	flex-direction:column;
+}
+.label-key{
+	font-weight:700;
+}
+.form-group__field{
+	width:58%;
+	display:flex;
+	flex-direction:column;
+}
+.form-group__error{
+	color:#c00;
+	font-size:0.85em;
+	margin-top:6px;
+}
+@media(max-width:600px){
+	.form-group__row{
+		flex-direction:column;
+	}
+	.pedido-label,
+	.form-group__field{
+		width:100%;
+	}
+}
+
+/* Ajustes locales */
+.label-key{
+	font-weight:700;
+	margin-right:6px;
+}
+.assign-ddate-body{
+	width:520px;
+	max-width:calc(100% - 40px);
+	padding:12px;
+}
+
+/* Evita que el selector global `label::after` añada ':' en estas etiquetas locales */
+.pedido-label::after {
+	content: "";
+}

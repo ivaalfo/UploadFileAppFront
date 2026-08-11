@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableHeader } from '@shared/components/table/table-header';
-import { /*Observable,*/ Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { TableScroll } from '@shared/components/table/table-scroll';
 import { User } from '@data/maintenance/users';
 import { ModalAction } from '@shared/components/modal/modal-action';
@@ -11,7 +11,7 @@ import { take, tap, finalize, map } from 'rxjs/operators';
 import { UserMaintenanceApiClient } from '@core/services/api/maintenance/api-user-maintenance.service';
 import { MasterTablesService } from '@core/services/api/master-tables/master-tables.service';
 import { MasterTablesEnum, MasterTable } from '@data/shared/masterTables';
-import { /*sortArrayBy,*/ sortByProperty } from '@shared/utils/array-utils';
+import { sortByProperty } from '@shared/utils/array-utils';
 import { UserRoles } from '@data/user-roles';
 import { AuthService } from '@core/services/auth/auth.service';
 import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';

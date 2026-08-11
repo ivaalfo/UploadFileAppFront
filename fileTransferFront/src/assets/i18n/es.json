@@ -101,12 +101,16 @@
       "FECREAL": {
         "TITLE": "{{refped}} : Establecer Fecha Real de Entrega",
         "FECREAL": "Fecha de Entrega: ",
+        "PH_SELECT": "Seleccione fecha",
         "SUCCES": {
           "UPDATE_FREAL": "Fecha Real de Entrega actualizada para: {{refped}}"
         },
         "ERROR": {
           "DATE_LIMIT_ERROR": "La Fecha de Entrega no puede ser anterior a la Fecha de Carga.",
-          "UPDATE_FREAL": "Error actualizando la Fecha Real de Entrega para: {{refped}}"
+          "REQUIRED": "Campo requerido.",
+          "REQUIRED_MULTI": "Debe seleccionar una fecha para cada pedido.",
+          "UPDATE_FREAL": "Error actualizando la Fecha Real de Entrega para: {{refped}}",
+          "UPDATE_FREAL_MULTI": "Error actualizando las Fechas Reales de Entrega."
         }
       },
       "GRUPS": {
@@ -417,18 +421,6 @@
     "CONTENT": "Notas de la versión :: {{fecha}} : \n{{cambios}}"
   },
 
-  "DATA_NOT_FOUND": "No hay resultados",
-
-
-  "NOT_USED":"----------DESDE AQUI NO SE USAN DE MOMENTO--------------",
-
-  "USER_VALIDATING": "El usuario: {{user}}, está validando este CMR",
-  "DATA_SAVED": "Datos guardados correctamente.",
-  "DATA_REACTIVATED": "Datos reactivados correctamente.",
-  "DATA_DELETED": "Datos dados de baja correctamente.",
-  "ARTICLE_CONTAINER_NOT_FOUND": "No hay artículo/contenedor para esa busqueda",
-  "SEARCH": "Búsqueda",
-  "SEARCH_ACTION": "Buscar",
-  "FROM_TO": "Desde - Hasta"
+  "DATA_NOT_FOUND": "No hay resultados"
 
 }
