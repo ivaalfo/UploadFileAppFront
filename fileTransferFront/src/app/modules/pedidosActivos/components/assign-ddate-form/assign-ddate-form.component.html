@@ -32,7 +32,7 @@
       <div *ngIf="renderFechas">
         <div *ngFor="let ctrl of fechaControls; let i = index" class="form-group__row">
           <label [for]="'fechaEntReal-'+i" class="pedido-label">
-            <div class="pedido-track"><span class="label-key">TR:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].track : ('#' + (i+1)) }}</div>
+            <div class="pedido-track"><span class="label-key">TR: </span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].track : ('#' + (i+1)) }}</div>
             <div class="pedido-exp"><span class="label-key">Exp:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].expediente : '' }}</div>
           </label>
             <div class="form-group__field">

@@ -295,11 +295,13 @@ export class PedidosActivosComponent implements OnInit {
         return;
       }
 
-			//Comprobamos el tamanio del nombreCMR para que no exceda el pathCMR
-			let nombreCMR = "CMR_"+pedido.refCarga+"_"+file.name;
+			//A veces la refCarga puede contener caracteres no válidos para el nombre del archivo, así que los reemplazamos por guiones
+      const rCarga = pedido.refCarga ? pedido.refCarga.replace(/[\/.%,';&]/g, "-") : '';
+			//Comprobamos el tamaño del nombreCMR para que no exceda el pathCMR
+      let nombreCMR = "CMR_"+rCarga+"_"+file.name;
       if(pedido.track.startsWith("GRULOG")){
         const gruTR = pedido.track.replace("GRULOG", "-GRU");
-        nombreCMR = "CMR_"+pedido.refCarga+gruTR+"_"+file.name;
+        nombreCMR = "CMR_"+rCarga+gruTR+"_"+file.name;
       }
 
 			if(nombreCMR.length>149){    //se tiene en cuenta el path (MAX_200char) y posterior ../validados.../rechazados
@@ -1048,16 +1050,6 @@ export class PedidosActivosComponent implements OnInit {
   }
   /** FIN PARTE DE VISUALIZACION DE DOCS */
 
-  /*private limpiarInputsFila(track: string, expediente: string) {
-    const suffix = track + '-' + expediente;
-    const inputCMR = document.getElementById('cmr-' + suffix) as HTMLInputElement;
-    const inputFAC = document.getElementById('fac-' + suffix) as HTMLInputElement;
-    const inputOTR = document.getElementById('otr-' + suffix) as HTMLInputElement;
-
-    if (inputCMR) inputCMR.value = '';
-    if (inputFAC) inputFAC.value = '';
-    if (inputOTR) inputOTR.value = '';
-  }*/
 
   //EXPORT TO EXCELL
   public convertToExcelExternos(): void {

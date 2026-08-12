@@ -217,7 +217,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
                 dateControl.setErrors({'invalidDate': true});
               }
               const errorMsg = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR');
-              this.notification.error(errorMsg, true, false);
+              this.notification.error(errorMsg, true, true);
               return;
             }
           }
@@ -242,7 +242,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
         const val = control ? control.value : null;
         if (!val || !val.startDate) {
           if (control) control.setErrors({'required': true});
-          this.notification.error(this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.ERROR.REQUIRED_MULTI'), true, false);
+          this.notification.error(this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.ERROR.REQUIRED_MULTI'), true, true);
           return;
         }
         const startDate = val.startDate;
@@ -252,7 +252,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
         const fechaCargaMoment = this.normalizarFechaCarga(subPedido ? subPedido.fechaCarga : this.pedido.fechaCarga);
         if (fechaCargaMoment.isValid() && startDate.isBefore(fechaCargaMoment, 'day')) {
           if (control) control.setErrors({'invalidDate': true});
-          this.notification.error(this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR'), true, false);
+          this.notification.error(this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.ERROR.DATE_LIMIT_ERROR'), true, true);
           return;
         }
 
