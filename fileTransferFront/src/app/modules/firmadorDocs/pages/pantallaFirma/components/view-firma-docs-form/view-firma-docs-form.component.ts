@@ -126,7 +126,7 @@ export class ViewFirmaDocsFormComponent implements OnInit, OnDestroy {
     }
   }
   
-  //Caraga el sello de Martico para estamparlo si el CMR es una imagen
+  //Cargara el sello de Martico para estamparlo si el CMR es una imagen
   public getWatermark() {
     this.apiFileUpload.getWatermark()
     .subscribe(blob => {
