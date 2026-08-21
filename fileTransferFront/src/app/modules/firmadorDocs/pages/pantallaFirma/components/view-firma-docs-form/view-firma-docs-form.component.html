@@ -1,0 +1,57 @@
+<m-modal-docs-firm [opener$]="modalOpener$" icon="assets/images/icons/big-users.png" 
+  [header]="viewCMRheaderText" 
+  [pedidoSelected]="pedidoSelected" 
+  [isUserExter]="isExternoUser"
+  [isUserConsulta]="isConsultaUser"
+  [canBeClosed]="!isLoading" 
+  [formularioValido]="hayFirmaLista"
+  (signed)="onSignedCMR()" 
+  (downloaded)="onDownloadSignedCMR()"
+  (canceled)="onCancel(true)">
+  
+  <!--CMR-->
+  <div cmr class="document-container">
+    <div *ngIf="isPdfFile" id="pdfDocDiv" class="view-firma-docs-pdfDiv">
+      
+      <!-- Enlazamos el [src] directamente a nuestra variable segura de Angular -->
+      <iframe *ngIf="pdfRenderUrl" [src]="pdfRenderUrl" width="100%" height="100%" [frameBorder]="0"></iframe>
+
+      <!-- Capa de bloqueo del toolbar del iframe -->
+      <div class="capa-bloqueo-pdf"></div>
+    </div>
+  </div>
+
+   <!-- Va a la derecha por el atributo [firma-externa] -->
+  <div firma-externa class="contenedor-firma-derecha">
+    <span class="titulo-firma">Insertar Firma: </span>
+    
+    <div class="selectores-tipo">
+      <label><input type="radio" name="tipoFirma" [(ngModel)]="tipoFirmaSeleccionada" value="dibujar"> Dibujar</label>
+      <label style="margin-left: 10px;"><input type="radio" name="tipoFirma" [(ngModel)]="tipoFirmaSeleccionada" value="subir"> Subir PNG</label>
+    </div>
+
+    <!-- Canvas adaptado al ancho estrecho de la columna derecha -->
+    <canvas #canvasFirma class="canvas-derecho" 
+      (mousedown)="iniciarDibujo($event)" 
+      (mousemove)="dibujar($event)" 
+      (mouseup)="detenerDibujo()" 
+      (mouseleave)="detenerDibujo()">
+    </canvas>
+    <button type="button" class="btn-limpiar-corto" (click)="limpiarCanvas()">Borrar</button>
+
+    <div *ngIf="tipoFirmaSeleccionada === 'subir'">
+      <input type="file" accept="image/png" (change)="onFileSelected($event)" class="input-file-corto">
+    </div>
+  </div>
+</m-modal-docs-firm>
+
+
+<!--PARA BLOQUEOS-->
+<m-modal-confirmation 
+  [header]="unlockTitle" 
+  [onlyConfirm]="true" 
+  icon="assets/images/icons/big-warning.png"
+  [opener$]="confirmModalOpener$" 
+  (accepted)="onCancel(true)">
+  {{actionToConfirm | translate: { id: this.pedidoSelected.f3refPed } }}
+</m-modal-confirmation>

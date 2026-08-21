@@ -7,46 +7,28 @@
   </div>-->
   <div class="content-layout__header-right-side " >
     <m-header-menu iconSizeStyle="header-menu__img-menu" icon="assets/images/icons/menu.png">
-      <!--<li *ngIf="canViewReturns">
-        <a [routerLink]="['/returns']" [routerLinkActive]="['header-menu__active-link']">
-          {{ 'CONTAINER_RETURN' | translate }}
-        </a>
+      <li *ngIf="canViewGestionPedidosMenu">
+        <m-header-submenu-gestion-pedidos iconSizeStyle="header-menu__img-menu" icon="assets/images/icons/menu.png">
+          <a *ngIf="canViewPedidosActivos" [routerLink]="['/gestionPedidos/pedidosActivos']" [routerLinkActive]="['header-menu__active-link']">
+            {{ 'MENU_ENTRY.PEDIDOS_ACTIVOS' | translate }}
+          </a>
+          <a *ngIf="canViewPedidosValidador" [routerLink]="['/gestionPedidos/pedidosValidador']" [routerLinkActive]="['header-menu__active-link']">
+            {{ 'MENU_ENTRY.PEDIDOS_VALIDADOR' | translate }}
+          </a>
+          <a *ngIf="canViewPedidosHistorico" [routerLink]="['/gestionPedidos/pedidosHistorico']" [routerLinkActive]="['header-menu__active-link']">
+            {{ 'MENU_ENTRY.PEDIDOS_HISTORICO' | translate }}
+          </a>
+        </m-header-submenu-gestion-pedidos>
       </li>
-      <li *ngIf="canViewAlertCenter">
-        <a [routerLink]="['/alertCenter']" [routerLinkActive]="['header-menu__active-link']">
-          {{ 'ALERT_CENTER.TITLE' | translate }}
-        </a>
-      </li>-->
-      <li *ngIf="canViewPedidosActivos">
-        <a [routerLink]="['/pedidosActivos']" [routerLinkActive]="['header-menu__active-link']">
-          {{ 'PEDIDOS_ACTIV.TITLE' | translate }}
-        </a>
-      </li>
-      <li *ngIf="canViewPedidosValidador">
-        <a [routerLink]="['/pedidosValidador']" [routerLinkActive]="['header-menu__active-link']">
-          {{ 'VALIDADOR.TITLE' | translate }}
-        </a>
-      </li>
-      <li *ngIf="canViewPedidosHistorico">
-        <a [routerLink]="['/pedidosHistorico']" [routerLinkActive]="['header-menu__active-link']">
-          {{ 'PEDIDOS_HIST.TITLE' | translate }}
+      <li *ngIf="canViewFirmador">
+        <a [routerLink]="['/firmadorDocs']" [routerLinkActive]="['header-menu__active-link']">
+          {{ 'MENU_ENTRY.FIRMADOR_DOCS' | translate }}
         </a>
       </li>
       <li *ngIf="canViewMaintenanceUsers">
         <a [routerLink]="['/users']" [routerLinkActive]="['header-menu__active-link']">
-          {{ 'MAINTENANCES.USERS.TITLE' | translate }}
+          {{ 'MENU_ENTRY.USUARIOS' | translate }}
         </a>
-        <!--<m-header-submenu-maintenance iconSizeStyle="header-menu__img-menu" icon="assets/images/icons/menu.png">
-          <a *ngIf="canViewMaintenanceUsers" [routerLink]="['/maintenance/users']" [routerLinkActive]="['header-menu__active-link']">
-            {{ 'MAINTENANCES.USUARIOS' | translate }}
-          </a>
-          <a *ngIf="canViewMaintenanceDrivers" [routerLink]="['/maintenance/drivers']" [routerLinkActive]="['header-menu__active-link']">
-            {{ 'MAINTENANCES.DRIVERS.DRIVERS' | translate }}
-          </a>
-          <a *ngIf="canViewMaintenanceDocks" [routerLink]="['/maintenance/docks']" [routerLinkActive]="['header-menu__active-link']">
-            {{ 'MAINTENANCES.DOCKS.DOCKS' | translate }}
-          </a>
-        </m-header-submenu-maintenance>-->
       </li>
     </m-header-menu>
     <m-header-menu iconSizeStyle="header-menu__img-user" icon="assets/images/icons/user-header.png">

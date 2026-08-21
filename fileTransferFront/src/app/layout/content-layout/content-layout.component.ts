@@ -37,9 +37,16 @@ export class ContentLayoutComponent implements OnInit {
   }
 
   public goToHome(): void {
-    //this.storage.deleteAllLocalStorageItems(); //NO HACE NADA
     this.storage.clearFiltersLess();
     this.router.navigate(['/']);
+  }
+
+  public get canViewGestionPedidosMenu(): boolean {
+    return (this.authService.hasRole(UserRoles.Admin) 
+      || this.authService.hasRole(UserRoles.Interno)
+      || this.authService.hasRole(UserRoles.Consulta)
+      || this.authService.hasRole(UserRoles.Externo)
+    );
   }
 
   public get canViewPedidosActivos(): boolean {
@@ -65,19 +72,19 @@ export class ContentLayoutComponent implements OnInit {
     );
   }
 
-  public get canViewMaintenance(): boolean {
+  public get canViewFirmador(): boolean {
     return (this.authService.hasRole(UserRoles.Admin) 
-    || this.authService.hasRole(UserRoles.Interno)
-    || this.authService.hasRole(UserRoles.Consulta)
-    || this.authService.hasRole(UserRoles.Externo)
+      || this.authService.hasRole(UserRoles.Interno)
+      || this.authService.hasRole(UserRoles.Consulta)
+      || this.authService.hasRole(UserRoles.Externo)
     );
   }
-
+  
   public get canViewMaintenanceUsers(): boolean {
-    return (this.authService.hasRole(UserRoles.Admin)
-    || this.authService.hasRole(UserRoles.Interno)
-    || this.authService.hasRole(UserRoles.Consulta)
-    || this.authService.hasRole(UserRoles.Externo)
+    return (this.authService.hasRole(UserRoles.Admin) 
+      || this.authService.hasRole(UserRoles.Interno)
+      || this.authService.hasRole(UserRoles.Consulta)
+      || this.authService.hasRole(UserRoles.Externo)
     );
   }
 

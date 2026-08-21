@@ -63,7 +63,7 @@
     width: 465px;
     border: 2px solid $white;
     border-radius: 5px;
-    background: transparent;
+    background-color: rgba(15, 77, 188, 0.8);   //$primary-color
     height: 45px;
     color: $white;
     font-size: rem-calc(21);
@@ -173,19 +173,14 @@
     font-size: rem-calc(26);
     letter-spacing: 1px;
     color: $white;
-    //text-transform: uppercase;
     text-align: right;
 
-    &--activos {
-      background-image: url("src/assets/images/pactiv-back.jpg");
+    &--gestionPedidos {
+      background-image: url("src/assets/images/valdocs-back.jpg");
     }
 
-    &--validador {
-      background-image: url("src/assets/images/pval-back.jpg");
-    }
-
-    &--historico {
-      background-image: url("src/assets/images/phist-back.jpg");
+    &--firmadorDocs {
+      background-image: url("src/assets/images/firmadocs-back.jpg");
     }
 
     &--maintenance {

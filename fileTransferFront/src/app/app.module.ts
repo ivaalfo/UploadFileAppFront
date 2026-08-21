@@ -19,6 +19,7 @@ import { ToasterNotificationComponent } from './layout/toaster-notification/toas
 import { HeaderMenuComponent } from './layout/header-menu/header-menu.component';
 import { GlobalSpinnerComponent } from './layout/global-spinner/global-spinner.component';
 import { Locales } from '@data/languages';
+import { SubHeaderMenuComponentGestionPedidos } from './layout/header-submenu-gestion-pedidos/header-submenu-gestion-pedidos.component';
 
 registerLocaleData(localeEs);
 
@@ -35,7 +36,8 @@ export function createTranslateLoader(http: HttpClient) {
     AuthLayoutComponent,
     ToasterNotificationComponent,
     GlobalSpinnerComponent,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    SubHeaderMenuComponentGestionPedidos
   ],
   imports: [
     BrowserModule,

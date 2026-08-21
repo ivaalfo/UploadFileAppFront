@@ -11,13 +11,6 @@
   "LOGIN_LOGOUT": "Salir",
   "LOGOUT_SUCCESS": "Cierre de sesión exitoso!",
   
-  "FORM_ERROR": {
-    "required": "(!) Campo requerido.",
-    "maxlength": "(!) Superado tamaño máximo.",
-    "email": "(!) Formato email erróneo.",
-    "pattern": "(!) Caracteres no válidos."
-  },
-
   "FILE_UPLOAD": {
     "TITLE": "Digitalización de Facturas y CMR",
     "SUCCES": {
@@ -25,7 +18,11 @@
       "FILES_SAVED": "Fichero/s cargado/s con éxito: {{refped}}",
       "CMR_SAVED": "CMR actualizado: {{cmrName}}",
       "FAC_SAVED": "Factura actualizada: {{facName}}",
-      "OTR_SAVED": "Otros documentos añadidos con éxito."
+      "OTR_SAVED": "Otros documentos añadidos con éxito.",
+      "CMR_DOWNLOADED": "CMR descargado: {{refped}}",
+      "FAC_DOWNLOADED": "Factura descargada: {{refped}}",
+      "OTR_DOWNLOADED": "Archivos descargados: {{refped}}",
+      "PEDIDO_UPDATE": "Anotaciones actualizadas: {{refped}}"
     },
     "ERROR": {
       "FILE_ERROR": "Error subiendo fichero/s: {{refped}}",
@@ -52,16 +49,20 @@
     }
   },
 
+  "MENU_ENTRY": {
+    "GESTION_PEDIDOS": "MENU_ENTRY.GESTION.PEDIDOS",
+    "FIRMADOR_DOCS": "MENU_ENTRY.FIRMADOR.DOCS",
+    "USUARIOS": "Mantenimiento Usuarios",
+    "PEDIDOS_ACTIVOS": "Pedidos Activos",
+    "PEDIDOS_VALIDADOR": "Validar CMR",
+    "PEDIDOS_HISTORICO": "Histórico de Pedidos"
+  },
+
   "PEDIDOS_ACTIV": {
-    "MENU": "Pedidos Activos",
     "TITLE": "Pedidos Activos",
     "CMR_LABEL": "CMR",
     "FAC_LABEL": "Factura",
     "OTR_LABEL": "Otros",
-    "ACTION": {
-      "ENVIAR": "Enviar",
-      "CONFIRMAR": "Confirmar"
-    },
     "TABLE": {
       "USUPROV": "Prov.User",
       "TR": "TR",
@@ -85,12 +86,6 @@
       "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}",
       "SETFREAL": "Debe establecer una Fecha Real de Entrega para poder subir documentación."
     },
-    "BUTTONS": {
-      "FECREAL": "F.Entrega",
-      "ANULAR": "Deshabilitar pedido",
-      "GRUPS": "Combinación Documentos",
-      "VIEW_DOCS": "Ver Documentación"
-    },
     "EXCEL": {
       "EST_CMR": "Estado CMR",
       "EST_FAC": "Estado FAC",
@@ -98,6 +93,7 @@
       "ANOTA": "Anotaciones"
     },
     "FORM": {
+      "FILENAME": "{{filename}}",
       "FECREAL": {
         "TITLE": "{{refped}} : Establecer Fecha Real de Entrega",
         "FECREAL": "Fecha de Entrega: ",
@@ -139,26 +135,11 @@
         "SUCCES_GRUP": "Grulog deshabilitado. TR: {{gruptr}}",
         "DELETE_SUCCES": "Pedido actualizado: {{refped}}",
         "DELETE_SUCCES_GRUP": "Grulog actualizado: {{gruptr}}"
-      },
-      "FILENAME": "{{filename}}",
-      "BUTTONS": {
-        "DOWNLOAD_CMR": "Descargar CMR",
-        "DOWNLOAD_FAC": "Descargar Factura",
-        "EXIT": "Salir"
-      },
-      "SUCCES": {
-        "CMR_DOWNLOADED": "CMR descargado: {{refped}}",
-        "FAC_DOWNLOADED": "Factura descargada: {{refped}}"
-      },
-      "MESSAGES": {
-        "NO_FAC_AVAILABLE": "Factura no disponible.",
-        "MODAL_MESSAGE": "{{modalMessage}}"
       }
     }
   },
 
-  "VALIDADOR": {
-    "MENU": "Validar CMR",
+  "PEDIDOS_VAL": {
     "TITLE": "Validar CMR",
     "TABLE": {
       "PROVEEDOR": "Prov.Cod.",
@@ -182,25 +163,12 @@
       "NO_APLICA": "Sin CMR. No aplica validación.",
       "YA_VALIDADO": "CMR ya validado."
     },
-    "BUTTONS": {
-      "ANOT_CMR": "Anotaciones",
-      "REJECT_CMR": "Rechazar CMR",
-      "VALIDATE_CMR": "Ver CMR"
-    },
     "FORM": {
       "FILENAME": "{{filename}}",
-      "BUTTONS": {
-        "VALIDATE_CMR": "Validar CMR",
-        "REJECT_CMR": "Rechazar CMR",
-        "ANOT_CMR": "Anotaciones",
-        "REJECT_FAC": "Rechazar FAC",
-        "EXIT_CMR": "Salir"
-      },
       "SUCCES": {
         "CMR_VALIDATED": "CMR validado: {{refped}}",
         "CMR_REJECTED": "CMR rechazado: {{refped}}",
-        "FAC_REJECTED": "FAC rechazada: {{refped}}",
-        "PEDIDO_UPDATE": "Anotaciones actualizadas: {{refped}}"
+        "FAC_REJECTED": "FAC rechazada: {{refped}}"
       },
       "ERROR": {
         "CMR_VALIDATION_ERROR": "CMR no validado: {{refped}}",
@@ -220,15 +188,11 @@
           "TITLE": "Anotaciones TR: {{refped}}",
           "ANOT": "Establecer anotaciones"
         }
-      },
-      "MESSAGES": {
-        "NO_FAC_AVAILABLE": "Factura no disponible."
       }
     }
   },
 
   "PEDIDOS_HIST": {
-    "MENU": "Histórico de Pedidos",
     "TITLE": "Histórico de Pedidos",
     "TABLE": {
       "FILES": "CMR / FAC / OTR",
@@ -264,40 +228,18 @@
       "F_ENT_REAL": "Fecha Entrega Real",
       "ANOTA": "Anotaciones"
     },
-    "BUTTONS": {
-      "VIEW_DOCS": "Ver Documentación",
-      "ANOT_CMR": "Anotaciones",
-      "REACTIVAR": "Reactivar pedido",
-      "DOWNLOAD_CMR": "Descargar CMR",
-      "DOWNLOAD_FAC": "Descargar Factura",
-      "DOWNLOAD_OTR": "Descargar Otros"
-    },
     "FORM": {
       "FILENAME": "{{filename}}",
-      "BUTTONS": {
-        "DOWNLOAD_CMR": "Descargar CMR",
-        "DOWNLOAD_FAC": "Descargar Factura",
-        "EXIT": "Salir"
-      },
       "ERROR": {
         "CMR_ANOTATION_ERROR": "CMR no actualizado: {{refped}}",
         "CMR_ANOTA_ERROR": "Acción no disponible",
         "CMR_DELETE_ERROR": "El CMR no tiene anotaciones que borrar"
-      },
-      "SUCCES": {
-        "CMR_DOWNLOADED": "CMR descargado: {{refped}}",
-        "FAC_DOWNLOADED": "Factura descargada: {{refped}}",
-        "OTR_DOWNLOADED": "Archivos descargados: {{refped}}",
-        "PEDIDO_UPDATE": "Anotaciones actualizadas: {{refped}}"
       },
       "ACTIONS": {
         "ANOTATION": {
           "TITLE": "Anotaciones TR: {{refped}}",
           "ANOT": "Establecer anotaciones"
         }
-      },
-      "MESSAGES": {
-        "NO_FAC_AVAILABLE": "Factura no disponible."
       }
     },
     "ACTIONS": {
@@ -311,10 +253,50 @@
       }
     }
   },
+  
+  "FIRMADOR_DOCS": {
+    "TITLE": "TITLE.FIRMADOR.DOCS",
+    "TABLE": {
+      "REFPED": "TR",
+      "EXPEDI": "Expediente",
+      "RCARGA":"Ref.Carga",
+      "MATRIC":"Matrícula",
+      "REMOLQ":"Remolque",
+      "CLICOD": "Prov.Cod.",
+      "USUPROV": "Transportista",
+      "DESCOD": "Dest.Cod.",
+      "USUDEST": "Destinatario",
+      "USECMR": "Usu.Crea.",
+      "FECCM1": "Fec.Creación",
+      "FECCM2": "Fec.Firma Trans.",
+      "FECCM3": "Fec.Firma Dest.",
+      "ESTADO": "Estado",
+      "NORESULTS2SIGN": "No hay documentos pendientes de firmar con esos criterios de búsqueda."
+    },
+    "TEXT": {
+      "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}"
+    },
+    "EXCEL": {
+      "EST_CMR": "Estado CMR",
+      "EST_FAC": "Estado FAC",
+      "NUM_FAC": "Nº Factura",
+      "F_SUBIDA_CMR": "F.Subida CMR",
+      "F_SUBIDA_FAC": "F.Subida FAC",
+      "F_ENT_REAL": "Fecha Entrega Real",
+      "ANOTA": "Anotaciones"
+    },
+    "FORM": {
+      "FILENAME": "{{filename}}",
+      "SUCCES": {
+        "CMR_SIGNED": "CMR firmado: {{refped}}"
+      },
+      "ERROR": {
+        "CMR_SIGN_ERROR": "CMR no firmado: {{refped}}"
+      }
+    }
+  },
 
   "MAINTENANCES": {
-    "MENU": "Mantenimientos",
-    "USUARIOS": "Mantenimiento Usuarios",
     "USERS": {
       "TITLE": "Mantenimiento de Usuarios",
       "ADD": "Añadir usuario",
@@ -378,13 +360,30 @@
   },
   
   "BUTTONS": {
+    "ENVIAR": "Enviar",
     "CONFIRM": "Confirmar",
     "CANCEL": "Cancelar",
     "SAVE": "Guardar",
+    "EXIT": "Salir",
     "REFRESH": "Renovar",
     "UPDATE": "Actualizar App",
     "EXCEL": "Excel",
-    "DELETE_NOTE": "Borrar Nota"
+    "FECREAL": "F.Entrega",
+    "VIEW_DOCS": "Ver Documentación",
+    "DOWNLOAD_CMR": "Descargar CMR",
+    "DOWNLOAD_FAC": "Descargar Factura",
+    "DOWNLOAD_OTR": "Descargar Otros",
+    "ANOT_CMR": "Anotaciones",
+    "DELETE_NOTE": "Borrar Nota",
+    "GRUPS": "Combinación Documentos",
+    "ANULAR": "Deshabilitar pedido",
+    "REACTIVAR": "Reactivar pedido",
+    "VIEW_CMR": "Ver CMR",
+    "VALIDATE_CMR": "Validar CMR",
+    "REJECT_CMR": "Rechazar CMR",
+    "REJECT_FAC": "Rechazar FAC",
+    "FIRMAR_CMR": "Firmar CMR",
+    "GUARDAR_CMR": "Guardar CMR"
   },
 
   "ERROR": {
@@ -396,8 +395,18 @@
     "DOWNLOAD_SIGN_ERROR": "Error descargando o mostrando la firma."
   },
 
+  "FORM_ERROR": {
+    "required": "(!) Campo requerido.",
+    "maxlength": "(!) Superado tamaño máximo.",
+    "email": "(!) Formato email erróneo.",
+    "pattern": "(!) Caracteres no válidos."
+  },
+
   "MESSAGES": {
-    "LOCKED_BY": "Bloqueado por el usuario: {{user}}"
+    "MODAL_MESSAGE": "{{modalMessage}}",
+    "NO_FAC_AVAILABLE": "Factura no disponible.",
+    "LOCKED_BY": "Bloqueado por el usuario: {{user}}",
+    "DATA_NOT_FOUND": "No hay resultados."
   },
 
   "ACTION": {
@@ -419,8 +428,6 @@
   "CONTROL_VERSION": {
     "TITLE": "Nueva versión disponible v{{version}}",
     "CONTENT": "Notas de la versión :: {{fecha}} : \n{{cambios}}"
-  },
-
-  "DATA_NOT_FOUND": "No hay resultados"
+  }
 
 }

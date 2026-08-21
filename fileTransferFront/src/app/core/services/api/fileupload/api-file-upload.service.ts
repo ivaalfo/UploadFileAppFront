@@ -6,21 +6,30 @@ import { ApiClient } from '@core/services/api/api-client.service';
 import { LockEntities } from '@data/shared/locks';
 
 
+
+const FILE_UPLOAD_GET_PEDIDO = 'api/v1/files/getPedidoProv';
 const FILE_UPLOAD_GET_PEDIDO_FILES = 'api/v1/files/getPedidoFilesVO';
-const FILE_UPLOAD_GET_SIGN = 'api/v1/files/getSIGN';
+const FILE_UPLOAD_GET_WATERMARK = 'api/v1/files/getWatermark';
 const FILE_UPLOAD_GET_CMR = 'api/v1/files/getCMR';
 const FILE_UPLOAD_GET_VALID_CMR = 'api/v1/files/getValidCMR';
 const FILE_UPLOAD_GET_FAC = 'api/v1/files/getFAC';
 const FILE_UPLOAD_GET_FILE = 'api/v1/files/getFile';
 
 const FILE_UPLOAD_POST = 'api/v1/files/post';
-const FILE_UPLOAD_POST_SIGNED_FILE = 'api/v1/files/postSigned';
+const FILE_UPLOAD_POST_WATERMARKED_FILE = 'api/v1/files/postWatermarked';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadApiClient extends ApiClient {
+
+  public getPedidoProv(track: string, exp: string): Observable<ApiResponseWithData> {
+    return this.http.get<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_GET_PEDIDO}/${track}/${exp}`)
+    .pipe(
+      map(response => this.mapResponseWithData(response))
+    );
+  }
 
   public getPedidoFilesVO(track: string, exp: string): Observable<ApiResponseWithData> {
     return this.http.get<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_GET_PEDIDO_FILES}/${track}/${exp}`)
@@ -29,9 +38,9 @@ export class FileUploadApiClient extends ApiClient {
     );
   }
   
-  //NEXT ? Se puede poner q reciba el user y que cada user tenga su firma diferente ?
-  public getSIGN(): Observable<Blob> {
-    return this.http.get(`${this.config.apiBaseUrl}${FILE_UPLOAD_GET_SIGN}`, {
+  //Caraga el sello de Martico para estamparlo si el CMR es una imagen
+  public getWatermark(): Observable<Blob> {
+    return this.http.get(`${this.config.apiBaseUrl}${FILE_UPLOAD_GET_WATERMARK}`, {
       responseType: 'blob'
     });
   }
@@ -70,9 +79,9 @@ export class FileUploadApiClient extends ApiClient {
     );
   }
 
-  public validateFile(lockType: LockEntities, signFile: FormData): Observable<ApiResponseWithData> {
-    return this.http.post<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_POST_SIGNED_FILE}/${lockType}`, 
-      signFile
+  public validateFile(lockType: LockEntities, fData: FormData): Observable<ApiResponseWithData> {
+    return this.http.post<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_POST_WATERMARKED_FILE}/${lockType}`, 
+      fData
     )
     .pipe(
       map(response => this.mapResponseWithDataWithoutWarning(response))

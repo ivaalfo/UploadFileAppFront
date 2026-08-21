@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
-//import { NotificationService } from '@core/services/notifications/toaster-notification.service';
-//import { GlobalSpinnerService } from '@core/services/global-spinner/global-spinner.service';
-//import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';
-//import { take } from 'rxjs/operators';
 import { AuthService } from '@core/services/auth/auth.service';
 import { UserRoles } from '@data/user-roles';
-//import { Subject } from 'rxjs';
-//import { ModalAction } from '@shared/components/modal/modal-action';
-//import { ApiClient } from '@core/services/api/api-client.service';
-//import { take, finalize, map } from 'rxjs/operators';
-//import { NotificationService } from '@core/services/notifications/toaster-notification.service';
-//import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,10 +10,7 @@ import { UserRoles } from '@data/user-roles';
 })
 export class HomeComponent {
 
-  //public search!: string;
-
-  public formData = new FormData;
-  public selectedFiles!: File[];
+  public search!: string;
 
   public constructor(
     private readonly authService: AuthService,
@@ -35,27 +22,52 @@ export class HomeComponent {
   ) { }
 
   public ngOnInit(): void {
-    this.selectedFiles = [];
+  }
+
+  public get canViewGestionPedidosMenu(): boolean {
+    return (this.authService.hasRole(UserRoles.Admin) 
+      || this.authService.hasRole(UserRoles.Interno)
+      || this.authService.hasRole(UserRoles.Consulta)
+      || this.authService.hasRole(UserRoles.Externo)
+    );
+  }
+
+  public get canViewFirmador(): boolean {
+    return (this.authService.hasRole(UserRoles.Admin)
+      || this.authService.hasRole(UserRoles.Interno)
+      || this.authService.hasRole(UserRoles.Consulta)
+      || this.authService.hasRole(UserRoles.Externo)
+    );
+  }
+  
+  public get canViewMaintenanceUsers(): boolean {
+    return (this.authService.hasRole(UserRoles.Admin) 
+      || this.authService.hasRole(UserRoles.Interno)
+      || this.authService.hasRole(UserRoles.Consulta)
+      || this.authService.hasRole(UserRoles.Externo)
+    );
   }
 
   public submit(): void {
-    //if (this.search.length >= 4) {
-      //this.searchCall(this.search);
-    //}
-    //this.onPostUpload();
+    if (this.search.length >= 4) {
+      this.searchCall(this.search);
+    }
   }
 
-  //public onKeyDownHandler(event: any): void {
-    //const codigo = event.which || event.keyCode;
-    //if (codigo === 13 && this.search.length >= 4) {
-     //this.searchCall(this.search);
-    //}
-  //}
+  public onKeyDownHandler(event: any): void {
+    const codigo = event.which || event.keyCode;
+    if (codigo === 13 && this.search.length >= 4) {
+     this.searchCall(this.search);
+    }
+  }
 
-  /*private searchCall(key: string) {
-    this.articles = [];
-    this.containers = [];
-    this.apiClient.searchContainerArticles(key)
+  /****TODO**** PONER UN BUSCADOR/VISOR DE DOCUMENTOS CMRs/FACs BY TR AND FAC_NUM **************/
+
+  private searchCall(key: string) {
+    console.log('searchCall-buscador de CMRs y FACs', key);
+    //this.articles = [];
+    //this.containers = [];
+    /*this.apiClient.searchContainerArticles(key)
     .pipe(
       take(1),
       map((resp: any) => {
@@ -89,42 +101,8 @@ export class HomeComponent {
         }
       })
     )
-    .subscribe();
-  }*/
-
-  public get canViewPedidosActivos(): boolean {
-    return (this.authService.hasRole(UserRoles.Admin) 
-      || this.authService.hasRole(UserRoles.Interno)
-      || this.authService.hasRole(UserRoles.Consulta)
-      || this.authService.hasRole(UserRoles.Externo)
-    );
-  }
-
-  public get canViewPedidosValidador(): boolean {
-    return (this.authService.hasRole(UserRoles.Admin) 
-      || this.authService.hasRole(UserRoles.Interno)
-      || this.authService.hasRole(UserRoles.Consulta)
-    );
-  }
-  
-  public get canViewPedidosHistorico(): boolean {
-    return (this.authService.hasRole(UserRoles.Admin) 
-      || this.authService.hasRole(UserRoles.Interno)
-      || this.authService.hasRole(UserRoles.Consulta)
-      || this.authService.hasRole(UserRoles.Externo)
-    );
-  }
-  
-  public get canViewMaintenanceUsers(): boolean {
-    return (this.authService.hasRole(UserRoles.Admin) 
-      || this.authService.hasRole(UserRoles.Interno)
-      || this.authService.hasRole(UserRoles.Consulta)
-      || this.authService.hasRole(UserRoles.Externo)
-    );
-  }
-
-  /********** ESTA PARTE DE FICHEROS DESAPARECERÁ ************************/
-  /********** SE PODRIA PONER UN BUSCADOR/VISOR DE DOCUMENTOS CMRs/FACs ************************/
+    .subscribe();*/
+    }
 
   /*public onFileSelected(event: any): void {
     const et = event.target;

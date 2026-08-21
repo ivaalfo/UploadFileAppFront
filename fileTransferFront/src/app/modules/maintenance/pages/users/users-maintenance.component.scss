@@ -1,0 +1,64 @@
+@import "~src/styles/base/index";
+@import "~src/styles/global/page";
+
+:host {
+  @extend .page;
+  @extend .page--list;
+  padding-bottom: rem-calc(15);
+}
+
+
+.usersMaintenance {
+
+  &__fitcontent {
+    min-width: 96px;
+  }
+
+  &__icon-span {
+    position: static;
+    display: table-cell;
+    align-items: center;
+    background: #99befb;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 23px;
+    height: 23px;
+    margin-right: 2px;
+
+    &--image {
+      display: inline-block;
+      margin-top: 3px;
+      margin-left: 0px;
+      margin-right: -1px;
+      margin-bottom: -1px;
+    }
+
+    &:hover {
+      background-color: $light-blue;
+    }
+  }
+
+  &__button-div {
+    display: flex;
+    justify-content: flex-end;
+    padding: rem-calc(10);
+  }
+
+  &__table {
+    cursor: pointer;
+  }
+
+  &_users__table {
+    display: inline-block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    font-family: $primary-font;
+    background: padding-box;
+    width: 80%;
+    margin-left: 10%;
+  }
+
+}

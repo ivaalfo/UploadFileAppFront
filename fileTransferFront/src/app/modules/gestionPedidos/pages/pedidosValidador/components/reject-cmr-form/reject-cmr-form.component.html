@@ -1,0 +1,34 @@
+<m-modal-reject [opener$]="modalOpener$" icon="assets/images/icons/big-warning.png" 
+  [header]="header" [pedidoSelected]="pedidoSelected"
+  [canBeClosed]="!isLoading" 
+  [directRJCT]="directRJCT"
+  (accepted)="accept()" 
+  (canceled)="cancelRej(true)">
+  
+  
+  <div *ngIf="pedidoForm" [formGroup]="pedidoForm">
+  
+    <div class="form-group">
+      <label for="motivoRechazo-input">{{ 'PEDIDOS_VAL.FORM.ACTIONS.REJECT.MOTREC' | translate }}</label>
+    </div>
+    <div class="form-group">
+      <div class="form-group__field">
+        <input type="text" id="motivoRechazo-input" name="motivoRechazo-input" formControlName="motivoRechazo" />
+        <div class="form-group__error">
+          <span *ngIf="error('motivoRechazo')">{{ error('motivoRechazo') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</m-modal-reject>
+
+<!--PARA BLOQUEOS-->
+<m-modal-confirmation 
+  [header]="unlockTitle" 
+  [onlyConfirm]="true" 
+  icon="assets/images/icons/big-warning.png"
+  [opener$]="confirmModalOpener$" 
+  (accepted)="cancelRej(true)">
+  {{actionToConfirm | translate: { id: this.pedidoSelected.track } }}
+</m-modal-confirmation>

@@ -1,0 +1,104 @@
+<m-table-header header="FIRMADOR_DOCS.TITLE">
+  <m-userFilter-input *ngIf="!isExternoUser" (onSearch)="getPedidosFirmador({provName: $event})" (onClear)="limpiarFiltros()"></m-userFilter-input>
+  <m-trackFilter-input (onSearch)="getPedidosFirmador({trFilterValue: $event})" (onClear)="limpiarFiltros()"></m-trackFilter-input>
+  <m-expFilter-input (onSearch)="getPedidosFirmador({expFilterValue: $event})" (onClear)="limpiarFiltros()"></m-expFilter-input>
+  <m-refCargaFilter-input (onSearch)="getPedidosFirmador({refCharge: $event})" (onClear)="limpiarFiltros()"></m-refCargaFilter-input>
+</m-table-header>
+
+
+<m-table id="pfirma_table" class="page__content pfirma__table" 
+  [headers]="tableHeaders" 
+  [hasCheckableColumn]="true"
+  [canCheckMultipleColumns]="false"
+  [scroller$]="tableScroller$"
+  [sortItems]="pedidos"
+  (columnSorted)="onColumnSorted($event)">
+
+  <ng-container *ngFor="let pedido of pedidos; trackBy: pFirmTrackById">
+    <m-row [id]="'fila-'+pedido.f3refPed+'-'+pedido.f3expediente" 
+      [key]="pedido.f3cliCod" 
+      [isSelectedRow]="pedido.isSelected" 
+      (click)="onClick(pedido)" 
+      (doubleClickEvent)="onDoubleClick(pedido)">
+
+      <m-cell class="pfirma__fitcontent">
+        <input type="checkbox" 
+          [id]="'check-'+pedido.f3refPed+'-'+pedido.f3expediente"
+          name="{{ pedido.f3expediente }}" 
+          [checked]="pedido.isCheckActive"
+          (change)="onCheckboxChanged($event, pedido)" 
+          (click)="$event.stopPropagation()" />
+      </m-cell>
+      <m-cell>{{ pedido.f3refPed }}</m-cell>
+      <m-cell>{{ pedido.f3expediente }}</m-cell>
+      <m-cell>{{ pedido.f3refCarga }}</m-cell>
+      <m-cell>{{ pedido.f3matricula }}</m-cell>
+      <m-cell>{{ pedido.f3remolque }}</m-cell>
+      <!-- <m-cell>{{ pedido.f3useCMR }}</m-cell> -->
+      <!-- <m-cell>{{ pedido.f3cliCod }}</m-cell> -->
+      <m-cell>{{ pedido.provUser }}</m-cell>
+      <!-- <m-cell>{{ pedido.f3destCod }}</m-cell> -->
+      <m-cell>{{ pedido.destUser }}</m-cell>
+      <m-cell class="pfirma__mincontentFecha">{{ pedido.fechaCreacionCMRshort }}</m-cell>
+      <m-cell class="pfirma__mincontentFecha">{{ pedido.fechaFirmaTransShort }}</m-cell>
+      <m-cell class="pfirma__mincontentFecha">{{ pedido.fechaFirmaDestShort }}</m-cell>
+
+      <m-cell class="pfirma__fitcontent">{{ pedido.f3estado }}</m-cell>
+      
+    </m-row>
+
+    <!--SELECTED-FILE-ROW : ANOTACIONES : MARTICO -->
+    <m-row *ngIf="!isExternoUser && pedido.isSelected && pedido.f3estado===1" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="12">
+        <div class="pfirma__esteRelative">
+          <label class="pfirma__anotation__label">{{ pedido.f3anotaMart | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+    <!--SELECTED-FILE-ROW : ANOTACIONES : TRANSPORTISTA -->
+    <m-row *ngIf="pedido.isSelected && pedido.f3estado===2" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="12">
+        <div class="pfirma__esteRelative">
+          <label class="pfirma__anotation__label">{{ pedido.f3anotaTrans | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+    <!--SELECTED-FILE-ROW : ANOTACIONES : DESTINATARIO -->
+    <m-row *ngIf="pedido.isSelected && pedido.f3estado===3" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="12">
+        <div class="pfirma__esteRelative">
+          <label class="pfirma__anotation__label">{{ pedido.f3anotaDest | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+  </ng-container>
+  
+
+  <m-row *ngIf="noResults2sign" [isMessageRow]="noResults2sign">
+    <td colspan="12">
+      <div>
+        <label class="pfirma__noResults2sign__label">
+          {{ 'FIRMADOR_DOCS.TABLE.NORESULTS2SIGN' | translate }}</label>
+      </div>
+    </td>
+  </m-row>
+
+</m-table>
+
+
+<m-view-firma-docs-form id="signDocsModal" [opener$]="signDocsModalOpener$" [pedidoSelected]="selectedPedido">
+</m-view-firma-docs-form>
+
+
+<m-action-button-container>
+  <div left>
+    <m-action-button (click)="refresh()" icon="refresh.png">
+      {{ 'BUTTONS.REFRESH' | translate }}
+    </m-action-button>
+  </div>
+  <div right>
+     <m-action-button [disabled]="!selectedPedido.isSelected" (click)="onViewCMRselected(selectedPedido)" icon="document.png">
+      {{ 'BUTTONS.VIEW_CMR' | translate }}
+    </m-action-button>
+  </div>
+</m-action-button-container>

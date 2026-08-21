@@ -20,7 +20,7 @@ import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-uplo
 @Component({
   selector: 'm-users-maintenance',
   templateUrl: './users-maintenance.component.html',
-  styleUrls: ['../maintenance.component.scss']
+  styleUrls: ['./users-maintenance.component.scss']
 })
 export class UsersMaintenanceComponent implements OnInit {
   

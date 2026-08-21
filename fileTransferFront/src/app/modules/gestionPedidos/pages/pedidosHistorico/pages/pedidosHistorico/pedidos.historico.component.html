@@ -1,0 +1,277 @@
+<m-table-header header="PEDIDOS_HIST.TITLE">
+  <m-facFilter-input (onSearch)="getPedidosValidados({facNum: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByFac"></m-facFilter-input>
+  <m-userFilter-input (onSearch)="getPedidosValidados({provName: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByProv"></m-userFilter-input>
+  <m-trackFilter-input (onSearch)="getPedidosValidados({trFilterValue: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByTrack"></m-trackFilter-input>
+  <m-expFilter-input (onSearch)="getPedidosValidados({expediente: $event})" (onClear)="limpiarFiltros()"></m-expFilter-input>
+  <m-refCargaFilter-input (onSearch)="getPedidosValidados({refCharge: $event})" (onClear)="limpiarFiltros()"></m-refCargaFilter-input>
+</m-table-header>
+
+
+<m-table id="phist_table" class="page__content phist__table" 
+  [headers]="tableHeaders" 
+  [hasCheckableColumn]="true"
+  [canCheckMultipleColumns]="false"
+  [scroller$]="tableScroller$"
+  [sortItems]="pedidos"
+  (columnSorted)="onColumnSorted($event)">
+
+  <ng-container *ngFor="let pedido of pedidos; trackBy: pHistTrackById">
+    <m-row [id]="'fila-' + pedido.track+'-'+pedido.expediente" 
+      [key]="pedido.proveedorKy" 
+      [isSelectedRow]="pedido.isSelected" 
+      [isGrupRow]="pedido.isGrupaje && pedido.estado!==9" 
+      [isSelectedGrup]="pedido.isSelected && pedido.isGrupaje && pedido.estado!==9"
+      [isNoAplicaRow]="pedido.isGrupaje && pedido.hasCMR===7 && pedido.estado!==9"
+      [isNoAplicaSelectedRow]="pedido.isSelected && pedido.isGrupaje && pedido.hasCMR===7 && pedido.estado!==9"
+      [isDisabledRow]="pedido.estado===9"
+      [isDisabledSelectedRow]="pedido.isSelected && pedido.estado===9"
+      (click)="onClick(pedido)" 
+      (doubleClickEvent)="onDoubleClick(pedido)">
+
+      <m-cell class="phist__anchoC0">
+        <input type="checkbox" 
+        [id]="'check-'+pedido.track+'-'+pedido.expediente"
+        name="{{ pedido.expediente }}" 
+        [checked]="pedido.isCheckActive"
+        (change)="onCheckboxChanged($event, pedido)" 
+        (click)="$event.stopPropagation()" />
+      </m-cell>
+
+      <m-cell class="phist__anchoC1">
+        <!-- CMRs-->
+        <span class="phist__icon-span" title="Sin CMR">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.hasCMR==0" src="assets/images/icons/check-black.png" />
+        </span>
+        <span class="phist__icon-span" title="Pendiente de validar">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.hasCMR==1 && pedido.estado!=9" src="assets/images/icons/check-orange.png" />
+        </span>
+        <span class="phist__icon-span" title="Validado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.hasCMR==2 && pedido.estado!=9" src="assets/images/icons/check-green.png" />
+        </span>
+        <span class="phist__icon-span" title="Rechazado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.hasCMR==3 && pedido.estado!=9" src="assets/images/icons/check-red.png" />
+        </span>
+        <span class="phist__icon-span" title="No Aplica">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.hasCMR==7 && pedido.estado!=9" src="assets/images/icons/check-black-cross.png" />
+        </span>
+        <span class="phist__icon-span" title="Sin Activar">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.hasCMR==8" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        <!--CMRs disabled-->
+        <span class="phist__icon-span" title="Deshabilitado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.estado==9 && (pedido.hasCMR==0 || pedido.hasCMR==8)" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.estado==9 && pedido.hasCMR==1" src="assets/images/icons/check-light-grey-orange.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.estado==9 && pedido.hasCMR==2" src="assets/images/icons/check-light-grey-green.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.estado==9 && pedido.hasCMR==3" src="assets/images/icons/check-light-grey-red.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitado">
+          <img class="phist__icon-span--cmr" *ngIf="pedido.estado==9 && pedido.hasCMR==7" src="assets/images/icons/check-light-grey-cross.png" />
+        </span>
+
+        <!--FACs-->
+        <span class="phist__icon-span" title="Sin Factura">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==0 && pedido.estado!=9" src="assets/images/icons/check-black.png" />
+        </span>
+        <span class="phist__icon-span" title="Pendiente de validar">
+          <img class="phist__icon-span--fac" *ngIf="(pedido.hasFAC==1 || pedido.hasFAC==4 || pedido.hasFAC==5) && pedido.estado!=9" src="assets/images/icons/check-orange.png" />
+        </span>
+        <span class="phist__icon-span" title="Contabilizada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==2 && pedido.estado!=9" src="assets/images/icons/check-green.png" />
+        </span>
+        <span class="phist__icon-span" title="Rechazada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==3 && pedido.estado!=9" src="assets/images/icons/check-red.png" />
+        </span>
+        <span class="phist__icon-span" title="Pdte de Contabilizar">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==5 && pedido.estado!=9" src="assets/images/icons/check-orange.png" />
+        </span>
+        <span class="phist__icon-span" title="No contabilizar">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==6 && pedido.estado!=9" src="assets/images/icons/check-orange-cross.png" />
+        </span>
+        <span class="phist__icon-span" title="No Aplica">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==7 && pedido.estado!=9" src="assets/images/icons/check-black-cross.png" />
+        </span>
+        <span class="phist__icon-span" title="Sin Activar">
+          <img class="phist__icon-span--fac" *ngIf="pedido.hasFAC==8" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        <!--FACs disabled-->
+        <span class="phist__icon-span" title="Deshabilitada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.estado==9 && (pedido.hasFAC==0 || pedido.hasFAC==8)" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.estado==9 && (pedido.hasFAC==1 || pedido.hasFAC==4 || pedido.hasFAC==5 || pedido.hasFAC==9)" src="assets/images/icons/check-light-grey-orange.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.estado==9 && pedido.hasFAC==2" src="assets/images/icons/check-light-grey-green.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.estado==9 && pedido.hasFAC==3" src="assets/images/icons/check-light-grey-red.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.estado==9 && pedido.hasFAC==6" src="assets/images/icons/check-light-grey-orange-cross.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitada">
+          <img class="phist__icon-span--fac" *ngIf="pedido.estado==9 && pedido.hasFAC==7" src="assets/images/icons/check-light-grey-cross.png" />
+        </span>
+        
+        <!--OTRs-->
+        <span class="phist__icon-span" title="Sin documentos">
+          <img class="phist__icon-span--otr" *ngIf="pedido.hasOTR==0 && pedido.estado!=9" src="assets/images/icons/check-black.png" />
+        </span>
+        <span class="phist__icon-span" title="Con documentos">
+          <img class="phist__icon-span--otr" *ngIf="pedido.hasOTR==1 && pedido.estado!=9" src="assets/images/icons/check-green.png" />
+        </span>
+        <span class="phist__icon-span" title="Sin Activar">
+          <img class="phist__icon-span--otr" *ngIf="pedido.hasOTR==8" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        <!--OTRs disabled-->
+        <span class="phist__icon-span" title="Deshabilitados">
+          <img class="phist__icon-span--otr" *ngIf="pedido.estado==9 && (pedido.hasOTR==0 || pedido.hasOTR==8)" src="assets/images/icons/check-light-grey.png" />
+        </span>
+        <span class="phist__icon-span" title="Deshabilitados">
+          <img class="phist__icon-span--otr" *ngIf="pedido.estado==9 && pedido.hasOTR==1" src="assets/images/icons/check-light-grey-green.png" />
+        </span>
+      </m-cell>
+
+      <m-cell class="phist__fitcontent">{{ pedido.proveedorUser }}</m-cell>
+      <m-cell>{{ pedido.grupaje ? pedido.grupTR : pedido.track }}</m-cell>
+      <m-cell>{{ pedido.expediente }}</m-cell>
+      <m-cell>{{ pedido.fechaCarga }}</m-cell>
+      <m-cell>{{ pedido.refCarga }}</m-cell>
+      <m-cell>{{ pedido.fechaDescarga }}</m-cell>
+      <m-cell>{{ pedido.refDescarga }}</m-cell>
+      <m-cell class="phist__mincontentOrigen">{{ pedido.origen }}</m-cell>
+      <m-cell class="phist__maxcontent">{{ pedido.destino }}</m-cell>
+      <m-cell class="phist__fitcontent">{{ pedido.numPalets }}</m-cell>
+      <m-cell class="phist__fitcontent">{{ pedido.matriculaCamion }}</m-cell>
+      <m-cell class="phist__fitcontent">{{ pedido.matriculaRemolque }}</m-cell>
+      <m-cell class="phist__mincontentFecha">{{ pedido.fechaSubidaCMRshort }}</m-cell>
+      <m-cell class="phist__mincontentFecha">{{ pedido.fechaSubidaFACshort }}</m-cell>
+      <m-cell class="phist__anchoC13">
+        <span class="phist__icon-span" title="Anotaciones">
+          <img class="phist__icon-span--anot" *ngIf="pedido.anotaciones==1 && !isExternoUser" src="assets/images/icons/exclamation-red.png" />
+        </span>
+      </m-cell>
+    </m-row>
+    
+    <!--SELECTED-FILE-ROW : INDIVIDUALES : ANOTACIONES-->
+    <m-row *ngIf="!isExternoUser && pedido.isSelected && pedido.anotaciones==1 && pedido.estado!==3 && !pedido.isGrupaje && pedido.estado!==9" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="17">
+        <div class="phist__esteRelative">
+          <label *ngIf="pedido.anotaciones==1" class="phist__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+    <!--SELECTED-FILE-ROW : INDIVIDUALES : MOTIVO RECHAZO-->
+    <m-row *ngIf="pedido.isSelected && pedido.estado===3 && !pedido.isGrupaje" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="17">
+        <div class="phist__esteRelative">
+          <label *ngIf="pedido.estado===3" class="phist__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+    <!--SELECTED-FILE-ROW : INDIVIDUALES : MOTIVO ANULADOS-->
+    <m-row *ngIf="pedido.isSelected && pedido.estado===9 && !pedido.isGrupaje" [isDisabledComentsRow]="pedido.isSelected">
+      <td colspan="17">
+        <div class="phist__esteRelative">
+          <label *ngIf="pedido.estado===9" class="phist__anulado__label">{{ pedido.motivoRechazo | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+
+    <!--SELECTED-FILE-ROW : GRUPAJES : ANOTACIONES-->
+    <m-row *ngIf="!isExternoUser && pedido.isSelected && pedido.anotaciones==1 && pedido.estado!==3 && pedido.isGrupaje && pedido.estado!==9" [isAddFilesRow]="true">
+      <td colspan="17">
+        <div class="phist__esteRelative">
+          <label *ngIf="pedido.anotaciones==1" class="phist__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+    <!--SELECTED-FILE-ROW : GRUPAJES : MOTIVO RECHAZO-->
+    <m-row *ngIf="pedido.isSelected && pedido.estado===3 && pedido.isGrupaje && pedido.hasCMR!==7" [isAddFilesRow]="pedido.isSelected">
+      <td colspan="17">
+        <div class="phist__esteRelative">
+          <label *ngIf="pedido.estado===3" class="phist__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+    <!--SELECTED-FILE-ROW : GRUPAJES : MOTIVO ANULADOS-->
+    <m-row *ngIf="pedido.isSelected && pedido.estado===9 && pedido.isGrupaje" [isDisabledComentsRow]="pedido.isSelected">
+      <td colspan="17">
+        <div class="phist__esteRelative">
+          <label *ngIf="pedido.estado===9" class="phist__anulado__label">{{ pedido.motivoRechazo | translate }}</label>
+        </div>
+      </td>
+    </m-row>
+
+  </ng-container>
+
+  <m-row *ngIf="noResults2show" [isMessageRow]="noResults2show">
+    <td colspan="17">
+      <div>
+        <label class="phist__noResults2show__label">{{ 'PEDIDOS_HIST.TABLE.NORESULTS2SHOW' | translate }}</label>
+      </div>
+    </td>
+  </m-row>
+
+</m-table>
+
+<m-view-hist-docs-form [opener$]="viewDocsModalOpener$" [pedidoSelected]="selectedPedido">
+</m-view-hist-docs-form>
+
+<m-anota-hist-cmr-form id="anotaModalA" [opener$]="anotaModalOpener$" [header]="anotaTitle" [pedidoSelected]="selectedPedido" [directANOT]="true">
+</m-anota-hist-cmr-form>
+
+<m-modal-confirmation [header]="actionTitle" icon="assets/images/icons/warning-medium-yellow.png" [opener$]="reactivarModalOpener$"
+  (accepted)="onReactivarPedido()" (canceled)="onCancelReactivar()">{{actionToConfirm | translate }}
+</m-modal-confirmation>
+
+
+<m-action-button-container>
+  <div left>
+    <m-action-button *ngIf="canViewPedidosValidador" [disabled]="selectedPedido.isSelected" (click)="navigateToValidador()" icon="arrow-blue-left.png" [rightIcon]="false" [inverted]="true">
+      {{ 'PEDIDOS_VAL.TITLE' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isExternoUser" [disabled]="selectedPedido.isSelected" (click)="navigateToActivos()" icon="arrow-blue-left.png" [rightIcon]="false" [inverted]="true">
+      {{ 'PEDIDOS_ACTIV.TITLE' | translate }}
+    </m-action-button>
+    <m-action-button (click)="refresh()" icon="refresh.png">
+      {{ 'BUTTONS.REFRESH' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="!isExternoUser" [disabled]="!selectedPedido.isSelected || isConsultaUser" (click)="onAnotaCMRselected(selectedPedido)" icon="edit-white.png">
+      {{ 'BUTTONS.ANOT_CMR' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isAdminUser || isInterUser"
+      [disabled]="!selectedPedido.isSelected || selectedPedido.estado!==9" (click)="openModalReactivar(selectedPedido)" icon="warning-yellow.png" [inverted]="true">
+      {{ 'BUTTONS.REACTIVAR' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="isExternoUser" [disabled]="this.pedidos.length===0" (click)="convertToExcelExternos()" icon="table.png">
+      {{ 'BUTTONS.EXCEL' | translate }}
+    </m-action-button>
+    <m-action-button *ngIf="!isExternoUser" [disabled]="this.pedidos.length===0" (click)="convertToExcelInternos()" icon="table.png">
+      {{ 'BUTTONS.EXCEL' | translate }}
+    </m-action-button>
+    <div class="phist__fecReal">
+      <span class="phist__fecReal--value" *ngIf="selectedPedido.isSelected && selectedPedido.fechaEntReal">{{ this.fecRealRef | translate }}</span>
+    </div>
+  </div>
+  <div right>
+    <m-action-button [disabled]="!selectedPedido.isSelected || selectedPedido.hasCMR===7 || selectedPedido.hasCMR===0 || selectedPedido.hasCMR===8" (click)="onViewValidCMRselected(selectedPedido)" icon="document.png">
+      {{ 'BUTTONS.VIEW_DOCS' | translate }}
+    </m-action-button>
+    <m-action-button [disabled]="!selectedPedido.isSelected || !selectedPedido.hasCMR || selectedPedido.hasCMR===7" (click)="onDownloadCMR(selectedPedido)" icon="arrow-blue-down.png" [inverted]="true">
+      {{ 'BUTTONS.DOWNLOAD_CMR' | translate }}
+    </m-action-button>
+    <m-action-button [disabled]="!selectedPedido.isSelected || !selectedPedido.hasFAC || selectedPedido.hasFAC===7" (click)="onDownloadFAC(selectedPedido)" icon="arrow-blue-down.png" [inverted]="true">
+      {{ 'BUTTONS.DOWNLOAD_FAC' | translate }}
+    </m-action-button>
+    <m-action-button [disabled]="!selectedPedido.isSelected || !selectedPedido.hasOTR" (click)="onDownloadOTRs(selectedPedido)" icon="arrow-blue-down.png" [inverted]="true">
+      {{ 'BUTTONS.DOWNLOAD_OTR' | translate }}
+    </m-action-button>
+  </div>
+</m-action-button-container>

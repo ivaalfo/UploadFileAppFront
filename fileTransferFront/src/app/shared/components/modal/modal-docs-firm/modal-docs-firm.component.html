@@ -1,0 +1,62 @@
+<m-modal [opener$]="opener$" 
+  [canClose]="canBeClosed" 
+  [header]="header" 
+  [data]="data" 
+  (closed)="cancel()">
+  
+  <form (ngSubmit)="signCMR()">
+    <div class="modal-docs-firm__wrapper">
+      <div class="modal-docs-firm__icon">
+        <img src="{{ icon }}" />
+      </div>
+
+      <!-- COLUMNA IZQUIERDA: Toma 2/3 del espacio total -->
+      <div class="modal-docs-firm__content modal-docs-firm__content--left">
+        <ng-content select="[cmr]"></ng-content>
+      </div>
+
+      <!-- COLUMNA DERECHA: Toma 1/3 del espacio total -->
+      <div class="modal-docs-firm__content modal-docs-firm__content--right">
+        
+        <!-- Bloque de inputs ordenados arriba -->
+        <div class="modal-docs-firm__inputs">
+          <div>
+            <label class="modal-docs-firm__label" for="track-input">{{ 'Tr:' | translate }}</label>
+            <input disabled="true" type="text" id="track-input" name="track-input" [value]="pedidoSelected.f3refPed" />
+          </div>
+          <div>
+            <label class="modal-docs-firm__label" for="exp-input">{{ 'Exp:' | translate }}</label>
+            <input disabled="true" type="text" id="exp-input" name="exp-input" [value]="pedidoSelected.f3expediente" />
+          </div>
+          <div>
+            <label class="modal-docs-firm__label" for="rcarga-input">{{ 'Ref.Carga:' | translate }}</label>
+            <input disabled="true" type="text" id="rcarga-input" name="rcarga-input" [value]="pedidoSelected.f3refCarga" />
+          </div>
+        </div>
+
+        <!-- NUEVO SLOT: Aquí se inyectará el canvas desde fuera -->
+        <div class="modal-docs-firm__slot-firma">
+          <ng-content select="[firma-externa]"></ng-content>
+        </div>
+
+        <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
+        
+        <!-- Bloque de botones ordenados abajo -->
+        <div class="modal-docs-firm__buttons-box">
+          <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || !formularioValido" class="modal-docs-firm__button" id="signCMRbutton" icon="blue-check.png" [inverted]="true" [typeSubmit]="true"> 
+            {{ 'BUTTONS.FIRMAR_CMR' | translate }}</m-action-button>
+          <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked" class="modal-docs-firm__button" id="saveCMRbutton" icon="white-check.png" [inverted]="false" (click)="downloadCMR()">   
+            {{ 'BUTTONS.DOWNLOAD_CMR' | translate }}</m-action-button>
+          <m-action-button *ngIf="canBeClosed" class="modal-docs-firm__button" icon="cross-red.png" [inverted]="true" (click)="cancel()">
+            {{ 'BUTTONS.EXIT' | translate }}
+          </m-action-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJE INFERIOR FUERA DEL CONTENEDOR DE DOS COLUMNAS -->
+    <!-- SE MONTARA PARA QUE REFLEJE UNAS ANOTACIONES QUE LOS USERS PODRAN METER, EN UN INPUT TAL VEZ -->
+    <div class="modal-docs-firm__anota-mesagge">{{ "HOALHOAHLAHOAHLO BLABLALBLABL MENSAJEEE" | translate }}</div>
+  </form>
+
+</m-modal>

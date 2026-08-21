@@ -25,13 +25,13 @@
     <div class="modal-docs-activ__buttons">
       <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
       <m-action-button *ngIf="true" [disabled]="pedidoSelected.isBlocked"class="modal-docs-activ__button" icon="arrow-blue-down.png" [inverted]="true" (click)="downloadCMR()">   
-        {{ 'PEDIDOS_ACTIV.FORM.BUTTONS.DOWNLOAD_CMR' | translate }}
+        {{ 'BUTTONS.DOWNLOAD_CMR' | translate }}
       </m-action-button>
       <m-action-button *ngIf="true" [disabled]="pedidoSelected.isBlocked || isNotFACdoc" class="modal-docs-activ__button" icon="arrow-blue-down.png" [inverted]="true" (click)="downloadFAC()">   
-        {{ 'PEDIDOS_ACTIV.FORM.BUTTONS.DOWNLOAD_FAC' | translate }}
+        {{ 'BUTTONS.DOWNLOAD_FAC' | translate }}
       </m-action-button>
       <m-action-button *ngIf="canBeClosed" class="modal-docs-activ__button" icon="cross.png" (click)="cancel()">
-        {{ 'PEDIDOS_ACTIV.FORM.BUTTONS.EXIT' | translate }}
+        {{ 'BUTTONS.EXIT' | translate }}
       </m-action-button>
     </div>
   </form>

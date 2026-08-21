@@ -92,7 +92,7 @@ export class ApiClient {
 
   public mapResponseWithData(response: ApiResponseWithData): ApiResponseWithData {
     if (response && !response.found) {
-      this.notification.warn('DATA_NOT_FOUND');
+      this.notification.warn(this.translate.instant('MESSAGES.DATA_NOT_FOUND'));
     }
     return response;
   }
@@ -103,7 +103,7 @@ export class ApiClient {
   
   //Para bloquear el pedido/CMR cuando está abierto en VALIDACION
   public putLock(lockType: LockEntities, key?: string, selectedCMRtrack?: string): Observable<ApiLockData> {
-    if(lockType === "VALIDADOR"){
+    if(lockType === LockEntities.LOCK_VALIDATOR || lockType === LockEntities.LOCK_FIRMATOR){
       const lockKey = key ? `?clave=${key}` : '';
       const lockCMR = selectedCMRtrack ? `?track=${selectedCMRtrack}` : '';
       return this.http.put<ApiLockResponse>(
@@ -125,7 +125,7 @@ export class ApiClient {
   }
 
   public deleteLock(lockType: LockEntities, key?: string, selectedCMRtrack?: string) {
-    if(lockType === "VALIDADOR"){
+    if(lockType === LockEntities.LOCK_VALIDATOR || lockType === LockEntities.LOCK_FIRMATOR){
       const lockKey = key ? `?clave=${key}` : '';
       const lockCMR = selectedCMRtrack ? `?track=${selectedCMRtrack}` : '';
       return this.http.delete<ApiLockResponse>(
@@ -145,7 +145,7 @@ export class ApiClient {
   }
 
   public continueLock(lockType: LockEntities, key?: string, selectedCMRtrack?: string): Observable<ApiLockData> {
-    if(lockType === "VALIDADOR"){
+    if(lockType === LockEntities.LOCK_VALIDATOR || lockType === LockEntities.LOCK_FIRMATOR){
       const lockKey = key ? `?clave=${key}` : '';
       const lockCMR = selectedCMRtrack ? `?track=${selectedCMRtrack}` : '';
       return this.http.post<ApiLockResponse>(

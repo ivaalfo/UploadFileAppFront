@@ -1,11 +1,11 @@
 <m-table-header header="MAINTENANCES.USERS.TITLE"></m-table-header>
 
-<div id="maintenanceButtonDiv" class="maintenance__button-div">
+<div id="usersMaintenanceButtonDiv" class="usersMaintenance__button-div">
   <m-action-button icon="add.png" (click)="onUserAction(true)" *ngIf="isAdminUser">{{'MAINTENANCES.USERS.ADD' | translate}}
   </m-action-button>
 </div>
 
-<m-table class="page__content maintenance_users__table" 
+<m-table class="page__content usersMaintenance_users__table" 
   [headers]="tableHeaders" 
   [scroller$]="tableScroller$"
   [sortItems]="users"
@@ -19,18 +19,18 @@
     <m-cell>{{ user.w2usuario }}</m-cell>
     <m-cell>{{ user.w2email }}</m-cell>
     <m-cell>{{ user.roles }}</m-cell>
-    <m-cell class="maintenance__fitcontent">
-      <span *ngIf="!user.isEditable" class="maintenance__icon-span" >
-        <img class="maintenance__icon-span--image" src="assets/images/icons/edit-white.png" />
+    <m-cell class="usersMaintenance__fitcontent">
+      <span *ngIf="!user.isEditable" class="usersMaintenance__icon-span" >
+        <img class="usersMaintenance__icon-span--image" src="assets/images/icons/edit-white.png" />
       </span>
-      <span *ngIf="user.isEditable" class="maintenance__icon-span" title="Editar" (click)="onUserAction(false, user)">
-        <img class="maintenance__icon-span--image" src="assets/images/icons/edit.png" />
+      <span *ngIf="user.isEditable" class="usersMaintenance__icon-span" title="Editar" (click)="onUserAction(false, user)">
+        <img class="usersMaintenance__icon-span--image" src="assets/images/icons/edit.png" />
       </span>
-      <span *ngIf="isAdminUser && !user.isTerminated" class="maintenance__icon-span" title="Borrar" (click)="openModalDeleteUser(user)">
-        <img class="maintenance__icon-span--image" src="assets/images/icons/delete.png" />
+      <span *ngIf="isAdminUser && !user.isTerminated" class="usersMaintenance__icon-span" title="Borrar" (click)="openModalDeleteUser(user)">
+        <img class="usersMaintenance__icon-span--image" src="assets/images/icons/delete.png" />
       </span>
-      <span *ngIf="isAdminUser && user.isTerminated" class="maintenance__icon-span" title="Reactivar" (click)="openModalReactivateUser(user)">
-        <img class="maintenance__icon-span--image" src="assets/images/icons/reactivate.png" />
+      <span *ngIf="isAdminUser && user.isTerminated" class="usersMaintenance__icon-span" title="Reactivar" (click)="openModalReactivateUser(user)">
+        <img class="usersMaintenance__icon-span--image" src="assets/images/icons/reactivate.png" />
       </span>
     </m-cell>
   </m-row>

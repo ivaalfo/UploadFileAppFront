@@ -1,0 +1,8 @@
+<div class="header-menu__button">
+  <a [routerLink]="['/gestionPedidos']" [routerLinkActive]="['header-menu__active-link']">
+    {{ 'MENU_ENTRY.GESTION_PEDIDOS' | translate }}
+  </a>
+</div>
+<ul class="header-submenu-gestion-pedidos__dropdown animated fadeIn" [ngClass]="{'header-submenu-gestion-pedidos__dropdown--active': isSubMenuShown}">
+  <ng-content></ng-content>
+</ul>

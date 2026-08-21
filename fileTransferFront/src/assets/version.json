@@ -1,6 +1,6 @@
 {
-    "version": "1.0.55",
-    "fecha": "12/08/2026",
-    "expira": "2026-08-18T00:00:00.000Z",
-    "mejoras": "\n\t- Controlada la subida de archivos corruptos o dañados.\n\t- Mejorada la gestión de errores en el Visor de Documentos de todas las pantallas.\n\t- Añadidas correcciones y mejoras en el Mantenimiento de Usuarios.\n\t- Mejorada la inserción de Fechas de Entrega en pedidos de tipo Grulog.\n\t- Controlados varios caracteres especiales en la Ref.Carga que no eran válidos para el nombre del archivo.\n\n"
+    "version": "1.0.56",
+    "fecha": "14/08/2026",
+    "expira": "2026-08-28T00:00:00.000Z",
+    "mejoras": "\n\t- Reestructuración de menus y pantallas.\n\t- Añadida entrada para Firmador_CMRs_Salidas.\n\t- NEXT.\n\n"
 }

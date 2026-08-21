@@ -25,16 +25,16 @@
     <div class="modal-docs-val__buttons">
       <m-spinner *ngIf="!canBeClosed" color="blue"></m-spinner>
       <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || pedidoSelected.hasCMR===2" class="modal-docs-val__button" id="checkCMRbutton" icon="blue-check.png" [inverted]="true" [typeSubmit]="true"> 
-        {{ 'VALIDADOR.FORM.BUTTONS.VALIDATE_CMR' | translate }}</m-action-button>
+        {{ 'BUTTONS.VALIDATE_CMR' | translate }}</m-action-button>
       <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || pedidoSelected.hasCMR===2" class="modal-docs-val__button" icon="cross-blue.png" [inverted]="true" (click)="rejectCMR()">   
-        {{ 'VALIDADOR.FORM.BUTTONS.REJECT_CMR' | translate }}</m-action-button>
+        {{ 'BUTTONS.REJECT_CMR' | translate }}</m-action-button>
       <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta" class="modal-docs-val__button" icon="edit-white.png" (click)="anotCMR()">   
-        {{ 'VALIDADOR.FORM.BUTTONS.ANOT_CMR' | translate }}</m-action-button>
+        {{ 'BUTTONS.ANOT_CMR' | translate }}</m-action-button>
       <m-action-button *ngIf="canBeClosed" [disabled]="pedidoSelected.isBlocked || isUserConsulta || pedidoSelected.hasFAC!==1" class="modal-docs-val__button" icon="cross-red.png" [inverted]="true" (click)="rejectFAC()">
-        {{ 'VALIDADOR.FORM.BUTTONS.REJECT_FAC' | translate }}
+        {{ 'BUTTONS.REJECT_FAC' | translate }}
       </m-action-button>
       <m-action-button *ngIf="canBeClosed" class="modal-docs-val__button" icon="cross.png" (click)="cancel()">
-        {{ 'VALIDADOR.FORM.BUTTONS.EXIT_CMR' | translate }}
+        {{ 'BUTTONS.EXIT' | translate }}
       </m-action-button>
     </div>
   </form>

@@ -19,39 +19,19 @@ const routes: Routes = [
           import('@modules/home/home.module').then(m => m.HomeModule)
       },
       {
-        path: 'pedidosActivos',
+        path: 'gestionPedidos',
         canActivateChild: [RoleGuard],
         data: {roles: [UserRoles.Admin, UserRoles.Interno, UserRoles.Consulta, UserRoles.Externo]},
         loadChildren: () =>
-          import('@modules/pedidosActivos/pedidos.activos.module').then(m => m.PedidosActivosModule)
+        import('@modules/gestionPedidos/gestion.pedidos.module').then(m => m.GestionPedidosModule)
       },
       {
-        path: 'pedidosValidador',
-        canActivateChild: [RoleGuard],
-        data: {roles: [UserRoles.Admin, UserRoles.Interno, UserRoles.Consulta]},
-        loadChildren: () =>
-          import('@modules/pedidosValidador/pedidos.validador.module').then(m => m.PedidosValidadorModule)
-      },
-      {
-        path: 'pedidosHistorico',
+        path: 'firmadorDocs',
         canActivateChild: [RoleGuard],
         data: {roles: [UserRoles.Admin, UserRoles.Interno, UserRoles.Consulta, UserRoles.Externo]},
         loadChildren: () =>
-          import('@modules/pedidosHistorico/pedidos.historico.module').then(m => m.PedidosHistoricoModule)
+          import('@modules/firmadorDocs/firmador.docs.module').then(m => m.FirmadorDocsModule)
       },
-      /*{
-        path: 'maintenance',
-        canActivateChild: [RoleGuard],
-        data: {roles: [UserRoles.Admin, UserRoles.Interno, UserRoles.Externo  
-          //UserRoles.Martico, UserRoles.AlmacenDireccion,
-          //UserRoles.Transportista, UserRoles.Gases, UserRoles.AlmacenUsuario, UserRoles.Lidl
-          ]},
-        loadChildren: () =>
-          import('@modules/maintenance/maintenance.module').then(m => m.MaintenanceModule)
-      }
-
-      //NO SE USA - CAMBIOS - SE ENTRA DIRECTO
-      */
       {
         path: 'users',
         canActivate: [RoleGuard],
