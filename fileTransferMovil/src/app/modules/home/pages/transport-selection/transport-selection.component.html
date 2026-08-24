@@ -1,0 +1,38 @@
+<m-legend>
+  {{titleLabel | translate}}
+</m-legend>
+<m-separator></m-separator>
+
+<div class="transport-selector" *ngIf="hasTransportsFull" (click)="selectFull()">
+  <m-legend [size]="'small2'" class="transport-selector--legend">
+    {{'HOME.CONTAINER_FULL' | translate}}
+  </m-legend>
+  <label class="info__options-button--large" [ngClass]="{'info__options-button--active': selection === 'F'}">
+    {{firstFullTranport.contenedor}}
+  </label>
+  <div class="info__options-div">
+    <label class="info__options-div--label">{{'HOME.PIN' | translate}}</label>
+    <span>{{firstFullTranport.pin}}</span>
+  </div>
+</div>
+
+<div class="transport-selector" *ngIf="hasTransportsEmpty" (click)="selectEmpty()">
+  <m-legend [size]="'small2'" class="transport-selector--legend">
+    {{'HOME.CONTAINER_EMPTY' | translate}}
+  </m-legend>
+  <label class="info__options-button--large" [ngClass]="{'info__options-button--active': selection === 'E'}">
+    {{firstEmptyTranport.contenedor}}
+  </label>
+  <div class="info__options-div">
+    <label class="info__options-div--label">{{'HOME.PIN' | translate}}</label>
+    <span>{{firstEmptyTranport.pin}}</span>
+  </div>
+</div>
+<div class="info" *ngIf="!hasTransports">
+  <div class="info__icon">
+    <img src="assets/icons/info.svg" alt="info">
+  </div>
+  <div class="info__label">
+    <label class="info__label--text">{{'HOME.ACTION.NO_TRANSPORTS'|translate}}</label>
+  </div>
+</div>

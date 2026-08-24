@@ -1,0 +1,254 @@
+@import "../../../../styles.scss";
+.info-ok {
+  background-color:#31B407;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  margin-top: rem-calc(15);;
+  &__icon {
+    margin-top: rem-calc(20);
+    text-align: center;
+    & img {
+      width: 50%;
+    }
+  }
+  &__label {
+      margin-top: rem-calc(20);
+      text-transform: uppercase;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: rem-calc(40);
+      font-weight: 700;
+      margin-bottom: rem-calc(20);
+      &--text {
+          max-width: 80%;
+      }
+    }
+  }
+  .reScan {
+    position: fixed;
+    bottom: 105px;
+    left:40%;
+    border-radius:60px;
+    background: transparent;
+    font-size: rem-calc(20);
+    border: 2px solid #0F4DBC;
+    color: #0F4DBC;
+    font-family: $primary-font;
+    font-weight: 600;
+    padding: 10px;
+    min-width: rem-calc(100);
+  }
+  .info-nok {
+    background-color:#F01010;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    margin-top: rem-calc(15);;
+    &__icon {
+      margin-top: rem-calc(20);
+      text-align: center;
+      & img {
+        width: 50%;
+      }
+    }
+    &__label {
+        margin-top: rem-calc(20);
+        text-transform: uppercase;
+        left: 0;
+  /*       bottom: rem-calc(200);
+        height: rem-calc(150); */
+        width: 100%;
+        text-align: center;
+        font-size: rem-calc(40);
+        font-weight: 700;
+        margin-bottom: rem-calc(20);
+        &--text {
+            max-width: 80%;
+        }
+      }
+    }
+.task {
+
+    &__header {
+        margin-top: rem-calc(20);
+    }
+
+    &__containerInfo {
+      margin-top: rem-calc(20);
+    }
+    &__action {
+        background-color: #0F4DBC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        position: fixed;
+        text-transform: uppercase;
+        left: 0;
+        bottom: rem-calc(200);
+        height: rem-calc(150);
+        width: 100%;
+        text-align: center;
+        font-size: rem-calc(30);
+        font-weight: 500;
+        &--text {
+            max-width: 80%;
+        }
+    }
+    ////**************************************************************************************
+    ///************************TODO: BORRAR CUANDO YA NO HAYA QUE HACERLO MANUAL**************
+    &__manual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0F4DBC;
+      text-transform: uppercase;
+      flex-direction: column;
+      height: rem-calc(50);
+      &--button {
+        background: transparent;
+        font-size: rem-calc(20);
+        border: 2px solid #0F4DBC;
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 600;
+        padding: 10px;
+        min-width: rem-calc(100);
+        flex-grow: 1;
+      }
+      &--text {
+        font-size: rem-calc(20);
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 600;
+        padding: 10px;
+        min-width: rem-calc(100);
+        flex-grow: 1;
+      }
+    }
+    ////**************************************************************************************
+    ////**************************************************************************************
+    &__scan {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0F4DBC;
+      text-transform: uppercase;
+      flex-direction: column;
+      height: rem-calc(50);
+      &--window {
+        z-index: -1;
+        flex-grow: 1;
+      }
+      &--button {
+        flex-grow: 1;
+        z-index: 2;
+        background: transparent;
+        font-size: rem-calc(20);
+        border: 2px solid #0F4DBC;
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 600;
+        padding: 10px;
+        min-width: rem-calc(100);
+        flex-grow: 1;
+        margin-bottom: 15px;
+      }
+    }
+    &__actionEscanner {
+        background-color: #0F4DBC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        position: fixed;
+        text-transform: uppercase;
+        left: 0;
+        bottom: rem-calc(400);
+        height: rem-calc(150);
+        width: 100%;
+        text-align: center;
+        font-size: rem-calc(30);
+        font-weight: 500;
+        &--text {
+            max-width: 80%;
+        }
+    }
+    &__options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #0F4DBC;
+      position: fixed;
+      text-transform: uppercase;
+      bottom: rem-calc(200);
+      height: rem-calc(150);
+      &-button {
+        min-height: rem-calc(140);
+        white-space: normal;
+        overflow: hidden;
+        background: transparent;
+        max-width: rem-calc(190);
+        text-align: center;
+        font-size: rem-calc(30);
+        border: 2px solid #0F4DBC;
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 400;
+        padding: rem-calc(25);
+        position: relative;
+        margin-left:rem-calc(25);
+        min-width: rem-calc(237);
+        &--active {
+            background: #0F4DBC;
+            color: $white;
+        }
+      }
+    }
+    &__actionTimerCheck {
+      background-color: #0F4DBC;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      position: fixed;
+      text-transform: uppercase;
+      left: 0;
+      bottom: rem-calc(250);
+      height: rem-calc(150);
+      width: 100%;
+      text-align: center;
+      font-size: rem-calc(30);
+      font-weight: 500;
+      height: 250px;
+      &--text1 {
+          max-width: 80%;
+          position: absolute;
+          margin-top: -125px;
+      }
+      &--text2 {
+        max-width: 80%;
+        position: absolute;
+        margin-top: 40px;
+      }
+      &--timer {
+        padding-top: 165px;
+        color: white;
+        font-size: xx-large;
+      }
+  }
+}

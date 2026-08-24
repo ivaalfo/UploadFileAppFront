@@ -1,0 +1,20 @@
+<div class="task">
+    <div class="task__header">
+        <m-legend [size]="'small'">
+            {{'HOME.CONTAINER' | translate}}
+        </m-legend>
+        <m-legend *ngIf="transport">
+            {{transport.contenedor}}
+        </m-legend>
+        <m-separator></m-separator>
+    </div>
+    <m-info-card [data]="mainInfo"></m-info-card>
+    <div class="task__actionTimerCheck">
+        <label class="task__actionTimerCheck--text1">{{'HOME.ACTION.TIMER_CHECK'|translate}}</label>
+        <label class="task__actionTimerCheck--text2">{{'HOME.ACTION.WAITING_TIME'|translate}}</label>
+        
+        <div id="countdown" class="task__actionTimerCheck--timer"></div>
+        <script src="countdown.js"></script>
+
+    </div>
+</div>

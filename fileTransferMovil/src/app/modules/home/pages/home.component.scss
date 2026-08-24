@@ -1,0 +1,93 @@
+@import "../../../../styles.scss";
+
+
+.task {
+  align-items: center;
+  &__action {
+    background-color: $primary-color;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    text-transform: uppercase;
+    left: 0;
+    top: 88px;
+    height: 80px;
+    width: 100%;
+    text-align: center;
+    font-size: large;
+    font-weight: 500;
+    &--text {
+        max-width: 100%;
+        display: block;
+        position: relative;
+        top: 30px;
+    }
+}
+  &__number-plate-selector {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 0px 20px;
+    top: 40px;
+  }
+
+  &__options {
+    display: block;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    color: $primary-color;
+    position: relative;
+    text-transform: uppercase;
+    height: 100%;
+    top: 120px;
+    &-button {
+      display: block;
+      position: relative;
+      margin-bottom: 5%;
+      min-height: 70%;
+      white-space: normal;
+      overflow: hidden;
+      background: 0 0;
+      max-width: 10%;
+      text-align: center;
+      font-size: medium;
+      border: 2px solid $primary-color;
+      color: $primary-color;
+      font-family: $primary-font;
+      font-weight: 400;
+      padding: 5%;
+      margin-left: 23%;
+      min-width: 55%;
+      margin-top: 0%;
+      &--large {
+        display: block;
+        position: relative;
+        max-height: 85%;
+        margin-bottom: 20%;
+        white-space: normal;
+        overflow: visible;
+        background: 0 0;
+        max-width: 10%;
+        text-align: center;
+        font-size: medium;
+        border: 2px solid $primary-color;
+        color: $primary-color;
+        font-family: $primary-font;
+        font-weight: 400;
+        padding: 5%;
+        margin-left: 23%;
+        min-width: 55%;
+        height: 100%;
+      }
+      &--active {
+          background: $primary-color;
+          color: $white;
+      }
+    }
+  }
+}

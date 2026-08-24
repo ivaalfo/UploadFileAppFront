@@ -1,0 +1,27 @@
+@import "../../../../styles.scss";
+
+.select {
+  width: 100%;
+  display: block;
+  border-radius: $input-border-radius;
+  border: 2px solid #0F4DBC;
+
+  height: $input-height;
+
+  font-size: 20px;
+
+  background-color: $white;
+
+  option {
+    background-color: $white;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+select {
+  padding-left: 20px;
+  padding-bottom: 4px;
+}

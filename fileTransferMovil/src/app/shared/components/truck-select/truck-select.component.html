@@ -1,0 +1,5 @@
+<select class="select" (change)="onChange($event.target.value)">
+  <option *ngIf="placeholder" value="">{{placeholder}}</option>
+  <option *ngFor="let option of options" [value]="toStr(option)" [selected]="isSelected(option.matricula)">
+    {{option.matricula}}</option>
+</select>

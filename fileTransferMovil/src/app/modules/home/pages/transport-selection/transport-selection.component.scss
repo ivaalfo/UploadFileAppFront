@@ -1,0 +1,142 @@
+@import "../../../../../styles.scss";
+
+.transport-selector {
+  margin-top: 30px;
+  box-shadow: 3px 6px 9px 2px rgba(0, 36, 96, 0.5);
+  transition: 0.3s;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  &--legend {
+    padding-bottom: 10px;
+    margin-left: rem-calc(75);
+    /* ----- Movils (portrait) ----- */
+    @media only screen and (max-device-width: 280px) and (orientation: portrait) {
+      margin-left: rem-calc(2);
+    }
+    @media only screen and (min-device-width: 281px) and (max-device-width: 320px) and (orientation: portrait) {
+      margin-left: rem-calc(25);
+    }
+  }
+}
+
+.info {
+  &__icon {
+    background-color: #0F4DBC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: rem-calc(450);
+    height: rem-calc(150);
+    width: 100%;
+    text-align: center;
+    & img {
+      width: 25%;
+    }
+  }
+  &__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0F4DBC;
+    position: fixed;
+    text-transform: uppercase;
+    left: 0;
+    bottom: rem-calc(200);
+    height: rem-calc(150);
+    width: 100%;
+    text-align: center;
+    font-size: rem-calc(40);
+    font-weight: 700;
+    &--text {
+      max-width: 80%;
+    }
+  }
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    color: #0F4DBC;
+    position: fixed;
+    text-transform: uppercase;
+    bottom: rem-calc(250);
+    height: rem-calc(180);
+    &-div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      color: #0F4DBC;
+      font-size: rem-calc(20);
+      font-weight: 600;
+      margin-left: rem-calc(10);
+      white-space: normal;
+      font-family: $primary-font;
+      margin-bottom: rem-calc(15);
+      min-height: rem-calc(90);
+      max-height: rem-calc(120);
+      &--label {
+        font-size: rem-calc(17);
+        text-transform: uppercase;
+      }
+    }
+    &-button {
+      margin-bottom: rem-calc(25);
+      min-height: rem-calc(140);
+      white-space: normal;
+      overflow: hidden;
+      background: transparent;
+      max-width: rem-calc(190);
+      text-align: center;
+      font-size: rem-calc(30);
+      border: 2px solid #0F4DBC;
+      color: #0F4DBC;
+      font-family: $primary-font;
+      font-weight: 400;
+      padding: rem-calc(25);
+      position: relative;
+      margin-left: rem-calc(25);
+      min-width: rem-calc(170);
+      &--large {
+        max-height: rem-calc(120);
+        margin-bottom: rem-calc(15);
+        white-space: normal;
+        overflow: hidden;
+        background: transparent;
+        max-width: rem-calc(250);
+        text-align: center;
+        font-size: rem-calc(30);
+        border: 2px solid #0F4DBC;
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 400;
+        padding: rem-calc(25);
+        position: relative;
+        min-width: rem-calc(170);
+        margin-left: rem-calc(90);
+        /* ----- Movils (portrait) ----- */
+        @media only screen and (max-device-width: 280px) and (orientation: portrait) {
+          margin-left: rem-calc(2);
+        }
+        @media only screen and (min-device-width: 281px) and (max-device-width: 320px) and (orientation: portrait) {
+          margin-left: rem-calc(25);
+        }
+        /* ----- Movils (landscape) ----- */
+        @media only screen and (max-device-width: 568px) and (orientation: landscape) {
+          margin-left: rem-calc(2);
+        }
+      }
+      &--active {
+        background: #0F4DBC;
+        color: $white;
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<div class="info" *ngIf="data">
+  <div *ngIf="!showQr">
+    <div *ngIf="mainInfo">
+      <div class="info__row">
+        <label class="info__label">{{'HOME.ORIGIN' | translate}}:</label><span class="info__data">{{data.origin}}</span>
+      </div>
+      <div class="info__row">
+        <label class="info__label">{{'HOME.DESTINY' | translate}}:</label><span
+          class="info__data">{{data.destiny}}</span>
+      </div>
+      <div class="info__row" *ngIf="data.pin">
+        <label class="info__label">{{'HOME.PIN' | translate}}:</label><span class="info__data">{{data.pin}}</span>
+      </div>
+    </div>
+    <div *ngIf="infoDock">
+      <label class="info__label">{{'HOME.DOCK' | translate}}:</label><span class="info__data">{{data.dock}}</span>
+    </div>
+    <div class="info__qr" *ngIf="qrButton">
+      <button class="info__qr-button" (click)="QrGenerator()"> {{'HOME.QR_GENERATE' | translate}}</button>
+    </div>
+  </div>
+  <div *ngIf="showQr">
+    <ngx-qrcode cssClass="info__qr-image" [elementType]="qrElementType" [value]="qrValue"></ngx-qrcode>
+  </div>
+
+</div>

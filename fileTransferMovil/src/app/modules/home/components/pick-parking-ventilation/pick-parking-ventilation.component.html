@@ -1,0 +1,18 @@
+<div class="task">
+  <div class="task__header">
+      <m-legend [size]="'small'">
+          {{'HOME.CONTAINER' | translate}}
+      </m-legend>
+      <m-legend *ngIf="transport">
+          {{transport.contenedor}}
+      </m-legend>
+      <m-separator></m-separator>
+  </div>
+  <div class="task__actionEscanner">
+      <label class="task__action--text">{{'HOME.ACTION.DELIVERY'|translate}}</label>
+  </div>
+  <div class="task__options">
+      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === true}" (click)="checkClick(true)"> {{'HOME.ACTION.PARKING_SELECTION'|translate}} </button>
+      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === false}" (click)="checkClick(false)"> {{'HOME.ACTION.VENTILATION'|translate}} </button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<m-legend>
+  {{titleLabel | translate}}
+</m-legend>
+<m-separator></m-separator>
+<div class="store-selector">
+    <m-store-select [options]="stores" [placeholder]="'Seleccionar almacén'" [selectedValue]="selectedLicensePlate" (valueSelected)="onStoreSelected($event)">
+    </m-store-select>
+</div>
+

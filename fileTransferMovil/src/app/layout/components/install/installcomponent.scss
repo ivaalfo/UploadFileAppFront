@@ -1,0 +1,23 @@
+@import "../../../../styles.scss";
+
+:host {
+  @include size(100%, $header-height);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $primary-color;
+}
+
+.install {
+  @include size(100%, 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    color: $white;
+    text-align: center;
+    font-size: rem-calc(50);
+    font-weight: 700;
+  }
+}

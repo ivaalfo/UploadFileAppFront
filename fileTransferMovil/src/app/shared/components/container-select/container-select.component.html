@@ -1,0 +1,8 @@
+<select class="select" (change)="onChange($event.target.value)">
+  <option *ngIf="placeholder" value="">{{placeholder}}</option>
+  <option *ngFor="let option of options; let i = index" 
+    [ngClass]="{'isNotOK': gasesEstadoCod[i] == 'NOK'}"
+    [value]="toStr(option)" 
+    [selected]="isSelected(option.contenedor)">
+      {{option.contenedor}}</option>
+</select>

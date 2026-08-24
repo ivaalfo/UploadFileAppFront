@@ -1,0 +1,28 @@
+@import "../../../../styles.scss";
+.header {
+    @include size(100%, 100%);
+    background-color: $primary-color;
+    padding: 0 20px 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__logo {
+        flex-basis: 15%;
+        & img {
+            width: rem-calc(110);
+        }
+    }
+    &__title {
+        flex-basis: 70%;
+        color: $white;
+        text-align: center;
+        font-size: rem-calc(50);
+        font-weight: 700;
+    }
+    &__logout {
+        flex-basis: 15%;
+        & img {
+            width: 80%;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<div class="task">
+  <div class="task__header">
+      <m-legend [size]="'small'">
+          {{'HOME.CONTAINER' | translate}}
+      </m-legend>
+      <m-legend *ngIf="transport">
+          {{transport.contenedor}}
+      </m-legend>
+      <m-separator></m-separator>
+  </div>
+  <m-info-card [data]="mainInfo"></m-info-card>
+  <div class="task__action">
+      <label class="task__action--text">{{'HOME.ACTION.CHECK_DOCK'|translate}}</label>
+  </div>
+</div>

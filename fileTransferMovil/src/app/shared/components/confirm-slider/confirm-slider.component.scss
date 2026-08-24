@@ -1,0 +1,120 @@
+@import "../../../../styles.scss";
+
+$size: 32;
+
+@mixin track($color: red, $radius: 0) {
+  &::-webkit-slider-runnable-track {
+    @content;
+    border-radius: $radius;
+    background-color: $color;
+  }
+  &::-moz-range-track {
+    @content;
+    border-radius: $radius;
+    background-color: $color;
+  }
+  &::-moz-focus-outer {
+    border: 0;
+  }
+  &::-ms-track {
+    border: 0;
+    @content;
+    border-radius: $radius;
+    background-color: $color;
+    color: transparent;
+  }
+  &::-ms-fill-lower,
+  &::-ms-fill-upper {
+    background-color: transparent;
+  }
+  &::-ms-tooltip {
+    display: none;
+  }
+}
+
+@mixin thumb() {
+  &::-webkit-slider-thumb {
+    appearance: none;
+    @content;
+  }
+  &::-moz-range-thumb {
+    border: 0;
+    @content;
+  }
+  &::-ms-thumb {
+    @content;
+  }
+}
+
+:host {
+  @include size(100%, auto);
+}
+
+.confirm-slider {
+  position: relative;
+  @include size(100%, 100%);
+
+  &__legend {
+    @include size(100%, 100%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__text {
+    color: $white;
+    font-size: rem-calc(30);
+    font-weight: 600;
+  }
+
+  &__pullee {
+    width: 100%;
+    appearance: none;
+
+    // handle active states
+    &:active {
+      @include thumb() {
+        transform: scale(1.1);
+        cursor: -webkit-grabbing;
+        cursor: -moz-grabbing;
+      }
+    }
+
+    // accessibility
+    &:focus {
+      outline: none;
+    }
+
+    // thumb styles
+    @include thumb() {
+      display: block;
+      width: $input-height;
+      height: $input-height;
+      border-radius: 50%;
+      background: $white;
+      transform-origin: 50% 50%;
+      transform: scale(1);
+      transition: transform ease-out 100ms;
+      cursor: -webkit-grab;
+      cursor: -moz-grab;
+    }
+
+    // track styles
+    @include track(#0F4DBC, $input-border-radius) {
+      height: $input-height;
+      padding: 0.25rem;
+      box-sizing: content-box;
+    }
+
+    &--disabled {
+      @include track($grey, $input-border-radius) {
+        height: $input-height;
+        padding: 0.25rem;
+        box-sizing: content-box;
+      }
+    }
+  }
+}

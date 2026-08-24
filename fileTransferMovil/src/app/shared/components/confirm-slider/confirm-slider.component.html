@@ -1,0 +1,6 @@
+<div class="confirm-slider" [hidden]="visibility">
+    <div class="confirm-slider__legend">
+        <span class="confirm-slider__text">{{textSlider | translate}}</span>
+    </div>
+    <input [disabled]="disabled" #pullee type="range" value="0" [className]="disabled ? 'confirm-slider__pullee confirm-slider__pullee--disabled' : 'confirm-slider__pullee'" />
+</div>

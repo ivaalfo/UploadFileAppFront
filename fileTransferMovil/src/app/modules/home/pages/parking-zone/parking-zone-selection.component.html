@@ -1,0 +1,21 @@
+<m-legend>
+  {{titleLabel | translate}}
+</m-legend>
+<m-separator></m-separator>
+<div class="store-selector">
+  <m-store-select [options]="stores" [placeholder]="'Seleccionar almacén'" [selectedValue]="selectedLicensePlate" (valueSelected)="onStoreSelected($event)">
+  </m-store-select>
+</div>
+<div class="container-selector" *ngIf="hasContainers">
+  <m-container-select [options]="containers" [placeholder]="'Seleccionar contenedor'" [selectedValue]="selectedContainer" (valueSelected)="onContainerSelected($event)">
+  </m-container-select>
+</div>
+<div class="info" *ngIf="!hasContainers">
+  <div class="info__icon">
+      <img src="assets/icons/info.svg" alt="info">
+</div>
+<div class="info__label">
+    <label class="info__label--text">{{'HOME.ACTION.NO_CONTAINERS'|translate}}</label>
+</div>
+
+</div>

@@ -1,0 +1,45 @@
+@import "../../../../../styles.scss";
+.number-plate-selector {
+  margin-top: 20px;
+}
+.store-selector {
+  margin: 20px 10px;
+}
+
+.info {
+
+  &__icon {
+    background-color: #0F4DBC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: rem-calc(450);
+    height: rem-calc(150);
+    width: 100%;
+    text-align: center;
+    & img {
+      width: 25%;
+  }
+  }
+  &__label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0F4DBC;
+      position: fixed;
+      text-transform: uppercase;
+      left: 0;
+      bottom: rem-calc(200);
+      height: rem-calc(150);
+      width: 100%;
+      text-align: center;
+      font-size: rem-calc(40);
+      font-weight: 700;
+      &--text {
+          max-width: 80%;
+      }
+    }
+  }

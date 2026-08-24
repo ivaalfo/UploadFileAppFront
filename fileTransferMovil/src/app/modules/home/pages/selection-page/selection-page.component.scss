@@ -1,0 +1,84 @@
+@import "../../../../../styles.scss";
+
+
+.task {
+  align-items: center;
+  &__action {
+    background-color: #0F4DBC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: fixed;
+    text-transform: uppercase;
+    left: 0;
+    bottom: rem-calc(480);
+    height: rem-calc(150);
+    width: 100%;
+    text-align: center;
+    font-size: rem-calc(30);
+    font-weight: 500;
+    &--text {
+        max-width: 80%;
+    }
+}
+  &__number-plate-selector {
+    position: fixed;
+    bottom: rem-calc(670);
+    width: 90%;
+    text-align: center;
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    color: #0F4DBC;
+    position: fixed;
+    text-transform: uppercase;
+    bottom: rem-calc(250);
+    height: rem-calc(180);
+    &-button {
+      margin-bottom: rem-calc(25);
+      min-height: rem-calc(140);
+      white-space: normal;
+      overflow: hidden;
+      background: transparent;
+      max-width: rem-calc(190);
+      text-align: center;
+      font-size: rem-calc(30);
+      border: 2px solid #0F4DBC;
+      color: #0F4DBC;
+      font-family: $primary-font;
+      font-weight: 400;
+      padding: rem-calc(25);
+      position: relative;
+      margin-left:rem-calc(25);
+      min-width: rem-calc(170);
+      &--large {
+        max-height: rem-calc(120);
+        margin-bottom: rem-calc(15);;
+        white-space: normal;
+        overflow: hidden;
+        background: transparent;
+        max-width: rem-calc(250);
+        text-align: center;
+        font-size: rem-calc(30);
+        border: 2px solid #0F4DBC;
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 400;
+        padding: rem-calc(25);
+        position: relative;
+        margin-left:rem-calc(100);
+        min-width: rem-calc(170);
+      }
+      &--active {
+          background: #0F4DBC;
+          color: $white;
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+<div *ngIf="cameraOn">
+  <button (click)="stopScanning()" class="task__scan--button">Volver</button>
+  <m-info-card [mainInfo]="false" [infoDock]="true" [data]="infoDock"></m-info-card>
+  <barcode-scanner-livestream class="task__scan--window" #barcodeScanner [type]="['code_128']" (valueChanges)="onValueChanges($event)" (started)="onStarted()"></barcode-scanner-livestream>
+</div>
+<div *ngIf="!cameraOn">
+  <div *ngIf="result">
+    <div class="task__header">
+      <m-legend [size]="'small'">
+          {{'HOME.CONTAINER' | translate}}
+      </m-legend>
+      <m-legend *ngIf="transport">
+          {{transport.contenedor}}
+      </m-legend>
+      <m-separator></m-separator>
+      <m-info-card [mainInfo]="false" [infoDock]="true" [data]="infoDock"></m-info-card>
+    </div>
+    <div class="info-ok">
+      <div class="info-ok__icon">
+          <img src="assets/icons/check.svg" alt="info">
+      </div>
+      <div class="info-ok__label">
+        <label class="info-ok__label--text">{{'HOME.ACTION.SCAN_OK'|translate}}</label>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="!result">
+    <div class="task__header">
+      <m-legend [size]="'small'">
+          {{'HOME.CONTAINER' | translate}}
+      </m-legend>
+      <m-legend *ngIf="transport">
+          {{transport.contenedor}}
+      </m-legend>
+      <m-separator></m-separator>
+      <m-info-card [mainInfo]="false" [infoDock]="true" [data]="infoDock"></m-info-card>
+    </div>
+    <div class="info-nok">
+      <div class="info-nok__icon">
+          <img src="assets/icons/cancel.svg" alt="info">
+      </div>
+      <div class="info-nok__label">
+        <label class="info-nok__label--text">{{'HOME.ACTION.SCAN_NOK'|translate}}</label>
+      </div>
+    </div>
+    <button (click)="goToBack()" class= "reScan">Atrás</button>
+  </div>
+</div>

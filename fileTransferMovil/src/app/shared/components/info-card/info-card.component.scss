@@ -1,0 +1,42 @@
+@import "../../../../styles.scss";
+.info {
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-size: rem-calc(30);
+    font-weight: 500;
+    color: $grey;
+    padding-top: rem-calc(40);
+    align-items: center;
+    &__row {
+        margin-bottom: rem-calc(10);
+    }
+    &__data {
+        margin-left: rem-calc(10);
+        color: #0F4DBC;
+        text-align: right;
+    }
+    &__qr {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0F4DBC;
+      text-transform: uppercase;
+      margin-top: 15px;
+      height: rem-calc(50);
+      &-button {
+        background: transparent;
+        font-size: rem-calc(20);
+        border: 2px solid #0F4DBC;
+        color: #0F4DBC;
+        font-family: $primary-font;
+        font-weight: 600;
+        padding: 10px;
+        min-width: rem-calc(100);
+      }
+      &-image {
+        width: rem-calc(220);
+        height: rem-calc(220);
+      }
+    }
+}

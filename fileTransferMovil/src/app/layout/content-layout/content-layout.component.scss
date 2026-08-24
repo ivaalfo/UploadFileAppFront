@@ -1,0 +1,23 @@
+@import "../../../styles.scss";
+
+:host {
+  display: grid;
+  @include size(100%, 100%);
+  grid-template-rows: $header-height 75% 15%;
+  grid-column-gap: 0;
+}
+
+.content-layout {
+  &__content {
+    padding: 20px 0px;
+    height: 100%;
+  }
+
+  &__footer {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+}

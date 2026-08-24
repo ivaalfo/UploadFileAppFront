@@ -1,0 +1,37 @@
+$header-height: 10%;
+$input-height: 40px;
+$input-border-radius: 25px;
+
+
+$dark-blue: #002460;
+$blue: #0062ff;
+$light-blue: #e2f5fa;
+$cyan: #99befb;
+$cyan2: #ABEEFF;
+$white: #ffffff;
+$red: #ff5757;
+$grey: #787070;
+$light-grey: #ababab;
+$black: #000000;
+$primary-color: #0F4DBC;
+$secondary-color: $black;
+$error-color: $red;
+
+$primary-font: Arial;
+$secondary-font: "Arial";
+
+$container-column-gap: 30px;
+
+$breakpoints: (
+  "small": 1024px,
+  "medium": 1366px,
+  "large": 1600px,
+  "xlarge": 1920px
+) !default;
+
+$container-columns: (
+  "small": 3,
+  "medium": 3,
+  "large": 4,
+  "xlarge": 4
+) !default;

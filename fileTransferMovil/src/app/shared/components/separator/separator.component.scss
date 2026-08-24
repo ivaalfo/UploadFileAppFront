@@ -1,0 +1,12 @@
+@import "../../../../styles.scss";
+
+:host {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.separator {
+  border-bottom: 2px solid #0F4DBC;
+  width: 50%;
+}

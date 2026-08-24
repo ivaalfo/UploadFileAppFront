@@ -1,0 +1,18 @@
+<div class="task">
+    <div class="task__header">
+        <m-legend [size]="'small'">
+            {{'HOME.CONTAINER' | translate}}
+        </m-legend>
+        <m-legend *ngIf="transport">
+            {{transport.contenedor}}
+        </m-legend>
+        <m-separator></m-separator>
+    </div>
+    <m-info-card [mainInfo]="false" [infoDock]="true" [data]="infoDock"></m-info-card>
+    <button class="task__manual--button" (click)="manualMode()">Manual</button>
+    <label class="task__manual--text" *ngIf="manual">MODO MANUAL ACTIVADO</label>
+    <div></div>
+    <div class="task__action">
+        <label class="task__action--text">{{'HOME.ACTION.TRUCK_IN_DOCK'|translate}}</label>
+    </div>
+</div>
