@@ -1,6 +1,6 @@
 {
     "version": "1.1.01",
-    "fecha": "14/08/2026",
-    "expira": "2026-08-28T00:00:00.000Z",
-    "mejoras": "\n\t- Reestructuración de menus y pantallas.\n\t- Añadida entrada para 'Firmador_CMRs_Salidas'.\n\t- Añadida nueva funcionalidad para Firmar documentos de manera Incremental y Acumulativa.\n\n"
+    "fecha": "24/08/2026",
+    "expira": "2026-09-01T00:00:00.000Z",
+    "mejoras": "\n\t- Reestructuración de pantallas y Menú.\n\t- Añadida nueva entrada de Menú para el Firmador de CMR de Salidas.\n\t- Añadida nueva funcionalidad para firmar documentos de manera Incremental y Acumulativa.\n\t- NEXT............\n\n"
 }
