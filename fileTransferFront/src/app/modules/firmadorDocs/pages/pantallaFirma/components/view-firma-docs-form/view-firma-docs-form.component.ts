@@ -218,23 +218,45 @@ export class ViewFirmaDocsFormComponent implements OnInit, OnDestroy {
 
   /****************** CANVAS: MOTOR DE DIBUJO **********************/
   private inicializarContextoCanvas() {
-    if (!this.ctx && this.canvasRef) {
+    if (this.canvasRef) {
       const canvas = this.canvasRef.nativeElement;
       
-      //Ajustamos el tamaño a la columna derecha (aprox 260px de ancho)
-      canvas.width = 260; 
-      canvas.height = 120; 
-      
-      this.ctx = canvas.getContext('2d')!;
-      this.ctx.strokeStyle = '#ff7607';     //Color del trazo 
-      this.ctx.lineWidth = 3;                 //Grosor del trazo
-      this.ctx.lineCap = 'round';             //Acabado redondeado elegante
+      //Nos aseguramos de tener el contexto 2D creado
+      if (!this.ctx) {
+        this.ctx = canvas.getContext('2d')!;
+      }
+
+      //CORRECCIÓN DEL DESFASE: Sincronizamos el tamaño interno con el real del CSS
+      if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+        //Si ya había una firma, guardamos los trazos para que no se borren
+        let contenidoTemporal: ImageData | null = null;
+        if (this.hayFirmaLista) {
+          contenidoTemporal = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+        }
+
+        //Ajustamos los píxeles internos exactamente a lo que mide tu contenedor CSS
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        
+        //IMPORTANTE: Al cambiar width o height el canvas se resetea. Reconfiguramos el pincel:
+        this.ctx.strokeStyle = '#ff7607';     // Color del trazo 
+        this.ctx.lineWidth = 3;                 // Grosor del trazo
+        this.ctx.lineCap = 'round';             // Acabado redondeado elegante
+
+        //Si había dibujos previos, los restauramos
+        if (contenidoTemporal) {
+          this.ctx.putImageData(contenidoTemporal, 0, 0);
+        }
+      }
     }
   }
 
   public iniciarDibujo(event: MouseEvent) {
+    //Sincronizamos tamaños para evitar el salto del cursor
     this.inicializarContextoCanvas();
+    
     this.isDibujando = true;
+    //Calculamos la posición exacta con las dimensiones reales unificadas
     const rect = this.canvasRef.nativeElement.getBoundingClientRect();
     this.ctx.beginPath();
     this.ctx.moveTo(event.clientX - rect.left, event.clientY - rect.top);
@@ -242,6 +264,7 @@ export class ViewFirmaDocsFormComponent implements OnInit, OnDestroy {
 
   public dibujar(event: MouseEvent) {
     if (!this.isDibujando) return;
+    //Calculamos la posición en tiempo real durante el movimiento
     const rect = this.canvasRef.nativeElement.getBoundingClientRect();
     this.ctx.lineTo(event.clientX - rect.left, event.clientY - rect.top);
     this.ctx.stroke();

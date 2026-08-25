@@ -1,4 +1,4 @@
-import { DATE_TIME_FORMAT, SERVER_TIMESTAMP_DATE_FORMAT } from "@core/services/api/api.constants";
+import { DATE_TIME_FORMAT_IV, SERVER_TIMESTAMP_DATE_FORMAT } from "@core/services/api/api.constants";
 import * as moment from "moment";
 
 
@@ -94,7 +94,7 @@ export class PedidoFirmador {
     return moment(this.f3fechaCreacionCMR, SERVER_TIMESTAMP_DATE_FORMAT);
   }
   public get fechaCreacionCMRshort(): string {
-    return (this.fechaCreacionMoment.isValid()) ? this.fechaCreacionMoment.format(DATE_TIME_FORMAT) : '';
+    return (this.fechaCreacionMoment.isValid()) ? this.fechaCreacionMoment.format(DATE_TIME_FORMAT_IV) : '';
   }
 
   //FIRMA 2
@@ -105,7 +105,7 @@ export class PedidoFirmador {
     return moment(this.f3fechaFirmaTrans, SERVER_TIMESTAMP_DATE_FORMAT);
   }
   public get fechaFirmaTransShort(): string {
-    return (this.fechaFirmaTrasMoment.isValid()) ? this.fechaFirmaTrasMoment.format(DATE_TIME_FORMAT) : '';
+    return (this.fechaFirmaTrasMoment.isValid()) ? this.fechaFirmaTrasMoment.format(DATE_TIME_FORMAT_IV) : '';
   }
 
   //FIRMA 3
@@ -116,7 +116,7 @@ export class PedidoFirmador {
     return moment(this.f3fechaFirmaDest, SERVER_TIMESTAMP_DATE_FORMAT);
   }
   public get fechaFirmaDestShort(): string {
-    return (this.fechaFirmaDestMoment.isValid()) ? this.fechaFirmaDestMoment.format(DATE_TIME_FORMAT) : '';
+    return (this.fechaFirmaDestMoment.isValid()) ? this.fechaFirmaDestMoment.format(DATE_TIME_FORMAT_IV) : '';
   }
 
 }
