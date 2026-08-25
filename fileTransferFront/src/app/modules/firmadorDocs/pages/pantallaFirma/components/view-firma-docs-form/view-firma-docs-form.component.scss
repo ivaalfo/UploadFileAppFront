@@ -45,7 +45,7 @@
   display: block;
   width: 100%;             /* Se estira al ancho de la columna derecha */
   height: 120px;           /* Altura fija visible */
-  cursor: url('/assets/images/icons/edit.png') 0 24, pointer; /* Cambia el cursor a un icono de lápiz al pasar por encima */
+  cursor: url('src/assets/images/icons/edit.png') 0 24, pointer; /* Cambia el cursor a un icono de lápiz al pasar por encima */
 }
 
 .titulo-firma {
