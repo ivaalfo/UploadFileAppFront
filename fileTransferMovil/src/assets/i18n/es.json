@@ -1,7 +1,7 @@
 {
-  "HEADER_TITLE": " CPT",
-  "FOOTER_COMPANY": " CPT - Martico, S.L.",
-  "FOOTER_COPYRIGHT": "&copy; Copyright 2019",
+  "HEADER_TITLE": " DFC",
+  "FOOTER_COMPANY": " DFC - Martico S.L.",
+  "FOOTER_COPYRIGHT": "&copy; Copyright 2026",
   "LOGIN_TITLE": "Login",
   "LOGIN_BUTTON": "Acceder",
   "LOGIN_USERNAME": "Usuario",
@@ -53,7 +53,7 @@
       "DOWNLOAD_VENTILATION": "Confirmar descarga ventilación",
       "CHECK_GAS_STATE": "Comprobando resultado estado de gases",
       "CHECK_DOCK": "Comprobando asignación de muelle",
-      "TYPE_SELECTION": "Zona de recogida",
+      "TYPE_SELECTION": "Firmador de CMR",
       
       "TIMER_CHECK": "Tiempo de operación no cumplido.",
       "WAITING_TIME": "Acción disponible dentro de: "

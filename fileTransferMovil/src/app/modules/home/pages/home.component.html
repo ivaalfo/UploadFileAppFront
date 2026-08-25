@@ -1,15 +1,15 @@
 <div class="task">
 
   <div class="task__number-plate-selector">
-    <m-truck-select [options]="trucks" [placeholder]="'Seleccionar matrícula'" [selectedValue]="selectedLicensePlate" (valueSelected)="onValueSelected($event)">
+    <m-truck-select [options]="trucks" [placeholder]="'PLACEHOLDER.TEXT'" [selectedValue]="selectedLicensePlate" (valueSelected)="onValueSelected($event)">
     </m-truck-select>
   </div>
   <div class="task__action">
       <label class="task__action--text">{{'HOME.ACTION.TYPE_SELECTION'|translate}}</label>
   </div>
   <div class="task__options">
-      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === 'T'}" (click)="checkClick('T')"> {{'HOME.ACTION.TRANSPORT_SELECTION' | translate}} </button>
-      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === 'P'}" (click)="checkClick('P')"> {{'HOME.ACTION.PARKING_SELECTION' | translate}} </button>
-      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === 'S'}" (click)="checkClick('S')"> {{'HOME.ACTION.STORE_ENTRANCE_EMPTY' | translate}} </button>
+      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === 'T'}" (click)="checkClick('T')"> {{'VIEW_CMR' | translate}} </button>
+      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === 'P'}" (click)="checkClick('P')"> {{'SIGN_CMR' | translate}} </button>
+      <button class="task__options-button" [ngClass]="{'task__options-button--active': result === 'S'}" (click)="checkClick('S')"> {{'DOWNLOAD_CMR' | translate}} </button>
   </div>
 </div>

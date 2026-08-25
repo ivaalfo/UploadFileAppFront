@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/core/components/base.component';
 import { ConfirmSliderService } from 'src/app/shared/components/confirm-slider/confirm-slider.service';
@@ -106,3 +107,6 @@ export class SelectionPageComponent extends BaseComponent<SelectionPageComponent
   }
 
 }
+
+repetido con el homedir.component.ts
+*/

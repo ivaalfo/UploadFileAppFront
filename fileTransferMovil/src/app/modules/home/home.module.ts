@@ -20,7 +20,7 @@ import { WaitGasStateComponent } from './components/wait-gas-state/wait-gas-stat
 import { BarecodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 import { CamaraScanComponent } from './components/camaraScan/camara-scan/camara-scan.component';
 import { WaitAssignDockComponent } from './components/wait-assign-dock/wait-assign-dock.component';
-import { SelectionPageComponent } from './pages/selection-page/selection-page.component';
+//import { SelectionPageComponent } from './pages/selection-page/selection-page.component';
 import { ParkingZoneComponent } from './components/parking-zone/parking-zone.component';
 import { ParkingZoneSelectionComponent } from './pages/parking-zone/parking-zone-selection.component';
 import { StoreEntranceEmptyComponent } from './pages/store-entrance-empty/store-entrance-empty.component';
@@ -55,7 +55,7 @@ import { TimerCheckComponent } from './components/timer-check/timer-check.compon
     WaitGasStateComponent,
     CamaraScanComponent,
     WaitAssignDockComponent,
-    SelectionPageComponent,
+    //SelectionPageComponent,
     ParkingZoneComponent,
     ParkingZoneSelectionComponent,
     StoreEntranceEmptyComponent,
