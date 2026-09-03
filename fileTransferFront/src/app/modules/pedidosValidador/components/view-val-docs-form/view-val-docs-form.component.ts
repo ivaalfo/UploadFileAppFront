@@ -415,7 +415,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
 
       if (blob) {
         this.formData = new FormData;
-        this.formData.append("signedFile", blob, this.filename);
+        this.formData.append("blobFile", blob, this.filename);
         this.formData.append("orderTrack", this.pedidoSelected.track);
         this.formData.append("orderExp", this.pedidoSelected.expediente);
         console.log(this.formData);
@@ -439,7 +439,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
       }
     }
     this.formData = new FormData;
-    this.formData.append("signedFile", this.cmrBlob, this.filename);
+    this.formData.append("blobFile", this.cmrBlob, this.filename);
     this.formData.append("orderTrack", this.pedidoSelected.track);
     this.formData.append("orderExp", this.pedidoSelected.expediente);
   }

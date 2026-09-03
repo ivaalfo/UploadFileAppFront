@@ -8,14 +8,14 @@ import { LockEntities } from '@data/shared/locks';
 
 const FILE_UPLOAD_GET_PEDIDO_PROV = 'api/v1/files/getPedidoProv';
 const FILE_UPLOAD_GET_PEDIDO_FILES = 'api/v1/files/getPedidoFilesVO';
-const FILE_UPLOAD_GET_SIGN = 'api/v1/files/getSIGN';
+const FILE_UPLOAD_GET_SIGN = 'api/v1/files/getWatermark';
 const FILE_UPLOAD_GET_CMR = 'api/v1/files/getCMR';
 const FILE_UPLOAD_GET_VALID_CMR = 'api/v1/files/getValidCMR';
 const FILE_UPLOAD_GET_FAC = 'api/v1/files/getFAC';
 const FILE_UPLOAD_GET_FILE = 'api/v1/files/getFile';
 
 const FILE_UPLOAD_POST = 'api/v1/files/post';
-const FILE_UPLOAD_POST_SIGNED_FILE = 'api/v1/files/postSigned';
+const FILE_UPLOAD_POST_SIGNED_FILE = 'api/v1/files/postWatermarked';
 
 
 @Injectable({
