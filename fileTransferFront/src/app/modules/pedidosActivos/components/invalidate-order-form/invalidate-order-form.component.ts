@@ -12,6 +12,7 @@ import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-p
 import { PedidosActivosComponent } from '@modules/pedidosActivos/pages/pedidosActivos/pedidos.activos.component';
 import { LockEntities } from '@data/shared/locks';
 import { PedidosValidadorApiClient } from '@core/services/api/pedidosValidador/api-pedidos-validador.service';
+import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';
 
 
 @Component({
@@ -58,6 +59,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
     private readonly activosComp: PedidosActivosComponent,
     private readonly apiPactivosClient: PedidosActivosApiClient,
     private readonly apiValidadorClient: PedidosValidadorApiClient,
+    private readonly apiFileUpload: FileUploadApiClient,
   ) {
     this.pedidoForm = this.formBuilder.group({
       invalidate: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('[a-zA-Z0-9 çÇñÑáÁéÉíÍóÓúÚ@,(-_!)\&\/]*')]]
@@ -129,7 +131,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
   }
 
   private getPedido() {
-    this.apiPactivosClient.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
+    this.apiFileUpload.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
     .pipe(
       take(1),
       map(response => { 

@@ -6,6 +6,7 @@ import { ApiClient } from '@core/services/api/api-client.service';
 import { LockEntities } from '@data/shared/locks';
 
 
+const FILE_UPLOAD_GET_PEDIDO_PROV = 'api/v1/files/getPedidoProv';
 const FILE_UPLOAD_GET_PEDIDO_FILES = 'api/v1/files/getPedidoFilesVO';
 const FILE_UPLOAD_GET_SIGN = 'api/v1/files/getSIGN';
 const FILE_UPLOAD_GET_CMR = 'api/v1/files/getCMR';
@@ -21,6 +22,13 @@ const FILE_UPLOAD_POST_SIGNED_FILE = 'api/v1/files/postSigned';
   providedIn: 'root'
 })
 export class FileUploadApiClient extends ApiClient {
+
+  public getPedidoProv(track: string, exp: string): Observable<ApiResponseWithData> {
+    return this.http.get<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_GET_PEDIDO_PROV}/${track}/${exp}`)
+    .pipe(
+      map(response => this.mapResponseWithData(response))
+    );
+  }
 
   public getPedidoFilesVO(track: string, exp: string): Observable<ApiResponseWithData> {
     return this.http.get<ApiResponseWithData>(`${this.config.apiBaseUrl}${FILE_UPLOAD_GET_PEDIDO_FILES}/${track}/${exp}`)

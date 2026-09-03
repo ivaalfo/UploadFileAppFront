@@ -9,9 +9,9 @@ import { PedidoProveedor, PedidoProveedorDto } from '@data/pedidos/pedido-provee
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalSpinnerService } from '@core/services/global-spinner/global-spinner.service';
 import { LockEntities } from '@data/shared/locks';
-import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-pedidos-activos.service';
 import { PedidosValidadorApiClient } from '@core/services/api/pedidosValidador/api-pedidos-validador.service';
 import { PedidosHistoricoComponent } from '@modules/pedidosHistorico/pages/pedidosHistorico/pedidos.historico.component';
+import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';
 
 
 @Component({
@@ -52,7 +52,7 @@ export class AnotaHistCMRFormComponent implements OnInit, OnDestroy {
     private readonly spinnerService: GlobalSpinnerService,
     private readonly notification: NotificationService,
     private readonly apiValidadorClient: PedidosValidadorApiClient,
-    private readonly apiPactivosClient: PedidosActivosApiClient,
+    private readonly apiFileUpload: FileUploadApiClient,
     private readonly translate: TranslateService,
     private readonly historicoComp: PedidosHistoricoComponent
   ) {
@@ -126,7 +126,7 @@ export class AnotaHistCMRFormComponent implements OnInit, OnDestroy {
   }
 
   private getPedido() {
-    this.apiPactivosClient.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
+    this.apiFileUpload.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
     .pipe(
       take(1),
       map(response => { 

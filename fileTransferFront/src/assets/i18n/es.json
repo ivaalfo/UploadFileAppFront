@@ -83,7 +83,7 @@
     },
     "TEXT": {
       "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}",
-      "SETFREAL": "Debe establecer una Fecha Real de Entrega para poder subir documentación."
+      "SETFREAL": "Debe establecer una Fecha Real de Entrega para poder subir la documentación."
     },
     "BUTTONS": {
       "FECREAL": "F.Entrega",
@@ -99,7 +99,7 @@
     },
     "FORM": {
       "FECREAL": {
-        "TITLE": "{{refped}} : Establecer Fecha Real de Entrega",
+        "TITLE": "Establecer Fecha Real de Entrega: ",
         "FECREAL": "Fecha de Entrega: ",
         "PH_SELECT": "Seleccione fecha",
         "SUCCES": {
@@ -108,7 +108,7 @@
         "ERROR": {
           "DATE_LIMIT_ERROR": "La Fecha de Entrega no puede ser anterior a la Fecha de Carga.",
           "REQUIRED": "Campo requerido.",
-          "REQUIRED_MULTI": "Debe seleccionar una fecha para cada pedido.",
+          "REQUIRED_MULTI": "Debe seleccionar una fecha para cada referencia.",
           "UPDATE_FREAL": "Error actualizando la Fecha Real de Entrega para: {{refped}}",
           "UPDATE_FREAL_MULTI": "Error actualizando las Fechas Reales de Entrega."
         }

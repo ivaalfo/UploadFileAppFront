@@ -14,6 +14,7 @@ import { GlobalSpinnerService } from '@core/services/global-spinner/global-spinn
 import { PedidosActivosComponent } from '@modules/pedidosActivos/pages/pedidosActivos/pedidos.activos.component';
 import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-pedidos-activos.service';
 import * as moment from 'moment';
+import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
     private readonly spinnerService: GlobalSpinnerService,
     private readonly notification: NotificationService,
     private readonly apiPactivosClient: PedidosActivosApiClient,
+    private readonly apiFileUpload: FileUploadApiClient,
     private readonly pActivosComp: PedidosActivosComponent,
     private readonly translate: TranslateService
   ) {
@@ -83,7 +85,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
   }
 
   private getPedido() {
-    this.apiPactivosClient.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
+    this.apiFileUpload.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
     .pipe(
       take(1),
       map(response => { 
@@ -125,7 +127,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
     if (!this.isGrulogMode) {
       const dateControl = this.pedidoForm.get('fechaEntReal');
       if (dateControl) {
-        console.debug('[AssignDate] modo simple - valor del control antes de asignar', dateControl.value);
+        //console.debug('[AssignDate] modo simple - valor del control antes de asignar', dateControl.value);
         dateControl.setErrors(null);
         if (this.editMode) {
           dateControl.clearValidators();
@@ -145,7 +147,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
           // Asegura que se borra cuando no hay `fechaEntReal`
           dateControl.setValue(null);
         }
-        console.debug('[AssignDate] modo simple - control tras asignar', dateControl.value);
+        //console.debug('[AssignDate] modo simple - control tras asignar', dateControl.value);
         // fuerza la limpieza del DOM del input para evitar estados residuales/stale internos del datepicker
         setTimeout(() => this.clearFechaInputs(), 0);
       }

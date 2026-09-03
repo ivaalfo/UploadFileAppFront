@@ -9,7 +9,7 @@
       <div class="form-group__row">
         <label for="fechaEntReal-input" class="pedido-label">
           <div><span class="label-key">TR:</span> {{ pedidoSelected?.track }}</div>
-          <div><span class="label-key">Exp:</span> {{ pedidoSelected?.expediente }}</div>
+          <div><span class="label-key">Ref.Carga:</span> {{ pedidoSelected?.refCarga }}</div>
         </label>
         <div class="form-group__field">
           <input #fechaEntRealInput type="text" id="fechaEntReal-input" name="fechaEntReal-input"
@@ -30,10 +30,10 @@
     <div class="form-group" *ngIf="isGrulogMode && renderFechas" [formGroup]="pedidoForm">
       <div class="form-group__header"></div>
       <div *ngIf="renderFechas">
-        <div *ngFor="let ctrl of fechaControls; let i = index" class="form-group__row">
+        <div *ngFor="let ctrl of fechaControls; let i = index" class="form-group__row row-grupaje">
           <label [for]="'fechaEntReal-'+i" class="pedido-label">
-            <div class="pedido-track"><span class="label-key">TR: </span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].track : ('#' + (i+1)) }}</div>
-            <div class="pedido-exp"><span class="label-key">Exp:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].expediente : '' }}</div>
+            <div class="pedido-track"><span class="label-key">TR:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].grupTR : ('#' + (i+1)) }}</div>
+            <div class="pedido-exp"><span class="label-key">Ref.Carga:</span> {{ listaPedidos && listaPedidos[i] ? listaPedidos[i].refCarga : '' }}</div>
           </label>
             <div class="form-group__field">
             <input #fechaEntRealInput type="text" [id]="'fechaEntReal-'+i" [name]="'fechaEntReal-'+i"

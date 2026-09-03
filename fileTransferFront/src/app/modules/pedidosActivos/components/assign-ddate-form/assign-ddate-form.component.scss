@@ -1,49 +1,92 @@
-.form-group__row{
-	display:flex;
-	align-items:center;
-	justify-content:space-between;
-	margin-bottom:12px;
+.form-group__row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+	width: 100%;
+	gap: 16px;
 }
-.pedido-label{
-	width:40%;
-	display:flex;
-	flex-direction:column;
+.pedido-label {
+	flex: 1; 
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	margin-top: 12px;
+	margin-right: 0px;
+
+	div {
+		white-space: nowrap;     //Evita que el texto salte a otra línea
+		overflow: hidden;        //Esconde lo que no quepa
+		text-overflow: ellipsis; //Añade puntos suspensivos (...) si es muy largo
+	}
 }
-.label-key{
-	font-weight:700;
+.label-key {
+	font-weight: 700;
 }
-.form-group__field{
-	width:58%;
-	display:flex;
-	flex-direction:column;
+.form-group__field {
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 150px;
+	height: 16px;
 }
-.form-group__error{
-	color:#c00;
-	font-size:0.85em;
-	margin-top:6px;
+.form-group__field > input {
+	width: 100%;
 }
-@media(max-width:600px){
-	.form-group__row{
-		flex-direction:column;
+.form-group__error {
+	color: #c00;
+	font-size: 0.85em;
+	margin-top: 6px;
+}
+@media(max-width: 600px){
+	.form-group__row {
+		flex-direction: column;
+		align-items: flex-start;
 	}
 	.pedido-label,
-	.form-group__field{
-		width:100%;
+	.form-group__field {
+		width: 100%;
+		flex: none; 	//Desactiva el comportamiento flex en móvil
+	}
+	.pedido-label div {
+		white-space: normal; 	//En móvil permitimos que salte de línea si hay espacio vertical
 	}
 }
-
-/* Ajustes locales */
-.label-key{
-	font-weight:700;
-	margin-right:6px;
+.label-key {
+	font-weight: 700;
+	margin-right: 6px;
 }
-.assign-ddate-body{
-	width:520px;
-	max-width:calc(100% - 40px);
-	padding:12px;
+.assign-ddate-body {
+	width: 100%;
 }
-
 /* Evita que el selector global `label::after` añada ':' en estas etiquetas locales */
 .pedido-label::after {
 	content: "";
+}
+
+//Regla para le modo grupaje
+.row-grupaje {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px; //Espacio fijo controlado entre las dos columnas
+
+  .pedido-label {
+    flex: 1 1 auto; //El texto sigue ocupando todo el espacio que pueda
+	width: calc(100% - 170px);	//Le dice que mida el 100% de la fila menos el espacio del datepicker (150px + 200px de margen/seguridad)
+	min-width: 0;
+	
+	.pedido-track, .pedido-exp {
+	  display: block; //Asegura que se comporten como bloques completos
+	  width: 100%;    //Ocupan todo el ancho estirado del label
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+    }
+  }
+
+  .form-group__field {
+    flex: 0 0 150px; //Mantiene los 150px clavados para el datepicker
+    height: 16px;
+  }
 }

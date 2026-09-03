@@ -75,7 +75,7 @@ export class PedidosActivosComponent implements OnInit {
     private readonly spinnerService: GlobalSpinnerService,
     private readonly router: Router,
     private readonly translate: TranslateService,
-    private apiFileUpload: FileUploadApiClient,
+    private readonly apiFileUpload: FileUploadApiClient,
     private readonly notification: NotificationService,
     private readonly excelService: ExcelService,
     private cdr: ChangeDetectorRef
@@ -685,13 +685,12 @@ export class PedidosActivosComponent implements OnInit {
 
   public setDescargaDate(pedido: PedidoProveedor): void {
     this.selectedPedido = pedido;
+    this.actionTitle = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.TITLE');
     // Si el pedido es grupaje, el título debe mostrar grupTR y pasar los miembros del grupo al modal
     if (pedido && pedido.isGrupaje) {
       this.modalSubPedidos = this.pedidos.filter(p => p.grupTR === pedido.grupTR);
-      this.actionTitle = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.TITLE', { refped: pedido.grupTR });
     } else {
       this.modalSubPedidos = [];
-      this.actionTitle = this.translate.instant('PEDIDOS_ACTIV.FORM.FECREAL.TITLE', { refped: this.selectedPedido.track });
     }
     setTimeout(() => {
       this.fdescModalOpener$.next(ModalAction.Open);

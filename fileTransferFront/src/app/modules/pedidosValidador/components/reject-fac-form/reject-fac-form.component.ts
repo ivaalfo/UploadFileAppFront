@@ -13,8 +13,8 @@ import { LockEntities } from '@data/shared/locks';
 import { ApiClient } from '@core/services/api/api-client.service';
 import { ApiLockData } from '@core/services/api/api.response';
 import { IdleService } from '@core/services/idle/idle-timeout-service';
-import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-pedidos-activos.service';
 import { PedidosValidadorApiClient } from '@core/services/api/pedidosValidador/api-pedidos-validador.service';
+import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';
 
 
 @Component({
@@ -63,7 +63,7 @@ export class RejectFACFormComponent implements OnInit, OnDestroy {
     private readonly spinnerService: GlobalSpinnerService,
     private readonly notification: NotificationService,
     private readonly apiValidadorClient: PedidosValidadorApiClient,
-    private readonly apiPactivosClient: PedidosActivosApiClient,
+    private readonly apiFileUpload: FileUploadApiClient,
     private readonly validadorComp: PedidosValidadorComponent,
     private readonly translate: TranslateService,
     private readonly apiClient: ApiClient,
@@ -141,7 +141,7 @@ export class RejectFACFormComponent implements OnInit, OnDestroy {
   }
 
   private getPedido() {
-    this.apiPactivosClient.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
+    this.apiFileUpload.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
     .pipe(
       take(1),
       map(response => { 

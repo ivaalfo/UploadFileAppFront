@@ -2,7 +2,6 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { ApiClient } from '@core/services/api/api-client.service';
 import { ApiLockData, ApiResponseWithData } from '@core/services/api/api.response';
 import { FileUploadApiClient } from '@core/services/api/fileupload/api-file-upload.service';
-import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-pedidos-activos.service';
 import { AuthService } from '@core/services/auth/auth.service';
 import { GlobalSpinnerService } from '@core/services/global-spinner/global-spinner.service';
 import { IdleService } from '@core/services/idle/idle-timeout-service';
@@ -105,7 +104,6 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
     private readonly translate: TranslateService,
     private readonly apiClient: ApiClient,
     private readonly idleService: IdleService,
-    private readonly apiPactivosClient: PedidosActivosApiClient
   ) {}
 
   public ngOnInit(): void {
@@ -607,7 +605,7 @@ export class ViewValDocsFormComponent implements OnInit, OnDestroy {
   }
 
   public refrescarDatosPedido(): void {
-    this.apiPactivosClient.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
+    this.apiFileUpload.getPedidoProv(this.pedidoSelected.track, this.pedidoSelected.expediente)
     .pipe(
       take(1),
       map(response => { 
