@@ -2,5 +2,5 @@
     "version": "1.0.57",
     "fecha": "03/09/2026",
     "expira": "2026-09-18T00:00:00.000Z",
-    "mejoras": "\n\t- Mejorada la inserción de Fechas de Entrega en pedidos de tipo Grulog.\n\t- Arreglada la maquetación de la ventana de Asignación de Fechas de Entrega.\n\t- Anulada la dependencia con la libreria de pago que se usaba para sellar los CMR.\n\t- Añadidas librerias 'open-source' para sellar los CMR.\n\n"
+    "mejoras": "\n\t- Mejorada la inserción de Fechas de Entrega en pedidos de tipo Grulog.\n\t- Arreglada la maquetación de la ventana de Asignación de Fechas de Entrega.\n\t- Añadidas librerias 'open-source' para sellar los CMR.\n\t- Anulada la dependencia con la libreria de pago que se usaba para sellar los CMR.\n\n"
 }
