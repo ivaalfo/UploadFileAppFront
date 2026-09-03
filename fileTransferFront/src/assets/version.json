@@ -1,6 +1,6 @@
 {
-    "version": "1.0.55",
-    "fecha": "12/08/2026",
-    "expira": "2026-08-18T00:00:00.000Z",
-    "mejoras": "\n\t- Controlada la subida de archivos corruptos o dañados.\n\t- Mejorada la gestión de errores en el Visor de Documentos de todas las pantallas.\n\t- Añadidas correcciones y mejoras en el Mantenimiento de Usuarios.\n\t- Mejorada la inserción de Fechas de Entrega en pedidos de tipo Grulog.\n\t- Controlados varios caracteres especiales en la Ref.Carga que no eran válidos para el nombre del archivo.\n\n"
+    "version": "1.0.57",
+    "fecha": "03/09/2026",
+    "expira": "2026-09-18T00:00:00.000Z",
+    "mejoras": "\n\t- Mejorada la inserción de Fechas de Entrega en pedidos de tipo Grulog.\n\t- Arreglada la maquetación de la ventana de Asignación de Fechas de Entrega.\n\t- Anulada la dependencia con la libreria de pago que se usaba para sellar los CMR.\n\t- Añadidas librerias 'open-source' para sellar los CMR.\n\n"
 }
