@@ -12,7 +12,7 @@
           <div><span class="label-key">Ref.Carga:</span> {{ pedidoSelected?.refCarga }}</div>
         </label>
         <div class="form-group__field">
-          <input #fechaEntRealInput type="text" id="fechaEntReal-input" name="fechaEntReal-input"
+          <input #fechaEntRealInput id="fechaEntReal-input" type="text" name="fechaEntReal-input"
             formControlName="fechaEntReal" ngxDaterangepickerMd [singleDatePicker]="true" [autoApply]="true"
             [locale]="{format: 'DD/MM/YYYY'}" autocomplete="off" readonly [placeholder]="getSinglePlaceholder()"/>
           <div class="form-group__error">

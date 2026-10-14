@@ -83,7 +83,8 @@
     },
     "TEXT": {
       "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}",
-      "SETFREAL": "Debe establecer una Fecha Real de Entrega para poder subir la documentación."
+      "SETFREAL": "Debe establecer una Fecha Real de Entrega para poder subir la documentación.",
+      "RCOUNTTEXT": "Registros listados: {{regCount}}"
     },
     "BUTTONS": {
       "FECREAL": "F.Entrega",
@@ -175,12 +176,15 @@
       "CAMION": "Camion",
       "REMOLQUE": "Remolque",
       "F_SUBIDA_CMR": "Fecha CMR",
+      "F_ENT_REAL": "F.Ent.R",
       "ANOTACIONES": "",
       "NOT4VALIDATE": "No hay ningún CMR pendiente de validación con esos criterios de búsqueda."
     },
     "TEXT": {
+      "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}",
       "NO_APLICA": "Sin CMR. No aplica validación.",
-      "YA_VALIDADO": "CMR ya validado."
+      "YA_VALIDADO": "CMR ya validado.",
+      "RCOUNTTEXT": "Registros listados: {{regCount}}"
     },
     "BUTTONS": {
       "ANOT_CMR": "Anotaciones",
@@ -231,7 +235,7 @@
     "MENU": "Histórico de Pedidos",
     "TITLE": "Histórico de Pedidos",
     "TABLE": {
-      "FILES": "CMR / FAC / OTR",
+      "FILES": "CMR/FAC/OTR",
       "USUPROV": "Prov.",
       "TR": "TR",
       "EXPEDIENTE": "Expediente",
@@ -250,15 +254,18 @@
       "ANOTACIONES": "",
       "F_SUB_CMR": "F.CMR",
       "F_SUB_FAC": "F.FAC",
+      "F_ENT_REAL": "F.Ent.R",
       "NORESULTS2SHOW": "No existe histórico de pedidos con esos criterios de búsqueda."
     },
     "TEXT": {
-      "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}"
+      "FREALTEXT": "Fecha Real de Entrega: {{fecRealRef}}",
+      "RCOUNTTEXT": "Registros listados: {{regCount}}"
     },
     "EXCEL": {
       "EST_CMR": "Estado CMR",
       "EST_FAC": "Estado FAC",
       "NUM_FAC": "Nº Factura",
+      "FAC_AMOUNT": "Importe Factura",
       "F_SUBIDA_CMR": "F.Subida CMR",
       "F_SUBIDA_FAC": "F.Subida FAC",
       "F_ENT_REAL": "Fecha Entrega Real",
@@ -366,15 +373,17 @@
     "CLEAR_FILTER": "Limpiar filtro",
     "MIN_CHARS": "Introduce un mínimo de 3 carácteres para filtrar.",
     "EXP_FILTER": "Exp.",
-    "TITLE_EXP_FILTER": "Código expediente",
+    "EXP_FILTER_TITLE": "Código expediente",
     "USER_FILTER": "Prov.",
-    "TITLE_USER_FILTER": "Usuario proveedor",
+    "USER_FILTER_TITLE": "Usuario proveedor",
     "FAC_FILTER": "Factura",
-    "TITLE_FAC_FILTER": "Número factura",
+    "FAC_FILTER_TITLE": "Número factura",
     "TR_FILTER": "TR",
-    "TITLE_TR_FILTER": "Referencia pedido",
+    "TR_FILTER_TITLE": "Referencia pedido",
     "RCARGA_FILTER": "R.Carga",
-    "TITLE_RCARGA_FILTER": "Referencia carga"
+    "RCARGA_FILTER_TITLE": "Referencia carga",
+    "DATE_FILTER": "Fecha de Entrega real",
+    "DATE_FILTER_TITLE": "Fecha desde - Fecha hasta"
   },
   
   "BUTTONS": {
@@ -384,6 +393,7 @@
     "REFRESH": "Renovar",
     "UPDATE": "Actualizar App",
     "EXCEL": "Excel",
+    "EXCEL_RECHAZOS": "Excel Rechazados",
     "DELETE_NOTE": "Borrar Nota"
   },
 
@@ -408,9 +418,11 @@
   },
 
   "EXCEL": {
-    "PACTIV_FNAME": "PedidosActivos.xlsx", 
+    "PACTIV_FNAME": "PedidosActivos.xlsx",
     "PACTIV_TITLE": "Pedidos Activos",
-    "PHIST_FNAME": "HistóricoDePedidos.xlsx",
+    "PACTIV_REJ_FNAME": "PedidosRechazados.xlsx",
+    "PACTIV_REJ_TITLE": "Pedidos Rechazados",
+    "PHIST_FNAME": "HistoricoDePedidos.xlsx",
     "PHIST_TITLE": "Histórico de Pedidos",
     "HOJA_EXCEL": "Hoja 1",
     "FECHA_EXCEL": "Fecha : "

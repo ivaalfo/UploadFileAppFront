@@ -17,21 +17,49 @@
     font-family: $primary-font;
     height: 100%;
     width: 100%;
-    min-width: 1890px;
     background: padding-box;
   }
+  
+  &__row {
+    display: table-row;
+    min-height: 30px;
+    vertical-align: middle;
+  }
 
+  //Anchos de columnas fijos
+  &__anchoC0 {
+    display: table-cell;
+    vertical-align: middle;
+    width: 23px;
+  }
+  &__anchoC16 {
+    display: table-cell;
+    vertical-align: middle;
+    width: 20px;
+  }
   &__fitcontent {
+    display: table-cell;
+    vertical-align: middle;
     min-width: fit-content;
   }
-  &__maxcontent {
-    max-width: 175px;
-  }
-  /*&__mincontent {
-    min-width: 175px;
-  }*/
   &__mincontentFecha {
-    min-width: 100px;
+    display: table-cell;
+    vertical-align: middle;
+    min-width: 74px;
+  }
+  &__defaultCell {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  &__specialCell {
+    display: table-cell;
+    vertical-align: middle;
+    max-width: 130px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-align: left;
+    padding: 3px 3px;
   }
 
   &__icon-span {
@@ -45,18 +73,17 @@
       height: 18px;
       right: 17px;
       margin-bottom: 10px;
+      margin-top: 10px;
     }
   }
 
   //Para la fila de anotaciones::
   &__anotation__label {
     display: inline-block;
-    //text-align: center;
     font-family: $primary-font;
     font-weight: bold;
     color: $primary-color;
     padding: 10px 0px 0px 0px;
-    //height: 22px;
     width: 1020px;
     position: absolute;
     left: 170px;
@@ -81,13 +108,48 @@
     margin-top: 96px;
   }
 
+  &__fecReal {
+    font-family: $primary-font;
+    font-weight: bold;
+    width: 232px;
+
+    &--value {
+      color: $primary-color;
+    }
+  }
+
   &__aplica {
     font-family: $primary-font;
     font-weight: bold;
-    width: 265px;
+    width: 204px;
 
     &--value {
       color: $dark-red;
     }
+  }
+
+  &__regCount {
+    font-family: $primary-font;
+    width: 150px;
+
+    &--value {
+      color: $primary-color;
+    }
+  }
+}
+
+.filter-row {
+  &--top {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &--bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-top: 0;
   }
 }

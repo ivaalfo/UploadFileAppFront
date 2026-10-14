@@ -1,7 +1,7 @@
 export const SERVER_DATE_FORMAT = 'YYYYMMDD';
-export const DATE_FORMAT_IV = 'YYYY-MM-DD';
 export const SERVER_TIMESTAMP_DATE_FORMAT = 'YYYYMMDD HH:mm';
 export const DATE_FORMAT = 'DD/MM/YY';
+export const DATE_FORMAT_IV = 'DD-MM-YYYY';
 export const DATE_FORMAT_PICKER = 'DD/MM/YYYY';
 export const DATE_TIME_FORMAT = 'DD/MM/YYYY HH:mm';
 

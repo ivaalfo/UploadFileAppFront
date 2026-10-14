@@ -38,6 +38,7 @@ export class PedidosActivosComponent implements OnInit {
   public tableScroller$ = new Subject<TableScroll>();
   
   public pedidos: PedidoProveedor[] = [];
+  public pedidosRechazados: PedidoProveedor[] = [];
   public selectedPedido: PedidoProveedor = new PedidoProveedor();
   public selectedPedidoNi: number = 0;
   
@@ -49,7 +50,14 @@ export class PedidosActivosComponent implements OnInit {
   public fecRealRef!: string;
 
   public noResults2show = false;
-  private filtrosActivos: { expediente?: string, provName?: string, trFilterValue?: string, refCharge?: string } = {};
+  private filtrosActivos: { 
+    expediente?: string, 
+    provName?: string, 
+    trFilterValue?: string, 
+    refCharge?: string,
+    fecDesde?: string,
+    fecHasta?: string
+  } = {};
   
   //Definimos la estructura: la clave es el grupTR y el valor es el array de GrupajeItem
   private grupajesAgrupados: { [key: string]: GrupajeItem[] } = {};
@@ -68,6 +76,8 @@ export class PedidosActivosComponent implements OnInit {
   public pedidoFiles = new PedidoFiles();
   public fileURL!: string;
   public modalSubPedidos: PedidoProveedor[] = [];
+
+  public regCount!: string;
 
   public constructor (
     private readonly authService: AuthService,
@@ -89,13 +99,29 @@ export class PedidosActivosComponent implements OnInit {
     const userSaved = sessionStorage.getItem('filteredUSER');
     const trackSaved = sessionStorage.getItem('filteredTR');
     const rcharSaved = sessionStorage.getItem('filteredRCARGA');
+    const dateRangeSaved = sessionStorage.getItem('filteredDATERANGE');
+
+    let desde: string | undefined = undefined;
+    let hasta: string | undefined = undefined;
+    if (dateRangeSaved) {
+      try {
+        const parsed = JSON.parse(dateRangeSaved);
+        desde = parsed.startDate || undefined;
+        hasta = parsed.endDate || undefined;
+      } catch (e) {
+        console.error("Error parseando rango guardado en el padre", e);
+      }
+    }
+
     this.filtrosActivos = {
       expediente: expSaved || undefined,
       provName: userSaved || undefined,
       trFilterValue: trackSaved || undefined,
-      refCharge: rcharSaved || undefined
+      refCharge: rcharSaved || undefined,
+      fecDesde: desde,
+      fecHasta: hasta
     };
-    this.getPedidos();
+    this.getPedidosActivos();
   }
 
   public refresh(): void {
@@ -104,6 +130,7 @@ export class PedidosActivosComponent implements OnInit {
     sessionStorage.removeItem('filteredUSER');
     sessionStorage.removeItem('filteredTR');
     sessionStorage.removeItem('filteredRCARGA');
+    sessionStorage.removeItem('filteredDATERANGE');
     setTimeout((function() {
       document.location.reload();
     }), 23);
@@ -147,16 +174,27 @@ export class PedidosActivosComponent implements OnInit {
     }
   }
 
-  public getPedidos(filtro?: {expediente?: string, provName?: string, trFilterValue?: string, refCharge?: string}) {
+  public getPedidosActivos(filtroNuevo?: {
+    expediente?: string, 
+    provName?: string, 
+    trFilterValue?: string, 
+    refCharge?: string,
+    fecDesde?: string | null,
+    fecHasta?: string | null
+  }) {
     this.loading = true;
     this.spinnerService.show();
     this.selectedPedido = new PedidoProveedor(); 
 
     //Actualizamos los filtros globales por si se llama desde otro sitio
-    if(filtro){
-      this.filtrosActivos = { ...this.filtrosActivos, ...filtro};
+    if(filtroNuevo){
+      const fecDesde = filtroNuevo.fecDesde === null ? undefined : (filtroNuevo.fecDesde || this.filtrosActivos.fecDesde);
+      const fecHasta = filtroNuevo.fecHasta === null ? undefined : (filtroNuevo.fecHasta || this.filtrosActivos.fecHasta);
+
+      this.filtrosActivos = { ...this.filtrosActivos, ...filtroNuevo, fecDesde: fecDesde, fecHasta: fecHasta};
     }
-    let paramsToSend = { ...this.filtrosActivos };
+    //Eliminamos del objeto las propiedades que estén como undefined para que no viajen al back
+    let paramsToSend = JSON.parse(JSON.stringify(this.filtrosActivos));
 
     this.apiPactivosClient.getByFilters(paramsToSend).pipe(
       take(1),
@@ -173,6 +211,21 @@ export class PedidosActivosComponent implements OnInit {
           return instancia;
         });
 
+        //Obtener los 'grupTR' de aquellos grupajes que tienen algún rechazo
+        const grupajesConRechazos = new Set(
+          pedidosMapeados
+            .filter((p: any) => p.grupaje && p.grupTR && (p.hasCMR === 3 || p.hasFAC === 3))
+            .map((p: any) => p.grupTR)
+        );
+        //Obtenemos los rechazados para el Excel
+        //Entra si está rechazado OR si su hermano lo está
+        let rechazadosMapeados = pedidosMapeados.filter((p: any) => {
+          const estaRechazadoDirecto = p.hasCMR === 3 || p.hasFAC === 3;
+          const tieneHermanoRechazado = p.grupaje && p.grupTR && grupajesConRechazos.has(p.grupTR);
+          
+          return estaRechazadoDirecto || tieneHermanoRechazado;
+        });
+
         //Aplicamos la ordenación del usuario si existe
         if(this.lastSortEvent){
           pedidosMapeados = sortByProperty(
@@ -180,8 +233,17 @@ export class PedidosActivosComponent implements OnInit {
             this.lastSortEvent.column,
             this.lastSortEvent.directionSort
           );
+
+          rechazadosMapeados = sortByProperty(
+            rechazadosMapeados,
+            this.lastSortEvent.column,
+            this.lastSortEvent.directionSort
+          );
         }
+
         this.pedidos = pedidosMapeados;
+        this.pedidosRechazados = rechazadosMapeados;
+        this.regCount = this.pedidos ? this.translate.instant("PEDIDOS_ACTIV.TEXT.RCOUNTTEXT", { regCount: this.pedidos.length }) : '';
 
         this.tratarGrupajes(this.pedidos);
         //Re-seleccionar y hacer scroll al pedido guardado en sesión
@@ -190,7 +252,6 @@ export class PedidosActivosComponent implements OnInit {
       finalize(() => {
         this.loading = false;
         this.spinnerService.hide();
-
         if(this.pedidos.length === 0){
           this.noResults2show = true;
         } else {
@@ -225,6 +286,8 @@ export class PedidosActivosComponent implements OnInit {
     //console.log("Grupajes organizados:", this.grupajesAgrupados);
   }
 
+
+
   private reselectPedidoGuardado(){
     //RECUPERAR: Buscamos si TR guardado en sessionStorage
     const trGuardado = sessionStorage.getItem('reselectPedidoTrack');
@@ -258,15 +321,28 @@ export class PedidosActivosComponent implements OnInit {
     //Reseteo el orden para que la tabla no se ordene sola al recargar
     this.lastSortEvent = null;
 
+    const dateRangeSaved = sessionStorage.getItem('filteredDATERANGE');
+    let desde: string | undefined = undefined;
+    let hasta: string | undefined = undefined;
+    if (dateRangeSaved) {
+      try {
+        const parsed = JSON.parse(dateRangeSaved);
+        desde = parsed.startDate || undefined;
+        hasta = parsed.endDate || undefined;
+      } catch (e) {}
+    }
+
     this.filtrosActivos = {
       expediente: sessionStorage.getItem('filteredEXP') || undefined,
       provName: sessionStorage.getItem('filteredUSER') || undefined,
       trFilterValue: sessionStorage.getItem('filteredTR') || undefined,
-      refCharge: sessionStorage.getItem('filteredRCARGA') || undefined
+      refCharge: sessionStorage.getItem('filteredRCARGA') || undefined,
+      fecDesde: desde,
+      fecHasta: hasta,
     };
 
     this.tableHeaders = [...this.getTableHeaders()];
-    this.getPedidos();
+    this.getPedidosActivos();
   }
 
   public onColumnSorted(event: any): void {
@@ -624,7 +700,7 @@ export class PedidosActivosComponent implements OnInit {
 
       this.activeSendButton = false;
       this.activeFRealButton = false;
-      this.getPedidos(this.filtrosActivos);
+      this.getPedidosActivos(this.filtrosActivos);
     }
   }
 
@@ -1074,34 +1150,34 @@ export class PedidosActivosComponent implements OnInit {
     ];
 
     const data: Array<Array<string | number | Date>> = [];
-    this.pedidos.forEach(da => {
+    this.pedidos.forEach(daEx => {
       data.push([
-        da.proveedorUser,
-        da.track,
-        da.expediente,
-        da.hasCMR===1? 'Subido' : 
-          da.hasCMR===2? 'Validado' : 
-          da.hasCMR===3? 'Rechazado' : 
-          da.hasCMR===7? 'No Aplica' : 
-          da.hasCMR===8? 'Sin Activar' : 'Sin documento',
-        da.hasFAC===1 || da.hasFAC===4 || da.hasFAC===5 || da.hasFAC===6 ? 'Subida' : 
-          da.hasFAC===2? 'Validada' : 
-          da.hasFAC===3? 'Rechazada' : 
-          da.hasFAC===7? 'No Aplica' :
-          da.hasFAC===8? 'Sin Activar' : 'Sin documento',
-        da.fechaCarga ? this.excelService.procesarYtransformarFecha(da.fechaCarga) : '',
-        da.refCarga,
-        da.fechaDescarga ? this.excelService.procesarYtransformarFecha(da.fechaDescarga) : '',
-        da.refDescarga,
-        da.origen,
-        da.destino,
-        da.numPalets,
-        da.matriculaCamion,
-        da.matriculaRemolque,
-        da.fechaEntReal ? this.excelService.transformUTCDate(da.fechaEntRealDate) : '',
-        //da.motivoRechazo ? da.motivoRechazo : '--',
+        daEx.proveedorUser,
+        daEx.track,
+        daEx.expediente,
+        daEx.hasCMR===1? 'Subido' : 
+          daEx.hasCMR===2? 'Validado' : 
+          daEx.hasCMR===3? 'Rechazado' : 
+          daEx.hasCMR===7? 'No Aplica' : 
+          daEx.hasCMR===8? 'Sin Activar' : 'Sin documento',
+        daEx.hasFAC===1 || daEx.hasFAC===4 || daEx.hasFAC===5 || daEx.hasFAC===6 ? 'Subida' : 
+          daEx.hasFAC===2? 'Validada' : 
+          daEx.hasFAC===3? 'Rechazada' : 
+          daEx.hasFAC===7? 'No Aplica' :
+          daEx.hasFAC===8? 'Sin Activar' : 'Sin documento',
+        daEx.fechaCarga ? this.excelService.procesarYtransformarFecha(daEx.fechaCarga) : '',
+        daEx.refCarga,
+        daEx.fechaDescarga ? this.excelService.procesarYtransformarFecha(daEx.fechaDescarga) : '',
+        daEx.refDescarga,
+        daEx.origen,
+        daEx.destino,
+        daEx.numPalets,
+        daEx.matriculaCamion,
+        daEx.matriculaRemolque,
+        daEx.fechaEntReal ? this.excelService.transformUTCDate(daEx.fechaEntRealDate) : '',
+        //daEx.motivoRechazo ? daEx.motivoRechazo : '--',
         //Para que el externo solo vea motivos de rechazo
-        da.hasCMR===3 || da.hasFAC===3 ? da.motivoRechazo : '--'
+        daEx.hasCMR===3 || daEx.hasFAC===3 ? daEx.motivoRechazo : '--'
       ]);
     });
 
@@ -1157,35 +1233,35 @@ export class PedidosActivosComponent implements OnInit {
     ];
 
     const data: Array<Array<string | number | Date>> = [];
-    this.pedidos.forEach(da => {
+    this.pedidos.forEach(daIn => {
       data.push([
-        da.proveedorUser,
-        da.track,
-        da.expediente,
-        da.hasCMR===1? 'Subido' : 
-          da.hasCMR===2? 'Validado' : 
-          da.hasCMR===3? 'Rechazado' : 
-          da.hasCMR===7? 'No Aplica' : 
-          da.hasCMR===8? 'Sin Activar' : 'Sin documento',
-        da.hasFAC===1? 'Subida' : 
-          da.hasFAC===2? 'Contabilizada' : 
-          da.hasFAC===3? 'Rechazada' : 
-          da.hasFAC===4? 'Bloqueada' : 
-          da.hasFAC===5? 'Pdte de Contabilizar' : 
-          da.hasFAC===6? 'No contabilizar / Duplicada' :
-          da.hasFAC===7? 'No Aplica' :
-          da.hasFAC===8? 'Sin Activar' : 'Sin documento',
-        da.fechaCarga ? this.excelService.procesarYtransformarFecha(da.fechaCarga) : '',
-        da.refCarga,
-        da.fechaDescarga ? this.excelService.procesarYtransformarFecha(da.fechaDescarga) : '',
-        da.refDescarga,
-        da.origen,
-        da.destino,
-        da.numPalets,
-        da.matriculaCamion,
-        da.matriculaRemolque,
-        da.fechaEntReal ? this.excelService.transformUTCDate(da.fechaEntRealDate) : '',
-        da.motivoRechazo ? da.motivoRechazo : '--',
+        daIn.proveedorUser,
+        daIn.track,
+        daIn.expediente,
+        daIn.hasCMR===1? 'Subido' : 
+          daIn.hasCMR===2? 'Validado' : 
+          daIn.hasCMR===3? 'Rechazado' : 
+          daIn.hasCMR===7? 'No Aplica' : 
+          daIn.hasCMR===8? 'Sin Activar' : 'Sin documento',
+        daIn.hasFAC===1? 'Subida' : 
+          daIn.hasFAC===2? 'Contabilizada' : 
+          daIn.hasFAC===3? 'Rechazada' : 
+          daIn.hasFAC===4? 'Bloqueada' : 
+          daIn.hasFAC===5? 'Pdte de Contabilizar' : 
+          daIn.hasFAC===6? 'No contabilizar / Duplicada' :
+          daIn.hasFAC===7? 'No Aplica' :
+          daIn.hasFAC===8? 'Sin Activar' : 'Sin documento',
+        daIn.fechaCarga ? this.excelService.procesarYtransformarFecha(daIn.fechaCarga) : '',
+        daIn.refCarga,
+        daIn.fechaDescarga ? this.excelService.procesarYtransformarFecha(daIn.fechaDescarga) : '',
+        daIn.refDescarga,
+        daIn.origen,
+        daIn.destino,
+        daIn.numPalets,
+        daIn.matriculaCamion,
+        daIn.matriculaRemolque,
+        daIn.fechaEntReal ? this.excelService.transformUTCDate(daIn.fechaEntRealDate) : '',
+        daIn.motivoRechazo ? daIn.motivoRechazo : '--',
       ]);
     });
 
@@ -1211,6 +1287,90 @@ export class PedidosActivosComponent implements OnInit {
     this.excelService.generateExcel(
       this.translate.instant('EXCEL.PACTIV_FNAME'),
       this.translate.instant('EXCEL.PACTIV_TITLE'),
+      headers,
+      data,
+      columnsWidth);
+
+    this.spinnerService.hide();
+  }
+
+  public convertToExcelRechazos(): void {
+    this.spinnerService.show();
+
+    const headers: string[] = [
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.USUPROV'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.TR'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.EXPEDIENTE'),
+      this.translate.instant('PEDIDOS_ACTIV.EXCEL.EST_CMR'),
+      this.translate.instant('PEDIDOS_ACTIV.EXCEL.EST_FAC'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.F_CARGA'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.REF_CARGA'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.F_DESCARGA'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.R_DESCARGA'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.ORIGEN'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.DESTINO'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.PALETS'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.CAMION'),
+      this.translate.instant('PEDIDOS_ACTIV.TABLE.REMOLQUE'),
+      this.translate.instant('PEDIDOS_ACTIV.EXCEL.F_ENT_REAL'),
+      this.translate.instant('PEDIDOS_ACTIV.EXCEL.ANOTA')
+    ];
+
+    const data: Array<Array<string | number | Date>> = [];
+    this.pedidosRechazados.forEach(daRe => {
+      data.push([
+        daRe.proveedorUser,
+        daRe.track,
+        daRe.expediente,
+        daRe.hasCMR===1? 'Subido' : 
+          daRe.hasCMR===2? 'Validado' : 
+          daRe.hasCMR===3? 'Rechazado' : 
+          daRe.hasCMR===7? 'No Aplica' : 
+          daRe.hasCMR===8? 'Sin Activar' : '--',
+        daRe.hasFAC===1? 'Subida' : 
+          daRe.hasFAC===2? 'Contabilizada' : 
+          daRe.hasFAC===3? 'Rechazada' : 
+          daRe.hasFAC===4? 'Bloqueada' : 
+          daRe.hasFAC===5? 'Pdte de Contabilizar' : 
+          daRe.hasFAC===6? 'No contabilizar / Duplicada' :
+          daRe.hasFAC===7? 'No Aplica' :
+          daRe.hasFAC===8? 'Sin Activar' : '--',
+        daRe.fechaCarga ? this.excelService.procesarYtransformarFecha(daRe.fechaCarga) : '',
+        daRe.refCarga,
+        daRe.fechaDescarga ? this.excelService.procesarYtransformarFecha(daRe.fechaDescarga) : '',
+        daRe.refDescarga,
+        daRe.origen,
+        daRe.destino,
+        daRe.numPalets,
+        daRe.matriculaCamion,
+        daRe.matriculaRemolque,
+        daRe.fechaEntReal ? this.excelService.transformUTCDate(daRe.fechaEntRealDate) : '',
+        daRe.motivoRechazo ? daRe.motivoRechazo : '--',
+      ]);
+    });
+
+    const columnsWidth = [
+      { column: 1, width: 20 },
+      { column: 2, width: 20 },
+      { column: 3, width: 15 },
+      { column: 4, width: 15 },
+      { column: 5, width: 20 },
+      { column: 6, width: 12 },
+      { column: 7, width: 20 },
+      { column: 8, width: 12 },
+      { column: 9, width: 20 },
+      { column: 10, width: 30 },
+      { column: 11, width: 30 },
+      { column: 12, width: 8 },
+      { column: 13, width: 10 },
+      { column: 14, width: 12 },
+      { column: 15, width: 20 },
+      { column: 16, width: 50 }
+    ];
+
+    this.excelService.generateExcel(
+      this.translate.instant('EXCEL.PACTIV_REJ_FNAME'),
+      this.translate.instant('EXCEL.PACTIV_REJ_TITLE'),
       headers,
       data,
       columnsWidth);

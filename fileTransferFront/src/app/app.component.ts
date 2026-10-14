@@ -95,6 +95,7 @@ export class AppComponent implements OnInit {
     sessionStorage.removeItem('filteredFAC');
     sessionStorage.removeItem('filteredTR');
     sessionStorage.removeItem('filteredRCARGA');
+    sessionStorage.removeItem('filteredDATERANGE');
 
     //Guardamos la versión actual para la próxima comparación
     localStorage.setItem('app_version', this.sVersion);

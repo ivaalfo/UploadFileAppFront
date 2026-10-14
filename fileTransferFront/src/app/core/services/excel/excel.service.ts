@@ -71,7 +71,6 @@ export class ExcelService {
         const column = worksheet.getColumn(colStyle.column);
         column.numFmt =  colStyle.format;
       });
-      // worksheet.getColumn(colStyle.column).style?.numFmt = colStyle.format);
     }
 
     worksheet.addRow([]);

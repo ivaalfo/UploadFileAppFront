@@ -1,6 +1,6 @@
 {
-    "version": "1.0.57",
-    "fecha": "03/09/2026",
-    "expira": "2026-09-18T00:00:00.000Z",
-    "mejoras": "\n\t- Mejorada la inserción de Fechas de Entrega en pedidos de tipo Grulog.\n\t- Arreglada la maquetación de la ventana de asignación de Fechas de Entrega.\n\t- Añadidas librerías 'open-source' para sellar los CMR.\n\t- Anulada la dependencia con la librería de pago que se usaba para sellar los CMR.\n\n"
+    "version": "1.0.58",
+    "fecha": "14/10/2026",
+    "expira": "2026-10-21T00:00:00.000Z",
+    "mejoras": "\n\t- Añadido nuevo Excel para los pedidos Rechazados en la vista de Pedidos Activos.\n\t- Añadido nuevo Filtro por Fecha de Entrega Real (desde-hasta) en todas las vistas.\n\t- Añadida la Fecha de Entrega Real en la tabla de Histórico de Pedidos y en la del Validador de CMR.\n\t- Añadido un Contador de registros en todas las vistas, parte inferior.\n\t- Añadido tratamiento para las fechas de carga y descarga.\n\t- Mejorada la visualización de las tablas.\n\t- Deshabilitada la subida de Otros Documentos (OTR) hasta que se implemente nueva solución.\n\t- Añadido enlace al Mantenimiento de Usuarios desde el 'user-header-menu'.\n\t- Añadidos los importes de las facturas en el Excel de Histórico de Pedidos.\n\n"
 }

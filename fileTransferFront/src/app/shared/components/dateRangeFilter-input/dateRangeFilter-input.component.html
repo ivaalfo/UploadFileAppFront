@@ -1,0 +1,25 @@
+<div class="dateRangeFilter">
+  <form class="dateRangeFilter__box" (ngSubmit)="submit()">
+    <div class="dateRangeFilter__searcher">
+      <label class="dateRangeFilter__label" for="dateRangeFilter-input">
+        {{ 'FILTERS.DATE_FILTER' | translate }}:
+      </label>
+        
+      <input id="dateRangeFilter-input" type="text" name="dateRange"
+        class="dateRangeFilter__input" 
+        [(ngModel)]="selectedRange"
+        ngxDaterangepickerMd
+        [autoApply]="true"
+        [locale]="{ format: 'DD/MM/YYYY', separator: ' - ' }"
+        autocomplete="off" 
+        readonly
+        placeholder="{{ 'FILTERS.DATE_FILTER_TITLE' | translate }}" 
+      />
+      
+      <div class="dateRangeFilter__buttons">
+        <button class="dateRangeFilter__filterButton" type="submit" [attr.title]="'FILTERS.FILTER' | translate"></button>
+        <button class="dateRangeFilter__clearButton" type="button" (click)="clearClicked()" [attr.title]="'FILTERS.CLEAR_FILTER' | translate"></button>
+      </div>
+    </div>
+  </form>
+</div>

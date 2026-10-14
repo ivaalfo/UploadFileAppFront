@@ -75,6 +75,7 @@ export class PedidoProveedor {
   public isCheckActive: boolean = false;
 
   public facNumber!: string;
+  public facAmount!: number;
   
 
   public constructor(pedido?: PedidoProveedor) {
@@ -119,6 +120,7 @@ export class PedidoProveedor {
       this.isCheckActive = pedido.isCheckActive;
 
       this.facNumber = pedido.facNumber;
+      this.facAmount = pedido.facAmount;
     }
   }  
 
@@ -150,8 +152,11 @@ export class PedidoProveedor {
   public get fechaEntRealMoment(): moment.Moment {
     return moment(this.fechaEntReal, SERVER_TIMESTAMP_DATE_FORMAT);
   }
-  public get fechaEntRealShort(): string {
+  public get fechaEntRealPicker(): string {
     return (this.fechaEntRealMoment.isValid()) ? this.fechaEntRealMoment.format(DATE_FORMAT_PICKER) : '';
+  }
+  public get fechaEntRealShort(): string {
+    return (this.fechaEntRealMoment.isValid()) ? this.fechaEntRealMoment.format(DATE_FORMAT_IV) : '';
   }
 
   //SUBIDA CMR

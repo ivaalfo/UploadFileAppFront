@@ -262,7 +262,7 @@ export class ViewActivDocsFormComponent implements OnInit, OnDestroy {
     this.unselectPedido(this.pedidoSelected);
     this.resetVariables();
     
-    this.activosComp.getPedidos();
+    this.activosComp.getPedidosActivos();
   }
 
   private unselectPedido(pedido: PedidoProveedor) {

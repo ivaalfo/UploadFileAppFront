@@ -11,8 +11,6 @@ import { take, map, finalize } from 'rxjs/operators';
 import { User } from '@data/maintenance/users';
 import { UserRoles } from '@data/user-roles';
 import { AuthService } from '@core/services/auth/auth.service';
-//import { MultiselectOption } from '@shared/components/multiselect/multiselect.component';
-//import * as cryptojs from 'crypto-js';
 
 @Component({
   selector: 'm-user-form',
@@ -86,7 +84,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
       take(1),
       map(response => {
         (response.datos) ?
-        //this.user = User.parseDto(response.datos as UserDto)
         this.user = response.datos as User
         :
         this.user = new User();

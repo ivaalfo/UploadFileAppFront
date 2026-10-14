@@ -3,6 +3,7 @@
 :host {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start; /* Asegura que el título se quede arriba si los filtros crecen */
 }
 
 .table-header {
@@ -15,7 +16,9 @@
 
   &__filters {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;  /* Cambiado a columna para apilar arriba/abajo */
+    align-items: flex-end;   /* Alinea ambos bloques hacia la derecha */
+    gap: 15px;               /* Añade separación vertical entre el nuevo filtro y los de abajo */
   }
 }
+

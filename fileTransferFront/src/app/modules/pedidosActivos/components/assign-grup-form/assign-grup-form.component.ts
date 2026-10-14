@@ -277,7 +277,7 @@ export class AssignGrupFormComponent implements OnInit, OnDestroy {
         this.grupForm = new FormGroup({});
         
         this.modalOpener$.next(ModalAction.Close);
-        this.pActivosComp.getPedidos();
+        this.pActivosComp.getPedidosActivos();
     }
 
     private onActionFailed(msg: string) {

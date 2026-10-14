@@ -219,7 +219,7 @@ export class InvalidateOrderFormComponent implements OnInit, OnDestroy {
     
     if(this.directo){      //De momento siempre será true
       this.modalOpener$.next(ModalAction.Close);
-      this.activosComp.getPedidos();
+      this.activosComp.getPedidosActivos();
     } else {
       this.modalOpener$.next(ModalAction.Close);
     }

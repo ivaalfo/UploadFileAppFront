@@ -337,7 +337,7 @@ export class AssignDateFormComponent implements OnInit, OnDestroy {
         this.pedidoForm.reset();
       }
     }
-    this.pActivosComp.getPedidos();
+    this.pActivosComp.getPedidosActivos();
   }
 
   private onActionFailed(msg: string) {

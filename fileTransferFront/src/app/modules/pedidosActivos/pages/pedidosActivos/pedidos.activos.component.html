@@ -1,8 +1,15 @@
 <m-table-header header="PEDIDOS_ACTIV.TITLE">
-  <m-userFilter-input (onSearch)="getPedidos({provName: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByProv"></m-userFilter-input>
-  <m-trackFilter-input (onSearch)="getPedidos({trFilterValue: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByTrack"></m-trackFilter-input>
-  <m-expFilter-input (onSearch)="getPedidos({expediente: $event})" (onClear)="limpiarFiltros()"></m-expFilter-input>
-  <m-refCargaFilter-input (onSearch)="getPedidos({refCharge: $event})" (onClear)="limpiarFiltros()"></m-refCargaFilter-input>
+
+  <div class="filter-row--top">
+    <m-dateRangeFilter-input (onSearch)="getPedidosActivos($event)" (onClear)="limpiarFiltros()"></m-dateRangeFilter-input>
+  </div>
+
+  <div class="filter-row--bottom">
+    <m-userFilter-input (onSearch)="getPedidosActivos({provName: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByProv"></m-userFilter-input>
+    <m-trackFilter-input (onSearch)="getPedidosActivos({trFilterValue: $event})" (onClear)="limpiarFiltros()" *ngIf="canFilterByTrack"></m-trackFilter-input>
+    <m-expFilter-input (onSearch)="getPedidosActivos({expediente: $event})" (onClear)="limpiarFiltros()"></m-expFilter-input>
+    <m-refCargaFilter-input (onSearch)="getPedidosActivos({refCharge: $event})" (onClear)="limpiarFiltros()"></m-refCargaFilter-input>
+  </div>
 </m-table-header>
 
 
@@ -16,6 +23,7 @@
 
   <ng-container *ngFor="let pedido of pedidos; trackBy: pActivosTrackById">
     <m-row [id]="'fila-'+pedido.track+'-'+pedido.expediente"
+      class="pactivos__row"
       [key]="pedido.proveedorKy" 
       [isSelectedRow]="pedido.isSelected" 
       [isGrupRow]="pedido.isGrupaje" 
@@ -25,7 +33,7 @@
       (click)="onClick(pedido)"
       (doubleClickEvent)="onDoubleClick(pedido)">
 
-      <m-cell class="pactivos__anchoC1">
+      <m-cell class="pactivos__anchoC0">
         <input type="checkbox" 
           [id]="'check-'+pedido.track+'-'+pedido.expediente"
           name="{{ pedido.expediente }}" 
@@ -35,14 +43,14 @@
       </m-cell>
 
       <m-cell class="pactivos__fitcontent">{{ pedido.proveedorUser }}</m-cell>
-      <m-cell class="pactivos__anchoC2">{{ pedido.grupaje ? pedido.grupTR : pedido.track }}</m-cell>
-      <m-cell class="pactivos__anchoC3">{{ pedido.expediente }}</m-cell>
+      <m-cell class="pactivos__defaultCell">{{ pedido.grupaje ? pedido.grupTR : pedido.track }}</m-cell>
+      <m-cell class="pactivos__defaultCell">{{ pedido.expediente }}</m-cell>
       <m-cell class="pactivos__mincontentFecha">{{ pedido.fechaCarga }}</m-cell>
-      <m-cell class="pactivos__anchoC5">{{ pedido.refCarga }}</m-cell>
+      <m-cell class="pactivos__defaultCell">{{ pedido.refCarga }}</m-cell>
       <m-cell class="pactivos__mincontentFecha">{{ pedido.fechaDescarga }}</m-cell>
-      <m-cell class="pactivos__fitcontent">{{ pedido.refDescarga }}</m-cell>
-      <m-cell class="pactivos__fitcontent">{{ pedido.origen }}</m-cell>
-      <m-cell class="pactivos__maxcontent">{{ pedido.destino }}</m-cell>
+      <m-cell class="pactivos__specialCell">{{ pedido.refDescarga }}</m-cell>
+      <m-cell class="pactivos__specialCell">{{ pedido.origen }}</m-cell>
+      <m-cell class="pactivos__specialCell">{{ pedido.destino }}</m-cell>
       <m-cell class="pactivos__fitcontent">{{ pedido.numPalets }}</m-cell>
       <m-cell class="pactivos__fitcontent">{{ pedido.matriculaCamion }}</m-cell>
       <m-cell class="pactivos__fitcontent">{{ pedido.matriculaRemolque }}</m-cell>
@@ -133,7 +141,7 @@
           </div>
           <!--OTR-->
           <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
-          <input [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          <input disabled [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
           <!--Boton Enviar-->
           <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
             *ngIf="activeSendButton && !isConsultaUser">{{'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</button>
@@ -171,7 +179,7 @@
           </div>
           <!--OTR-->
           <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
-          <input [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          <input disabled [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
           <!--Boton Enviar-->
           <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
             *ngIf="puedoEnviarGrupaje(pedido) && !isConsultaUser">
@@ -235,6 +243,9 @@
     <m-action-button *ngIf="!isExternoUser" [disabled]="this.pedidos.length===0" (click)="convertToExcelInternos()" icon="table.png">
       {{ 'BUTTONS.EXCEL' | translate }}
     </m-action-button>
+    <m-action-button *ngIf="!isExternoUser" [disabled]="this.pedidos.length===0" (click)="convertToExcelRechazos()" icon="table.png">
+      {{ 'BUTTONS.EXCEL_RECHAZOS' | translate }}
+    </m-action-button>
     <m-action-button *ngIf="isAdminUser || isInterUser"
       [disabled]="!selectedPedido.isSelected" (click)="openModalAnular(selectedPedido)" icon="cross-red.png" [inverted]="true">
       {{ 'PEDIDOS_ACTIV.BUTTONS.ANULAR' | translate }}
@@ -250,6 +261,9 @@
     </div>
   </div>
   <div right>
+    <div class="pactivos__regCount">
+      <span class="pactivos__regCount--value" *ngIf="pedidos">{{ this.regCount | translate }}</span>
+    </div>
     <m-action-button [disabled]="!selectedPedido.isSelected || !haveDocs(selectedPedido)" (click)="onViewCMRselected(selectedPedido)" icon="document.png">
       {{ 'PEDIDOS_ACTIV.BUTTONS.VIEW_DOCS' | translate }}
     </m-action-button>

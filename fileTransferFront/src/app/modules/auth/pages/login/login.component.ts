@@ -51,6 +51,7 @@ export class LoginComponent {
             sessionStorage.removeItem('filteredFAC');
             sessionStorage.removeItem('filteredTR');
             sessionStorage.removeItem('filteredRCARGA');
+            sessionStorage.removeItem('filteredDATERANGE');
             
             this.router.navigate(['/']);
           } else {

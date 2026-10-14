@@ -39,19 +39,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('@modules/pedidosHistorico/pedidos.historico.module').then(m => m.PedidosHistoricoModule)
       },
-      /*{
-        path: 'maintenance',
-        canActivateChild: [RoleGuard],
-        data: {roles: [UserRoles.Admin, UserRoles.Interno, UserRoles.Externo  
-          //UserRoles.Martico, UserRoles.AlmacenDireccion,
-          //UserRoles.Transportista, UserRoles.Gases, UserRoles.AlmacenUsuario, UserRoles.Lidl
-          ]},
-        loadChildren: () =>
-          import('@modules/maintenance/maintenance.module').then(m => m.MaintenanceModule)
-      }
-
-      //NO SE USA - CAMBIOS - SE ENTRA DIRECTO
-      */
       {
         path: 'users',
         canActivate: [RoleGuard],

@@ -42,7 +42,14 @@ export class PedidosValidadorComponent implements OnInit {
   public anotaTitle!: string;
   
   public not4validate = false;
-  private filtrosActivos: { expediente?: string, provName?: string, trFilterValue?: string, refCharge?: string } = {};
+  private filtrosActivos: { 
+    expediente?: string, 
+    provName?: string, 
+    trFilterValue?: string, 
+    refCharge?: string,
+    fecDesde?: string,
+    fecHasta?: string 
+  } = {};
 
   //Definimos la estructura: la clave es el grupTR y el valor es el array de grupNum
   private grupajesAgrupados: { [key: string]: string[] } = {};
@@ -51,6 +58,9 @@ export class PedidosValidadorComponent implements OnInit {
 
   //Guarda la última ordenacion: { column: 'fechaCarga', directionSort: 'desc' }
   private lastSortEvent: any = null;
+
+  public regCount!: string;
+  public fecRealRef!: string;
   
   
   public constructor (
@@ -66,11 +76,27 @@ export class PedidosValidadorComponent implements OnInit {
     const userSaved = sessionStorage.getItem('filteredUSER');
     const trackSaved = sessionStorage.getItem('filteredTR');
     const rcharSaved = sessionStorage.getItem('filteredRCARGA');
+    const dateRangeSaved = sessionStorage.getItem('filteredDATERANGE');
+
+    let desde: string | undefined = undefined;
+    let hasta: string | undefined = undefined;
+    if (dateRangeSaved) {
+      try {
+        const parsed = JSON.parse(dateRangeSaved);
+        desde = parsed.startDate || undefined;
+        hasta = parsed.endDate || undefined;
+      } catch (e) {
+        console.error("Error parseando rango guardado en el padre", e);
+      }
+    }
+
     this.filtrosActivos = {
       expediente: expSaved || undefined,
       provName: userSaved || undefined,
       trFilterValue: trackSaved || undefined,
-      refCharge: rcharSaved || undefined
+      refCharge: rcharSaved || undefined,
+      fecDesde: desde,
+      fecHasta: hasta
     };
     this.getPedidosPorValidar();
   }
@@ -81,6 +107,7 @@ export class PedidosValidadorComponent implements OnInit {
     sessionStorage.removeItem('filteredUSER');
     sessionStorage.removeItem('filteredTR');
     sessionStorage.removeItem('filteredRCARGA');
+    sessionStorage.removeItem('filteredDATERANGE');
     setTimeout((function() {
       document.location.reload();
     }), 23);
@@ -102,6 +129,7 @@ export class PedidosValidadorComponent implements OnInit {
       { title: 'VALIDADOR.TABLE.CAMION', sorted: true, property: 'matriculaCamion'},
       { title: 'VALIDADOR.TABLE.REMOLQUE', sorted: true, property: 'matriculaRemolque'},
       { title: 'VALIDADOR.TABLE.F_SUBIDA_CMR', sorted: true, property: 'fechaSubidaCMRshort'},
+      { title: 'VALIDADOR.TABLE.F_ENT_REAL', sorted: true, property: 'fechaEntRealShort'},
       { title: 'VALIDADOR.TABLE.ANOTACIONES' }
     ];
   }
@@ -186,21 +214,31 @@ export class PedidosValidadorComponent implements OnInit {
     }, 0);
   }
 
-  public getPedidosPorValidar(filtro?: {expediente?: string, provName?: string, trFilterValue?: string, refCharge?: string}) {
+  public getPedidosPorValidar(filtroNuevo?: {
+    expediente?: string, 
+    provName?: string, 
+    trFilterValue?: string, 
+    refCharge?: string,
+    fecDesde?: string | null,
+    fecHasta?: string | null
+  }) {
     this.loading = true;
     this.spinnerService.show();
     this.selectedPedido = new PedidoProveedor();
 
     //Actualizamos los filtros globales por si se llama desde otro sitio
-    if(filtro){
-      this.filtrosActivos = { ...this.filtrosActivos, ...filtro };
+    if(filtroNuevo){
+      const fecDesde = filtroNuevo.fecDesde === null ? undefined : (filtroNuevo.fecDesde || this.filtrosActivos.fecDesde);
+      const fecHasta = filtroNuevo.fecHasta === null ? undefined : (filtroNuevo.fecHasta || this.filtrosActivos.fecHasta);
+
+      this.filtrosActivos = { ...this.filtrosActivos, ...filtroNuevo, fecDesde: fecDesde, fecHasta: fecHasta};
     }
-    let paramsToSend = { ...this.filtrosActivos };
+    //Eliminamos del objeto las propiedades que estén como undefined para que no viajen al back
+    let paramsToSend = JSON.parse(JSON.stringify(this.filtrosActivos));
     
     this.apiValidadorClient.getByFilters(paramsToSend).pipe(
       take(1),
       tap((pedidos: any) => {
-        
         //Limpiamos la referencia global antes de cargar nada nuevo
         this.selectedPedido = new PedidoProveedor();
         
@@ -222,6 +260,7 @@ export class PedidosValidadorComponent implements OnInit {
           );
         }
         this.pedidos = listaProcesada;
+        this.regCount = this.pedidos ? this.translate.instant("VALIDADOR.TEXT.RCOUNTTEXT", { regCount: this.pedidos.length }) : '';
 
         this.tratarGrupajes(this.pedidos);
         //Re-seleccionar y hacer scroll al pedido guardado en sesión
@@ -297,11 +336,24 @@ export class PedidosValidadorComponent implements OnInit {
     //Reseteo el orden para que la tabla no se ordene sola al recargar
     this.lastSortEvent = null;
 
+    const dateRangeSaved = sessionStorage.getItem('filteredDATERANGE');
+    let desde: string | undefined = undefined;
+    let hasta: string | undefined = undefined;
+    if (dateRangeSaved) {
+      try {
+        const parsed = JSON.parse(dateRangeSaved);
+        desde = parsed.startDate || undefined;
+        hasta = parsed.endDate || undefined;
+      } catch (e) {}
+    }
+
     this.filtrosActivos = {
       expediente: sessionStorage.getItem('filteredEXP') || undefined,
       provName: sessionStorage.getItem('filteredUSER') || undefined,
       trFilterValue: sessionStorage.getItem('filteredTR') || undefined,
-      refCharge: sessionStorage.getItem('filteredRCARGA') || undefined
+      refCharge: sessionStorage.getItem('filteredRCARGA') || undefined,
+      fecDesde: desde,
+      fecHasta: hasta,
     };
 
     this.tableHeaders = [...this.getTableHeaders()];
@@ -364,6 +416,8 @@ export class PedidosValidadorComponent implements OnInit {
     } else if(this.selectedPedido.hasCMR===2){
       this.noAplica = this.translate.instant("VALIDADOR.TEXT.YA_VALIDADO");
     }
+
+    this.fecRealRef = this.selectedPedido.fechaEntReal ? this.translate.instant("VALIDADOR.TEXT.FREALTEXT", { fecRealRef: this.selectedPedido.fechaEntRealPicker }) : '';
   }
 
   private unselectPedido(pedido: PedidoProveedor) {

@@ -66,22 +66,10 @@
   justify-content: center;
   align-items: center;
   min-width: 15px;
-  //color: $black;
   color: var(--cell-text-color, $black);
   text-align: center;
-  //white-space: nowrap;
   white-space: normal;
-  overflow-wrap: break-word; // Break long words to correct overwriten text in descriptions
-
-  /*@include breakpoint("medium") {
-    min-height: 30px;
-  }
-  @include breakpoint("large") {
-    min-height: 30px;
-  }
-  @include breakpoint("xlarge") {
-    min-height: 30px;
-  }*/
+  overflow-wrap: break-word;
 
   &__content {
     display: contents;
@@ -95,7 +83,7 @@
     ::ng-deep [type="radio"] {
       vertical-align: middle;
       width: rem-calc(20);
-      height: 12px;   //rem-calc(20);
+      height: 12px;
       margin-top: 8px;
     }
   }

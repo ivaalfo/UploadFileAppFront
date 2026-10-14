@@ -91,18 +91,6 @@ export class User {
     return this.rol == UserRoles.SinAcceso ? true : false;
   }
 
-  /*public get isFTnoUser(): boolean {
-    return (this.roles === (UserRoles.SinAcceso)) ? true : false ;
-  }*/
-  
-  /*public companyDescription(companies: MasterTable[]): string {
-    if (this.empresaCod) {
-      const found = companies.find(c => c.codigo === this.empresaCod);
-      return (found) ? found.descEs : '';
-    }
-    return '';
-  }*/
-
   //NO SE ESTAN USANDO -STRING
   public get fechaCreacionDate(): Date {
     return this.fechaCreacionMoment.toDate();

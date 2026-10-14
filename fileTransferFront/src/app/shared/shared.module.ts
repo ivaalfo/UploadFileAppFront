@@ -40,6 +40,7 @@ import { FacFilterInputComponent } from './components/facFilter-input/facFilter-
 import { TrackFilterInputComponent } from './components/trackFilter-input/trackFilter-input.component';
 import { ModalAnotaComponent } from './components/modal/modal-anota/modal-anota.component';
 import { RefCargaFilterInputComponent } from './components/refCargaFilter-input/refCargaFilter-input.component';
+import { DateRangeFilterInputComponent } from './components/dateRangeFilter-input/dateRangeFilter-input.component';
 
 
 moment.locale(Languages.ES);
@@ -94,7 +95,8 @@ const datepickerLocaleConfig: LocaleConfig = {
     UserFilterInputComponent,
     FacFilterInputComponent,
     TrackFilterInputComponent,
-    RefCargaFilterInputComponent
+    RefCargaFilterInputComponent,
+    DateRangeFilterInputComponent
   ],
   exports: [
     CommonModule,
@@ -136,7 +138,8 @@ const datepickerLocaleConfig: LocaleConfig = {
     UserFilterInputComponent,
     FacFilterInputComponent,
     TrackFilterInputComponent,
-    RefCargaFilterInputComponent
+    RefCargaFilterInputComponent,
+    DateRangeFilterInputComponent
   ],
   providers: [
     { provide: LOCALE_CONFIG, useValue: datepickerLocaleConfig },

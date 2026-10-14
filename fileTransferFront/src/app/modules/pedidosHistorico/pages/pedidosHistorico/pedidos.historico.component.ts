@@ -48,10 +48,18 @@ export class PedidosHistoricoComponent implements OnInit {
   public fileURL!: string;
 
   public fecRealRef!: string;
-  public noAplica!: string;
+  public regCount!: string;
 
   public noResults2show = false;
-  private filtrosActivos: { expediente?: string, provName?: string, trFilterValue?: string, facNum?: string, refCharge?: string } = {};
+  private filtrosActivos: { 
+    expediente?: string, 
+    provName?: string, 
+    trFilterValue?: string, 
+    facNum?: string, 
+    refCharge?: string,
+    fecDesde?: string,
+    fecHasta?: string
+  } = {};
   
   //Definimos la estructura: la clave es el grupTR y el valor es el array de grupNum
   private grupajesAgrupados: { [key: string]: string[] } = {};
@@ -63,6 +71,8 @@ export class PedidosHistoricoComponent implements OnInit {
   public reactivarModalOpener$ = new Subject<ModalAction>();
   public actionToConfirm!: string;
   public actionTitle!: string;
+  
+  
 
   public constructor (
     private readonly authService: AuthService,
@@ -81,12 +91,28 @@ export class PedidosHistoricoComponent implements OnInit {
     const trackSaved = sessionStorage.getItem('filteredTR');
     const facSaved = sessionStorage.getItem('filteredFAC');
     const rcharSaved = sessionStorage.getItem('filteredRCARGA');
+    const dateRangeSaved = sessionStorage.getItem('filteredDATERANGE');
+
+    let desde: string | undefined = undefined;
+    let hasta: string | undefined = undefined;
+    if (dateRangeSaved) {
+      try {
+        const parsed = JSON.parse(dateRangeSaved);
+        desde = parsed.startDate || undefined;
+        hasta = parsed.endDate || undefined;
+      } catch (e) {
+        console.error("Error parseando rango guardado en el padre", e);
+      }
+    }
+
     this.filtrosActivos = {
       expediente: expSaved || undefined,
       provName: userSaved || undefined,
       trFilterValue: trackSaved || undefined,
       facNum: facSaved || undefined,
-      refCharge: rcharSaved || undefined
+      refCharge: rcharSaved || undefined,
+      fecDesde: desde,
+      fecHasta: hasta
     };
     this.getPedidosValidados();
   }
@@ -98,6 +124,7 @@ export class PedidosHistoricoComponent implements OnInit {
     sessionStorage.removeItem('filteredTR');
     sessionStorage.removeItem('filteredFAC');
     sessionStorage.removeItem('filteredRCARGA');
+    sessionStorage.removeItem('filteredDATERANGE');
     setTimeout((function() {
       document.location.reload();
     }), 23);
@@ -120,6 +147,7 @@ export class PedidosHistoricoComponent implements OnInit {
       { title: 'PEDIDOS_HIST.TABLE.REMOLQUE', sorted: true, property: 'matriculaRemolque'},
       { title: 'PEDIDOS_HIST.TABLE.F_SUB_CMR', sorted: true, property: 'fechaSubidaCMRshort'},
       { title: 'PEDIDOS_HIST.TABLE.F_SUB_FAC', sorted: true, property: 'fechaSubidaFACshort'},
+      { title: 'PEDIDOS_HIST.TABLE.F_ENT_REAL', sorted: true, property: 'fechaEntRealShort'},
       { title: 'PEDIDOS_HIST.TABLE.ANOTACIONES' }
     ];
   }
@@ -231,16 +259,28 @@ export class PedidosHistoricoComponent implements OnInit {
     }, 0);
   }
 
-  public getPedidosValidados(filtro?: {expediente?: string, provName?: string, trFilterValue?: string, facNum?: string, refCharge?: string}) {
+  public getPedidosValidados(filtroNuevo?: {
+    expediente?: string, 
+    provName?: string, 
+    trFilterValue?: string, 
+    facNum?: string, 
+    refCharge?: string, 
+    fecDesde?: string | null,
+    fecHasta?: string | null
+  }) {
     this.loading = true;
     this.spinnerService.show();
     this.selectedPedido = new PedidoProveedor();
 
     //Actualizamos los filtros globales por si se llama desde otro sitio
-    if(filtro){
-      this.filtrosActivos = { ...this.filtrosActivos, ...filtro};
+    if(filtroNuevo){
+      const fecDesde = filtroNuevo.fecDesde === null ? undefined : (filtroNuevo.fecDesde || this.filtrosActivos.fecDesde);
+      const fecHasta = filtroNuevo.fecHasta === null ? undefined : (filtroNuevo.fecHasta || this.filtrosActivos.fecHasta);
+
+      this.filtrosActivos = { ...this.filtrosActivos, ...filtroNuevo, fecDesde: fecDesde, fecHasta: fecHasta};
     }
-    let paramsToSend = { ...this.filtrosActivos };
+    //Eliminamos del objeto las propiedades que estén como undefined para que no viajen al back
+    let paramsToSend = JSON.parse(JSON.stringify(this.filtrosActivos));
 
     if(paramsToSend.facNum && paramsToSend.facNum.includes("/")){
       paramsToSend.facNum = paramsToSend.facNum.replace(/\//g, "~")
@@ -269,6 +309,7 @@ export class PedidosHistoricoComponent implements OnInit {
           );
         }
         this.pedidos = listaProcesada;
+        this.regCount = this.pedidos ? this.translate.instant("PEDIDOS_HIST.TEXT.RCOUNTTEXT", { regCount: this.pedidos.length }) : '';
 
         this.tratarGrupajes(this.pedidos);
         //Re-seleccionar y hacer scroll al pedido guardado en sesión
@@ -343,13 +384,26 @@ export class PedidosHistoricoComponent implements OnInit {
   public limpiarFiltros(): void {
     //Reseteo el orden para que la tabla no se ordene sola al recargar
     this.lastSortEvent = null;
+
+    const dateRangeSaved = sessionStorage.getItem('filteredDATERANGE');
+    let desde: string | undefined = undefined;
+    let hasta: string | undefined = undefined;
+    if (dateRangeSaved) {
+      try {
+        const parsed = JSON.parse(dateRangeSaved);
+        desde = parsed.startDate || undefined;
+        hasta = parsed.endDate || undefined;
+      } catch (e) {}
+    }
     
     this.filtrosActivos = {
       expediente: sessionStorage.getItem('filteredEXP') || undefined,
       provName: sessionStorage.getItem('filteredUSER') || undefined,
       trFilterValue: sessionStorage.getItem('filteredTR') || undefined,
       facNum: sessionStorage.getItem('filteredFAC') || undefined,
-      refCharge: sessionStorage.getItem('filteredRCARGA') || undefined
+      refCharge: sessionStorage.getItem('filteredRCARGA') || undefined,
+      fecDesde: desde,
+      fecHasta: hasta,
     };
 
     this.tableHeaders = [...this.getTableHeaders()];
@@ -425,8 +479,7 @@ export class PedidosHistoricoComponent implements OnInit {
       this.selectedPedido.isRejected = false;
     }
 
-    this.fecRealRef = this.selectedPedido.fechaEntReal ? this.translate.instant("PEDIDOS_HIST.TEXT.FREALTEXT", { fecRealRef: this.selectedPedido.fechaEntRealShort }) : '';
-    this.noAplica = this.selectedPedido.hasCMR===7 ? this.translate.instant("VALIDADOR.TEXT.NO_APLICA") : '';
+    this.fecRealRef = this.selectedPedido.fechaEntReal ? this.translate.instant("PEDIDOS_HIST.TEXT.FREALTEXT", { fecRealRef: this.selectedPedido.fechaEntRealPicker }) : '';
   }
 
   private unselectPedido(pedido: PedidoProveedor) {
@@ -625,6 +678,7 @@ export class PedidosHistoricoComponent implements OnInit {
       this.translate.instant('PEDIDOS_HIST.EXCEL.EST_CMR'),
       this.translate.instant('PEDIDOS_HIST.EXCEL.EST_FAC'),
       this.translate.instant('PEDIDOS_HIST.EXCEL.NUM_FAC'),
+      this.translate.instant('PEDIDOS_HIST.EXCEL.FAC_AMOUNT'),
       this.translate.instant('PEDIDOS_HIST.TABLE.F_CARGA'),
       this.translate.instant('PEDIDOS_HIST.TABLE.REF_CARGA'),
       this.translate.instant('PEDIDOS_HIST.TABLE.F_DESCARGA'),
@@ -657,6 +711,7 @@ export class PedidosHistoricoComponent implements OnInit {
           da.hasFAC===7? 'No Aplica' : 
           da.hasFAC===8? 'Sin Activar' : 'Sin documento',
         da.facNumber ? da.facNumber : 'Sin nº de factura',
+        da.facAmount ? da.facAmount : 0,
         da.fechaCarga ? this.excelService.procesarYtransformarFecha(da.fechaCarga) : '',
         da.refCarga,
         da.fechaDescarga ? this.excelService.procesarYtransformarFecha(da.fechaDescarga) : '',
@@ -682,19 +737,25 @@ export class PedidosHistoricoComponent implements OnInit {
       { column: 4, width: 15 },
       { column: 5, width: 20 },
       { column: 6, width: 20 },
-      { column: 7, width: 12 },
-      { column: 8, width: 20 },
-      { column: 9, width: 12 },
-      { column: 10, width: 20 },
-      { column: 11, width: 30 },
+      { column: 7, width: 20 },
+      { column: 8, width: 12 },
+      { column: 9, width: 20 },
+      { column: 10, width: 12 },
+      { column: 11, width: 20 },
       { column: 12, width: 30 },
-      { column: 13, width: 8 },
-      { column: 14, width: 10 },
-      { column: 15, width: 12 },
-      { column: 16, width: 15 },
+      { column: 13, width: 30 },
+      { column: 14, width: 8 },
+      { column: 15, width: 10 },
+      { column: 16, width: 12 },
       { column: 17, width: 15 },
-      { column: 18, width: 20 },
-      { column: 19, width: 50 }
+      { column: 18, width: 15 },
+      { column: 19, width: 20 },
+      { column: 20, width: 50 }
+    ];
+
+    //Definimos el formato moneda (Euro) para la columna 7
+    const columnsFormat = [
+      { column: 7, format: '#,##0.00" €"' }
     ];
 
     this.excelService.generateExcel(
@@ -702,7 +763,9 @@ export class PedidosHistoricoComponent implements OnInit {
       this.translate.instant('EXCEL.PHIST_TITLE'),
       headers,
       data,
-      columnsWidth);
+      columnsWidth,
+      columnsFormat
+    );
 
     this.spinnerService.hide();
   }
@@ -717,6 +780,7 @@ export class PedidosHistoricoComponent implements OnInit {
       this.translate.instant('PEDIDOS_HIST.EXCEL.EST_CMR'),
       this.translate.instant('PEDIDOS_HIST.EXCEL.EST_FAC'),
       this.translate.instant('PEDIDOS_HIST.EXCEL.NUM_FAC'),
+      this.translate.instant('PEDIDOS_HIST.EXCEL.FAC_AMOUNT'),
       this.translate.instant('PEDIDOS_HIST.TABLE.F_CARGA'),
       this.translate.instant('PEDIDOS_HIST.TABLE.REF_CARGA'),
       this.translate.instant('PEDIDOS_HIST.TABLE.F_DESCARGA'),
@@ -752,6 +816,7 @@ export class PedidosHistoricoComponent implements OnInit {
           da.hasFAC===7? 'No Aplica' : 
           da.hasFAC===8? 'Sin Activar' : 'Sin documento',
         da.facNumber ? da.facNumber : 'Sin nº de factura',
+        da.facAmount ? da.facAmount : 0,
         da.fechaCarga ? this.excelService.procesarYtransformarFecha(da.fechaCarga) : '',
         da.refCarga,
         da.fechaDescarga ? this.excelService.procesarYtransformarFecha(da.fechaDescarga) : '',
@@ -775,19 +840,25 @@ export class PedidosHistoricoComponent implements OnInit {
       { column: 4, width: 15 },
       { column: 5, width: 20 },
       { column: 6, width: 20 },
-      { column: 7, width: 12 },
-      { column: 8, width: 20 },
-      { column: 9, width: 12 },
-      { column: 10, width: 20 },
-      { column: 11, width: 30 },
+      { column: 7, width: 20 },
+      { column: 8, width: 12 },
+      { column: 9, width: 20 },
+      { column: 10, width: 12 },
+      { column: 11, width: 20 },
       { column: 12, width: 30 },
-      { column: 13, width: 8 },
-      { column: 14, width: 10 },
-      { column: 15, width: 12 },
-      { column: 16, width: 15 },
+      { column: 13, width: 30 },
+      { column: 14, width: 8 },
+      { column: 15, width: 10 },
+      { column: 16, width: 12 },
       { column: 17, width: 15 },
-      { column: 18, width: 20 },
-      { column: 19, width: 50 }
+      { column: 18, width: 15 },
+      { column: 19, width: 20 },
+      { column: 20, width: 50 }
+    ];
+
+    //Definimos el formato moneda (Euro) para la columna 7
+    const columnsFormat = [
+      { column: 7, format: '#,##0.00" €"' }
     ];
 
     this.excelService.generateExcel(
@@ -795,7 +866,9 @@ export class PedidosHistoricoComponent implements OnInit {
       this.translate.instant('EXCEL.PHIST_TITLE'),
       headers,
       data,
-      columnsWidth);
+      columnsWidth,
+      columnsFormat
+    );
 
     this.spinnerService.hide();
   }
