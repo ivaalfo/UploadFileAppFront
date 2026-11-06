@@ -1,6 +1,6 @@
 import { DATE_FORMAT_IV, DATE_FORMAT_PICKER, SERVER_DATE_FORMAT, 
   SERVER_TIMESTAMP_DATE_FORMAT } from "@core/services/api/api.constants";
-import * as moment from "moment";
+import moment from "moment";
 
 
 export interface PedidoProveedorDto {

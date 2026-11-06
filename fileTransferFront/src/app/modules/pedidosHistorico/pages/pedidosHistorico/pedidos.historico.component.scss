@@ -115,46 +115,45 @@
 
   //Para la fila del motivo de rechazo::
   &__rejectedFile__label {
-    display: inline-block;
+    display: block;
     font-family: $primary-font;
     font-weight: bold;
     color: $dark-red;
-    padding: 10px 0px 0px 0px;
-    width: 1020px;
-    position: absolute;
-    left: 170px;
-    top: 0px;
+    width: auto;
+    padding: 0;
+    margin-left: 9%;
+    overflow-wrap: anywhere;
   }
 
   //Para la fila de anotaciones::
   &__anotation__label {
-    display: inline-block;
+    display: block;
     font-family: $primary-font;
     font-weight: bold;
     color: $primary-color;
-    padding: 10px 0px 0px 0px;
-    width: 1020px;
-    position: absolute;
-    left: 170px;
-    top: 0px;
+    width: auto;
+    padding: 0;
+    margin-left: 9%;
+    overflow-wrap: anywhere;
   }
 
   //Para la fila del motivo de anulacion::
   &__anulado__label {
-    display: inline-block;
+    display: block;
     font-family: $primary-font;
     font-weight: bold;
     color: $grey;
-    padding: 10px 0px 0px 0px;
-    width: 1020px;
-    position: absolute;
-    left: 170px;
-    top: 0px;
+    width: auto;
+    padding: 0;
+    margin-left: 9%;
+    overflow-wrap: anywhere;
   }
 
   &__esteRelative {
-    position: relative;
-    display: table-cell;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 16px;
   }
 
   &__noResults2show__label {
@@ -191,6 +190,28 @@
   
 }
 
+:host ::ng-deep .phist__table .row--addFiles,
+:host ::ng-deep .phist__table .row--isDisabledComentsRow {
+  height: auto;
+  min-height: 36px;
+}
+
+@media (max-width: 1599px) {
+  :host ::ng-deep .phist__table .table__body {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1440px) {
+  :host ::ng-deep .phist__table .table__body {
+    font-size: 10px;
+  }
+
+  .phist__noResults2show__label {
+    font-size: 23px;
+  }
+}
+
 .filter-row {
   &--top {
     display: flex;
@@ -206,5 +227,3 @@
     margin-top: 0;
   }
 }
-
-

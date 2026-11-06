@@ -22,3 +22,14 @@
   }
 }
 
+@media (max-width: 1599px) {
+  .table-header__title {
+    font-size: rem-calc(30);
+  }
+}
+
+@media (max-width: 1440px) {
+  .table-header__title {
+    font-size: rem-calc(22);
+  }
+}

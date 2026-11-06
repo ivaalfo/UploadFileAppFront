@@ -30,9 +30,9 @@
     border: 0;
     border-bottom: 2px solid $primary-color;
     background: transparent;
-    height: rem-calc(40);
+    //height: rem-calc(40);
 
-    @include breakpoint("medium") {
+    /*@include breakpoint("medium") {
       height: rem-calc(25);
     }
     @include breakpoint("large") {
@@ -40,7 +40,7 @@
     }
     @include breakpoint("xlarge") {
       height: rem-calc(40);
-    }
+    }*/
 
     color: $primary-color;
     font-size: initial;

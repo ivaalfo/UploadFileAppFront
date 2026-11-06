@@ -79,20 +79,21 @@
 
   //Para la fila de anotaciones::
   &__anotation__label {
-    display: inline-block;
+    display: block;
     font-family: $primary-font;
     font-weight: bold;
     color: $primary-color;
-    padding: 10px 0px 0px 0px;
-    width: 1020px;
-    position: absolute;
-    left: 170px;
-    top: 0px;
+    width: auto;
+    padding: 0;
+    margin-left: 9%;
+    overflow-wrap: anywhere;
   }
 
   &__esteRelative {
-    position: relative;
-    display: table-cell;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 16px;
   }
 
   &__not4validate__label {
@@ -135,6 +136,36 @@
     &--value {
       color: $primary-color;
     }
+  }
+}
+
+:host ::ng-deep .pval__table .row--addFiles {
+  height: auto;
+  min-height: 36px;
+}
+
+@media (max-width: 1599px) {
+  :host ::ng-deep .pval__table .table__body {
+    font-size: 12px;
+  }
+
+  :host ::ng-deep m-table-header .table-header__title {
+    font-size: 30px;
+  }
+
+}
+
+@media (max-width: 1440px) {
+  :host ::ng-deep .pval__table .table__body {
+    font-size: 10px;
+  }
+
+  :host ::ng-deep m-table-header .table-header__title {
+    font-size: 25px;
+  }
+
+  .pval__not4validate__label {
+    font-size: 23px;
   }
 }
 

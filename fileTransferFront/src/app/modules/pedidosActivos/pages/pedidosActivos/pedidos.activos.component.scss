@@ -114,32 +114,22 @@
 
   //Para la fila de anotaciones::
   &__anotation__label {
-    display: inline-block;
+    display: block;
     text-align: center;
     font-family: $primary-font;
     font-weight: bold;
     color: $primary-color;
-    padding: 10px 0px 0px 0px;
-    height: 22px;
-    width: 475px;
-    position: absolute;
-    left: 20px;
-    top: 0px;
+    overflow-wrap: anywhere;
   }
 
   //Para la fila de subida de docs::
   &__rejectedFile__label {
-    display: inline-block;
+    display: block;
     text-align: center;
     font-family: $primary-font;
     font-weight: bold;
     color: $dark-red;
-    padding: 10px 0px 0px 0px;
-    height: 22px;
-    width: 475px;
-    position: absolute;
-    left: 20px;
-    top: 0px;
+    overflow-wrap: anywhere;
   }
 
   &__addCMR__label {
@@ -148,12 +138,13 @@
     background-color: $primary-color;
     font-family: $primary-font;
     color: white;
-    padding: 4px 0px 0px 0px;
-    width: 65px;
+    cursor: pointer;
+    padding: 4px 2px;
+    width: 100%;
+    min-width: 0;
     height: 22px;
-    position: absolute;
-    left: 545px;
-    top: 7px;
+    box-sizing: border-box;
+    white-space: nowrap;
 
     &--disabled {
       background-color: grey;
@@ -161,12 +152,13 @@
       text-align: center;
       font-family: $primary-font;
       color: white;
-      padding: 4px 0px 0px 0px;
-      width: 65px;
+      cursor: default;
+      padding: 4px 2px;
+      width: 100%;
+      min-width: 0;
       height: 22px;
-      position: absolute;
-      left: 545px;
-      top: 7px;
+      box-sizing: border-box;
+      white-space: nowrap;
     }
   }
 
@@ -176,12 +168,13 @@
     background-color: $primary-color;
     font-family: $primary-font;
     color: white;
-    padding: 4px 0px 0px 0px;
-    width: 65px;
+    cursor: pointer;
+    padding: 4px 2px;
+    width: 100%;
+    min-width: 0;
     height: 22px;
-    position: absolute;
-    left: 940px;
-    top: 7px;
+    box-sizing: border-box;
+    white-space: nowrap;
 
     &--disabled {
       background-color: grey;
@@ -189,12 +182,13 @@
       text-align: center;
       font-family: $primary-font;
       color: white;
-      padding: 4px 0px 0px 0px;
-      width: 65px;
+      cursor: default;
+      padding: 4px 2px;
+      width: 100%;
+      min-width: 0;
       height: 22px;
-      position: absolute;
-      left: 940px;
-      top: 7px;
+      box-sizing: border-box;
+      white-space: nowrap;
     }
   }
 
@@ -205,76 +199,128 @@
     background-color: grey;
     font-family: $primary-font;
     color: white;
-    padding: 4px 0px 0px 0px;
-    width: 65px;
+    cursor: default;
+    padding: 4px 2px;
+    width: 100%;
+    min-width: 0;
     height: 22px;
-    position: absolute;
-    left: 1335px;
-    top: 7px;
+    box-sizing: border-box;
+    white-space: nowrap;
   }
 
   &__addCMR__input {
     background-color: rgb(218, 216, 214);
     display: inline-block;
-    position: absolute;
     font-size: smaller;
-    top: 9px;
-    left: 610px;
-    width: 285px;
+    min-width: 0;
+    width: 100%;
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
   }
 
   &__addFAC__input {
     background-color: rgb(218, 216, 214);
     display: inline-block;
-    position: absolute;
     font-size: smaller;
-    top: 9px;
-    left: 1005px;
-    width: 285px;
+    min-width: 0;
+    width: 100%;
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
   }
 
   &__addOTR__input {
     background-color: rgb(218, 216, 214);
     display: inline-block;
-    position: absolute;
     font-size: smaller;
-    top: 9px;
-    left: 1400px;
-    width: 270px;
+    min-width: 0;
+    width: 100%;
+    cursor: default;
   }
 
   &__addFile__button {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     background-color: $primary-color;
     font-family: $primary-font;
     color: white;
     height: 22px;
-    width: 55px;
-    position: absolute;
-    left: 1780px;
-    top: 7px;
+    width: 100%;
+    min-width: 0;
     border-radius: 9px;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 0;
+    border: 0;
+    line-height: normal;
+    cursor: pointer;
 
     &--disabled {
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       background-color: grey;
-      padding: 4px 0px 0px 0px;
+      padding: 0;
       font-family: $primary-font;
       color: white;
       height: 22px;
-      width: 55px;
-      position: absolute;
-      left: 1780px;
-      top: 7px;
+      width: 100%;
+      min-width: 0;
       border-radius: 9px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      line-height: normal;
+      cursor: default;
     }
   }
 
   &__esteRelative {
     position: relative;
-    display: table-cell;
+    display: grid;
+    grid-template-columns: 30% 20% 20% 20% 3.3% 3.3% 3.3%;
+    align-items: start;
+    gap: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+  }
+
+  &__uploadMessage {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  &__uploadGroup {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    align-content: start;
+    min-width: 0;
+    width: 100%;
+
+    input[type="file"] {
+      box-sizing: border-box;
+      min-width: 0;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  &__uploadSpacer {
+    min-width: 0;
   }
 
   &__noResults2show__label {
@@ -328,5 +374,54 @@
     gap: 10px;
     margin-bottom: 10px;
     margin-top: 0;
+  }
+}
+
+@media (max-width: 1599px) {
+  :host ::ng-deep .pactivos__table .table__body {
+    font-size: 12px;
+  }
+
+  :host ::ng-deep m-table-header .table-header__title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 1440px) {
+  :host ::ng-deep .pactivos__table .table__body {
+    font-size: 10px;
+  }
+
+  :host ::ng-deep m-table-header .table-header__title {
+    font-size: 25px;
+  }
+
+  .pactivos__noResults2show__label {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .pactivos__esteRelative {
+    grid-template-columns: 30% 20% 20% 20% 3.3% 3.3% 3.3%;
+  }
+}
+
+@media (max-width: 600px) {
+  .pactivos__esteRelative {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pactivos__uploadMessage {
+    min-height: 0;
+  }
+
+  .pactivos__addFile__button,
+  .pactivos__addFile__button--disabled {
+    justify-self: start;
+  }
+
+  .pactivos__uploadSpacer {
+    display: none;
   }
 }

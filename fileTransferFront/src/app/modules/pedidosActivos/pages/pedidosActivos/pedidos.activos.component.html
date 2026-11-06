@@ -118,35 +118,41 @@
       <td colspan="15">
         <div class="pactivos__esteRelative">
 
-          <label *ngIf="!isExternoUser && pedido.anotaciones==1" class="pactivos__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
-          <label *ngIf="pedido.isRejected" class="pactivos__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+          <div class="pactivos__uploadMessage">
+            <label *ngIf="!isExternoUser && pedido.anotaciones==1" class="pactivos__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
+            <label *ngIf="pedido.isRejected" class="pactivos__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+          </div>
 
           <!--CMR-->
-          <div *ngIf="pedido.hasCMR === 0 || pedido.hasCMR === 3">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasCMR === 0 || pedido.hasCMR === 3">
             <label [attr.for]="'cmr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addCMR__label">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
             <input [id]="'cmr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onCMRFileSelected($event, pedido)" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
           </div>
-          <div *ngIf="pedido.hasCMR === 1 || pedido.hasCMR === 2">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasCMR === 1 || pedido.hasCMR === 2">
             <label class="pactivos__addCMR__label--disabled">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
             <input disabled type="file" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
           </div>
           <!--FAC-->
-          <div *ngIf="pedido.hasFAC === 0 || pedido.hasFAC === 3">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasFAC === 0 || pedido.hasFAC === 3">
             <label [attr.for]="'fac-'+pedido.track+'-'+pedido.expediente" class="pactivos__addFAC__label">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
             <input [id]="'fac-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onFactFileSelected($event, pedido)" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
           </div>
-          <div *ngIf="pedido.hasFAC !== 0 && pedido.hasFAC !== 3">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasFAC !== 0 && pedido.hasFAC !== 3">
             <label class="pactivos__addFAC__label--disabled">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
             <input disabled type="file" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
           </div>
           <!--OTR-->
-          <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
-          <input disabled [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          <div class="pactivos__uploadGroup">
+            <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
+            <input disabled [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          </div>
           <!--Boton Enviar-->
+          <div class="pactivos__uploadSpacer" aria-hidden="true"></div>
           <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
             *ngIf="activeSendButton && !isConsultaUser">{{'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</button>
           <label class="pactivos__addFile__button--disabled" 
             *ngIf="!activeSendButton || isConsultaUser">{{'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}</label>
+          <div class="pactivos__uploadSpacer" aria-hidden="true"></div>
         </div>
       </td>
     </m-row>
@@ -156,31 +162,36 @@
       <td colspan="15">
         <div class="pactivos__esteRelative">
 
-          <label *ngIf="!isExternoUser && pedido.anotaciones==1" class="pactivos__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
-          <label *ngIf="pedido.isRejected" class="pactivos__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+          <div class="pactivos__uploadMessage">
+            <label *ngIf="!isExternoUser && pedido.anotaciones==1" class="pactivos__anotation__label">{{ pedido.motivoRechazo | translate }}</label>
+            <label *ngIf="pedido.isRejected" class="pactivos__rejectedFile__label">{{ pedido.motivoRechazo | translate }}</label>
+          </div>
 
           <!--CMR-->
-          <div *ngIf="pedido.hasCMR === 0 || pedido.hasCMR === 3">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasCMR === 0 || pedido.hasCMR === 3">
             <label [attr.for]="'cmr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addCMR__label">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
             <input [id]="'cmr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onCMRFileSelected($event, pedido)" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
           </div>
-          <div *ngIf="pedido.hasCMR === 1 || pedido.hasCMR === 2 || pedido.hasCMR === 7">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasCMR === 1 || pedido.hasCMR === 2 || pedido.hasCMR === 7">
             <label class="pactivos__addCMR__label--disabled">{{ 'PEDIDOS_ACTIV.CMR_LABEL' | translate }}</label>
             <input disabled type="file" class="pactivos__addCMR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff">
           </div>
           <!--FAC-->
-          <div *ngIf="pedido.hasFAC === 0 || pedido.hasFAC === 3">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasFAC === 0 || pedido.hasFAC === 3">
             <label [attr.for]="'fac-'+pedido.track+'-'+pedido.expediente" class="pactivos__addFAC__label">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
             <input [id]="'fac-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onFactFileSelected($event, pedido)" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
           </div>
-          <div *ngIf="pedido.hasFAC !== 0 && pedido.hasFAC !== 3">
+          <div class="pactivos__uploadGroup" *ngIf="pedido.hasFAC !== 0 && pedido.hasFAC !== 3">
             <label class="pactivos__addFAC__label--disabled">{{ 'PEDIDOS_ACTIV.FAC_LABEL' | translate }}</label>
             <input disabled type="file" class="pactivos__addFAC__input" enctype="multipart/form-data" accept="application/pdf">
           </div>
           <!--OTR-->
-          <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
-          <input disabled [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          <div class="pactivos__uploadGroup">
+            <label [attr.for]="'otr-'+pedido.track+'-'+pedido.expediente" class="pactivos__addOTR__label">{{ 'PEDIDOS_ACTIV.OTR_LABEL' | translate }}</label>
+            <input disabled [id]="'otr-'+pedido.track+'-'+pedido.expediente" type="file" (change)="onOtherFileSelected($event, pedido)" class="pactivos__addOTR__input" enctype="multipart/form-data" accept="application/pdf, image/jpeg, image/png, image/tiff" multiple="multiple">
+          </div>
           <!--Boton Enviar-->
+          <div class="pactivos__uploadSpacer" aria-hidden="true"></div>
           <button class="pactivos__addFile__button" type="submit" (click)="submit(pedido)" 
             *ngIf="puedoEnviarGrupaje(pedido) && !isConsultaUser">
             {{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}
@@ -189,6 +200,7 @@
             *ngIf="!puedoEnviarGrupaje(pedido) || isConsultaUser">
             {{ 'PEDIDOS_ACTIV.ACTION.ENVIAR' | translate}}
           </label>
+          <div class="pactivos__uploadSpacer" aria-hidden="true"></div>
         </div>
       </td>
     </m-row>

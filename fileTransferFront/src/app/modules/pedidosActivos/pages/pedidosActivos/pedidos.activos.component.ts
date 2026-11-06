@@ -17,7 +17,7 @@ import { UserRoles } from '@data/user-roles';
 import { LockEntities } from '@data/shared/locks';
 import { ExcelService } from '@core/services/excel/excel.service';
 import { PedidosActivosApiClient } from '@core/services/api/pedidosActivos/api-pedidos-activos.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { PedidoFiles, PedidoFilesDto } from '@data/pedidos/pedido-files';
 import { GrupajeItem } from '@data/pedidos/pedido-grupaje';
 import { ApiResponseWithData } from '@core/services/api/api.response';
